@@ -53,13 +53,26 @@
 }
 
 .header__user {
+  display: flex;
+  align-items: center;
+
+  .header__login:after,
+  .header__logout:before {
+    margin-left: 8px;
+
+    content: '';
+    /* background: url(../img/login.svg) no-repeat center; */
+    background-size: auto 50%;
+
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+  }
+
   a {
     display: block;
-
-    padding-top: 14px;
-    padding-right: 20px;
-    padding-bottom: 14px;
-    padding-left: 20px;
+    padding: 14px 20px;
 
     transition: 0.3s;
 
