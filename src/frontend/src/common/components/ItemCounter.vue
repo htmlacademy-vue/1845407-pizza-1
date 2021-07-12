@@ -22,7 +22,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :class="{ 'counter__button--disabled': !allowStepUp }"
-      :disabled="c"
+      :disabled="!allowStepUp"
       :value="value + 1"
       @click="$emit('changeCounter', $event)"
     >
