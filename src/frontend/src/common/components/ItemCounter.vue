@@ -1,5 +1,5 @@
 <template>
-  <div class="counter">
+  <div class="counter counter--orange">
     <button
       type="button"
       class="counter__button counter__button--minus"
