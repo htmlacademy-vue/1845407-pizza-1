@@ -42,17 +42,16 @@ export default {
   methods: {
     dropable(event) {
       const dataTransfer = event.dataTransfer;
-      if (!dataTransfer) {
-        return;
-      }
+
+      if (!dataTransfer) return;
+
       if (dataTransfer.types.includes("ingredients")) {
         event.preventDefault();
       }
     },
     onDrop({ dataTransfer }) {
-      if (!dataTransfer) {
-        return;
-      }
+      if (!dataTransfer) return;
+
       const payload = dataTransfer.getData("ingredients");
       if (payload) {
         const ingredients = JSON.parse(dataTransfer.getData("ingredients"));
