@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     authenticate(account) {
-      console.log(account);
       this.account = account;
     },
   },
