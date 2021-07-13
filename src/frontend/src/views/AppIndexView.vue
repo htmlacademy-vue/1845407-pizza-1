@@ -58,7 +58,7 @@ import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCou
 import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput.vue";
 
 export default {
-  name: "PzzIndex",
+  name: "AppIndexView",
   components: {
     PzzBuilderDoughSelector,
     PzzBuilderSizeSelector,

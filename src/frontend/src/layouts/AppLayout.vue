@@ -21,7 +21,7 @@
 import PzzAccountHeader from "@/modules/account/components/Header.vue";
 
 export default {
-  name: "PzzAppLayout",
+  name: "AppLayout",
   components: { PzzAccountHeader },
   data() {
     return {

@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <pzz-app-layout />
-    <pzz-index />
+    <app-layout />
+    <app-index-view />
   </div>
 </template>
 
 <script>
-import PzzAppLayout from "@/layouts/AppLayout.vue";
-import PzzIndex from "@/views/Index.vue";
+import AppLayout from "@/layouts/AppLayout.vue";
+import AppIndexView from "@/views/AppIndexView.vue";
 
 export default {
   name: "App",
-  components: { PzzAppLayout, PzzIndex },
+  components: { AppLayout, AppIndexView },
 };
 </script>
 
