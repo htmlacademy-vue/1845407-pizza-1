@@ -1,19 +1,22 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="index.html" class="logo">
+      <router-link :to="{ name: 'builder' }" class="logo">
         <img
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
           width="90"
           height="40"
         />
-      </a>
+      </router-link>
     </div>
     <div class="header__cart">
-      <a href="cart.html">0 ₽</a>
+      <router-link :to="{ name: 'cart' }">0 ₽</router-link>
     </div>
-    <pzz-account-header :account="account" @onAuth="authenticate" />
+    <pzz-account-header
+      :account="account"
+      @authenticate="$emit('authenticate', $event)"
+    />
   </header>
 </template>
 
@@ -21,16 +24,12 @@
 import PzzAccountHeader from "@/modules/account/components/Header.vue";
 
 export default {
-  name: "AppLayout",
+  name: "AppHeader",
   components: { PzzAccountHeader },
-  data() {
-    return {
-      account: {},
-    };
-  },
-  methods: {
-    authenticate(account) {
-      this.account = account;
+  props: {
+    account: {
+      type: Object,
+      required: true,
     },
   },
 };

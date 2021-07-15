@@ -1,17 +1,21 @@
 <template>
-  <div id="app">
-    <app-layout />
-    <app-index-view />
-  </div>
+  <app-meta-layout id="app" v-bind="$data" @authenticate="authenticate" />
 </template>
 
 <script>
-import AppLayout from "@/layouts/AppLayout.vue";
-import AppIndexView from "@/views/AppIndexView.vue";
-
 export default {
   name: "App",
-  components: { AppLayout, AppIndexView },
+  data() {
+    return {
+      account: {},
+    };
+  },
+  methods: {
+    authenticate(account) {
+      this.account = account;
+      this.$router.push({ name: "builder" });
+    },
+  },
 };
 </script>
 

@@ -1,40 +1,38 @@
 <template>
-  <main class="content">
-    <form action="#" method="post">
-      <div class="content__wrapper">
-        <h1 class="title title--big">Конструктор пиццы</h1>
+  <form action="#" method="post" class="layout-form">
+    <div class="content__wrapper">
+      <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <pzz-builder-dough-selector
-          :doughs="pizza.doughs"
+      <pzz-builder-dough-selector
+        :doughs="pizza.doughs"
+        @pizzaUpdate="pizzaUpdate"
+      />
+
+      <pzz-builder-size-selector
+        :sizes="pizza.sizes"
+        @pizzaUpdate="pizzaUpdate"
+      />
+
+      <pzz-builder-ingredients-selector
+        :ingredients="pizza.ingredients"
+        :sauces="pizza.sauces"
+        @pizzaUpdate="pizzaUpdate"
+      />
+
+      <div class="content__pizza">
+        <pzz-builder-title-input
+          :title="pizza.title"
           @pizzaUpdate="pizzaUpdate"
         />
 
-        <pzz-builder-size-selector
-          :sizes="pizza.sizes"
+        <pzz-builder-pizza-view
+          :pizzaChoice="choice"
           @pizzaUpdate="pizzaUpdate"
         />
-
-        <pzz-builder-ingredients-selector
-          :ingredients="pizza.ingredients"
-          :sauces="pizza.sauces"
-          @pizzaUpdate="pizzaUpdate"
-        />
-
-        <div class="content__pizza">
-          <pzz-builder-title-input
-            :title="pizza.title"
-            @pizzaUpdate="pizzaUpdate"
-          />
-
-          <pzz-builder-pizza-view
-            :pizzaChoice="choice"
-            @pizzaUpdate="pizzaUpdate"
-          />
-          <pzz-builder-price-counter :pizzaChoice="choice" />
-        </div>
+        <pzz-builder-price-counter :pizzaChoice="choice" />
       </div>
-    </form>
-  </main>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -58,7 +56,7 @@ import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCou
 import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput.vue";
 
 export default {
-  name: "AppIndexView",
+  name: "Builder",
   components: {
     PzzBuilderDoughSelector,
     PzzBuilderSizeSelector,

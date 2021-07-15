@@ -1,7 +1,7 @@
 <template>
   <div class="header__user">
     <template v-if="isLogged">
-      <a href="user-data.html" @click.prevent>
+      <router-link :to="{ name: 'profile' }">
         <picture>
           <img
             :src="account.avatar"
@@ -11,23 +11,21 @@
           />
         </picture>
         <span>{{ account.name }}</span>
-      </a>
-      <a href="#" class="header__logout" @click.prevent="$emit('onAuth', {})">
+      </router-link>
+      <a href="#" class="header__logout" @click.prevent="logout">
         <span>Выйти</span>
       </a>
     </template>
     <template v-else>
-      <a href="#" class="header__login" @click.prevent="$emit('onAuth', user)">
+      <router-link :to="{ name: 'login' }" class="header__login">
         <span>Войти</span>
-      </a>
+      </router-link>
     </template>
   </div>
 </template>
 
 <script>
 import { isEmpty } from "lodash";
-
-import user from "@/static/user.json";
 
 export default {
   name: "PzzAccountHeader",
@@ -41,11 +39,22 @@ export default {
     isLogged() {
       return !isEmpty(this.account);
     },
-    user() {
-      return user;
+  },
+  methods: {
+    logout() {
+      this.$emit("authenticate", {});
     },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.user__phone {
+  font-size: 16px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 19px;
+  width: 100%;
+  margin-top: 20px;
+}
+</style>
