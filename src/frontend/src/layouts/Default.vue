@@ -1,14 +1,7 @@
 <template>
-  <div class="default-layout">
-    <app-header
-      :account="$attrs.account"
-      @authenticate="$emit('authenticate', $event)"
-    />
-    <main class="content">
-      <router-view />
-    </main>
-    <slot />
-  </div>
+  <main class="content">
+    <router-view />
+  </main>
 </template>
 
 <script>

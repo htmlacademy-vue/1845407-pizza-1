@@ -28,7 +28,7 @@ export default [
       default: () => import("@/views/Orders.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
     },
-    meta: { layout: "WithSidebar" },
+    meta: { layout: "Sidebar" },
   },
   {
     path: "/profile",
@@ -37,6 +37,6 @@ export default [
       default: () => import("@/views/Profile.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
     },
-    meta: { layout: "WithSidebar" },
+    meta: { layout: "Sidebar" },
   },
 ];
