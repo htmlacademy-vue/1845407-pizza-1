@@ -57,26 +57,25 @@
 import BaseRadioButton from "@/common/components/RadioButton.vue";
 import BaseItemCounter from "@/common/components/ItemCounter.vue";
 
+import { mapState, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+
 export default {
   name: "PzzBuilderIngredientsSelector",
   components: { BaseRadioButton, BaseItemCounter },
-  props: {
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-    sauces: {
-      type: Array,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["sauces", "ingredients"]),
   },
   methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
     onChangeSouse(choice) {
       let sauces = this.sauces.map((sauce) => ({ ...sauce, checked: false }));
       const index = sauces.findIndex(({ type }) => type === choice);
       if (~index) {
         sauces[index].checked = true;
-        this.$emit("pizzaUpdate", { sauces: sauces });
+        this.pizzaUpdate({ sauces: sauces });
       }
     },
     onChangeIngredient(choice, value) {
@@ -86,7 +85,7 @@ export default {
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
         ingredients[index].count = parseInt(value);
-        this.$emit("pizzaUpdate", { ingredients: ingredients });
+        this.pizzaUpdate({ ingredients: ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {

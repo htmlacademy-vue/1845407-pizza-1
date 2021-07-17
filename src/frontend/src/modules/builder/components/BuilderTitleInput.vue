@@ -6,19 +6,24 @@
       name="pizza_name"
       placeholder="Введите название пиццы"
       :value="title"
-      @input="$emit('pizzaUpdate', { title: $event.target.value })"
+      @input="pizzaUpdate({ title: $event.target.value })"
     />
   </label>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+
 export default {
   name: "PzzBuilderTitleInput",
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["title"]),
+  },
+  methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
   },
 };
 </script>

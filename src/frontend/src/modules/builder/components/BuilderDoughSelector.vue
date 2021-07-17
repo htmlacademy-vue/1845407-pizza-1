@@ -25,22 +25,25 @@
 <script>
 import BaseRadioButton from "@/common/components/RadioButton.vue";
 
+import { mapState, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+
 export default {
   name: "PzzBuilderDoughSelector",
   components: { BaseRadioButton },
-  props: {
-    doughs: {
-      type: Array,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["doughs"]),
   },
   methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
     onChangeDough(choice) {
       let doughs = this.doughs.map((dough) => ({ ...dough, checked: false }));
       const index = doughs.findIndex(({ type }) => type === choice);
       if (~index) {
         doughs[index].checked = true;
-        this.$emit("pizzaUpdate", { doughs: doughs });
+        this.pizzaUpdate({ doughs: doughs });
       }
     },
   },

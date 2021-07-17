@@ -1,31 +1,32 @@
 <template>
-  <form action="#" method="post" class="layout-form">
+  <form
+    action="#"
+    method="post"
+    class="layout-form"
+    @submit.prevent="addToCart"
+  >
     <div class="content__wrapper">
       <h1 class="title title--big">Конструктор пиццы</h1>
 
-      <pzz-builder-dough-selector :doughs="doughs" @pizzaUpdate="pizzaUpdate" />
+      <pzz-builder-dough-selector />
 
-      <pzz-builder-size-selector :sizes="sizes" @pizzaUpdate="pizzaUpdate" />
+      <pzz-builder-size-selector />
 
-      <pzz-builder-ingredients-selector
-        :ingredients="ingredients"
-        :sauces="sauces"
-        @pizzaUpdate="pizzaUpdate"
-      />
+      <pzz-builder-ingredients-selector />
 
       <div class="content__pizza">
-        <pzz-builder-title-input :title="title" @pizzaUpdate="pizzaUpdate" />
+        <pzz-builder-title-input />
 
-        <pzz-builder-pizza-view v-bind="choice" @pizzaUpdate="pizzaUpdate" />
-        <pzz-builder-price-counter v-bind="choice" />
+        <pzz-builder-pizza-view />
+        <pzz-builder-price-counter />
       </div>
     </div>
   </form>
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from "vuex";
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { mapActions } from "vuex";
+import { ADD_TO_CART } from "@/store/modules/builder.store";
 
 import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector.vue";
 import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector.vue";
@@ -44,19 +45,9 @@ export default {
     PzzBuilderPriceCounter,
     PzzBuilderTitleInput,
   },
-  computed: {
-    ...mapState("Builder", [
-      "title",
-      "doughs",
-      "sizes",
-      "sauces",
-      "ingredients",
-    ]),
-    ...mapGetters("Builder", ["choice"]),
-  },
   methods: {
-    ...mapMutations("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
+    ...mapActions("Builder", {
+      addToCart: ADD_TO_CART,
     }),
   },
 };
