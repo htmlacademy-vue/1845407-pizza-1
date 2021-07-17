@@ -16,28 +16,41 @@
 export default {
   name: "PzzBuilderPriceCounter",
   props: {
-    pizzaChoice: {
+    title: {
+      type: String,
+      default: "",
+    },
+    dough: {
       type: Object,
+      required: true,
+    },
+    size: {
+      type: Object,
+      required: true,
+    },
+    sauce: {
+      type: Object,
+      required: true,
+    },
+    ingredients: {
+      type: Array,
       required: true,
     },
   },
   computed: {
     cost() {
       let cost = 0;
-      cost += this.pizzaChoice.ingredients.reduce(
+      cost += this.ingredients.reduce(
         (total, ingredient) => total + ingredient.price * ingredient.count,
         0
       );
-      cost += this.pizzaChoice.dough.price;
-      cost += this.pizzaChoice.sauce.price;
-      cost *= this.pizzaChoice.size.multiplier;
+      cost += this.dough.price;
+      cost += this.sauce.price;
+      cost *= this.size.multiplier;
       return cost;
     },
-    title() {
-      return this.pizzaChoice.title;
-    },
     hasIngredients() {
-      return !!this.pizzaChoice.ingredients.length;
+      return !!this.ingredients.length;
     },
   },
 };

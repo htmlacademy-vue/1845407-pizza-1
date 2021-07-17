@@ -7,7 +7,7 @@
   >
     <div class="pizza" :class="foundationClass">
       <div class="pizza__wrapper">
-        <template v-for="{ type, count } in pizzaChoice.ingredients">
+        <template v-for="{ type, count } in ingredients">
           <div
             v-for="index in count"
             :key="`${type}-${index}`"
@@ -26,14 +26,26 @@
 export default {
   name: "PzzBuilderPizzaView",
   props: {
-    pizzaChoice: {
+    dough: {
       type: Object,
+      required: true,
+    },
+    size: {
+      type: Object,
+      required: true,
+    },
+    sauce: {
+      type: Object,
+      required: true,
+    },
+    ingredients: {
+      type: Array,
       required: true,
     },
   },
   computed: {
     foundationClass() {
-      return `pizza--foundation--${this.pizzaChoice.dough.value}-${this.pizzaChoice.sauce.type}`;
+      return `pizza--foundation--${this.dough.value}-${this.sauce.type}`;
     },
     ingredientIndexClass() {
       return ["", "pizza__filling--second", "pizza__filling--third"];
