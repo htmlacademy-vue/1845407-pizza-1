@@ -46,6 +46,6 @@
 
 <script>
 export default {
-  name: "CartForm",
+  name: "CartDelivery",
 };
 </script>

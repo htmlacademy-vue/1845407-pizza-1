@@ -8,26 +8,26 @@
       <!-- <div class="sheet cart__empty">
         <p>В корзине нет ни одного товара</p>
       </div> -->
-      <pzz-cart-list />
+      <pzz-cart-pizzas />
       <pzz-cart-additional />
-      <pzz-cart-form />
+      <pzz-cart-delivery />
     </div>
     <pzz-cart-footer />
   </form>
 </template>
 
 <script>
-import PzzCartList from "@/modules/cart/components/CartList.vue";
+import PzzCartPizzas from "@/modules/cart/components/CartPizzas.vue";
 import PzzCartAdditional from "@/modules/cart/components/CartAdditional.vue";
-import PzzCartForm from "@/modules/cart/components/CartForm.vue";
+import PzzCartDelivery from "@/modules/cart/components/CartDelivery.vue";
 import PzzCartFooter from "@/modules/cart/components/CartFooter.vue";
 
 export default {
   name: "Cart",
   components: {
-    PzzCartList,
+    PzzCartPizzas,
     PzzCartAdditional,
-    PzzCartForm,
+    PzzCartDelivery,
     PzzCartFooter,
   },
 };

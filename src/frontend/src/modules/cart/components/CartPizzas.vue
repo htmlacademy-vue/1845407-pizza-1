@@ -87,6 +87,6 @@
 
 <script>
 export default {
-  name: "CartList",
+  name: "CartPizzas",
 };
 </script>
