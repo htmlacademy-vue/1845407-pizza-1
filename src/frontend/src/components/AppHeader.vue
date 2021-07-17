@@ -13,10 +13,7 @@
     <div class="header__cart">
       <router-link :to="{ name: 'cart' }">0 ₽</router-link>
     </div>
-    <pzz-account-header
-      :account="account"
-      @authenticate="$emit('authenticate', $event)"
-    />
+    <pzz-account-header />
   </header>
 </template>
 
@@ -26,12 +23,6 @@ import PzzAccountHeader from "@/modules/account/components/Header.vue";
 export default {
   name: "AppHeader",
   components: { PzzAccountHeader },
-  props: {
-    account: {
-      type: Object,
-      required: true,
-    },
-  },
 };
 </script>
 

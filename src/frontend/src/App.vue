@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <app-header :account="account" @authenticate="authenticate" />
+    <app-header />
     <component :is="layoutComponent" :class="layoutClass" />
     <div class="modal">
-      <router-view name="popup" @authenticate="authenticate" />
+      <router-view name="popup" />
     </div>
   </div>
 </template>
@@ -17,11 +17,6 @@ const defaultLayout = "Default";
 export default {
   name: "App",
   components: { AppHeader },
-  data() {
-    return {
-      account: {},
-    };
-  },
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
@@ -30,12 +25,6 @@ export default {
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
       return _.kebabCase(`${layout}Layout`);
-    },
-  },
-  methods: {
-    authenticate(account) {
-      this.account = account;
-      this.$router.push({ name: "builder" });
     },
   },
 };

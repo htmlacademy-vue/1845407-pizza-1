@@ -12,7 +12,7 @@
         </picture>
         <span>{{ account.name }}</span>
       </router-link>
-      <a href="#" class="header__logout" @click.prevent="logout">
+      <a href="#" class="header__logout" @click.prevent="logout({})">
         <span>Выйти</span>
       </a>
     </template>
@@ -25,25 +25,19 @@
 </template>
 
 <script>
-import { isEmpty } from "lodash";
+import { mapState, mapGetters, mapActions } from "vuex";
+import { AUTHENTICATE } from "@/store/modules/auth.store.js";
 
 export default {
   name: "PzzAccountHeader",
-  props: {
-    account: {
-      type: Object,
-      required: true,
-    },
-  },
   computed: {
-    isLogged() {
-      return !isEmpty(this.account);
-    },
+    ...mapState("Auth", ["account"]),
+    ...mapGetters("Auth", ["isLogged"]),
   },
   methods: {
-    logout() {
-      this.$emit("authenticate", {});
-    },
+    ...mapActions("Auth", {
+      logout: AUTHENTICATE,
+    }),
   },
 };
 </script>
