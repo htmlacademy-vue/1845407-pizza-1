@@ -4,8 +4,8 @@ import additionalData from "@/static/misc.json";
 import { MISC_ADDITIONAL } from "@/common/constants";
 import { pizzaTypesMixin } from "@/common/helpers";
 
-export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART = "UPDATE_CART";
+import { ADD_TO_CART } from "@/store/modules/builder.store";
 
 export default {
   namespaced: true,
@@ -35,22 +35,21 @@ export default {
     },
   },
   actions: {
-    [ADD_TO_CART]({ commit }, pizza) {
-      commit(ADD_TO_CART, { uid: uniqueId(), count: 1, ...pizza });
+    [ADD_TO_CART]({ commit, state }, pizza) {
+      let pizzas = [...state.pizzas];
+      const index = pizzas.findIndex(({ id }) => id === pizza.id);
+      if (~index) {
+        Object.assign(pizzas[index], pizza);
+      } else {
+        pizzas.push({ ...pizza, id: uniqueId(), count: 1 });
+      }
+      commit(UPDATE_CART, { pizzas });
     },
     [UPDATE_CART]({ commit }, cart) {
       commit(UPDATE_CART, { ...cart });
     },
   },
   mutations: {
-    [ADD_TO_CART](state, pizza) {
-      const index = state.pizzas.findIndex(({ uid }) => uid === pizza.uid);
-      if (~index) {
-        state.pizzas.splice(index, 1, pizza);
-      } else {
-        state.pizzas.push(pizza);
-      }
-    },
     [UPDATE_CART](state, cart) {
       Object.assign(state, cart);
     },
