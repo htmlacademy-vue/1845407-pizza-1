@@ -47,15 +47,21 @@ export default {
       type: Number,
       default: 0,
     },
-    min: Number,
-    max: Number,
+    min: {
+      type: Number,
+      default: null,
+    },
+    max: {
+      type: Number,
+      default: null,
+    },
   },
   computed: {
     allowStepDown() {
-      return !this.min ? true : this.value > this.min;
+      return this.min != null ? this.value > this.min : true;
     },
     allowStepUp() {
-      return !this.max ? true : this.value < this.max;
+      return this.max != null ? this.value < this.max : true;
     },
   },
   methods: {
