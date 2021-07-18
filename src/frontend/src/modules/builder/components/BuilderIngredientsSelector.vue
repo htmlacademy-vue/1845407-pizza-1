@@ -41,9 +41,10 @@
               <base-item-counter
                 class="ingridients__counter"
                 :name="`counter[${type}]`"
-                :type="type"
                 :value="count"
-                @changeCounter="onChangeIngredient(type, $event.target.value)"
+                min="0"
+                max="3"
+                @input="onChangeIngredient(type, $event.target.value)"
               />
             </li>
           </ul>

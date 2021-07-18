@@ -5,26 +5,30 @@
       class="counter__button counter__button--minus"
       :class="{ 'counter__button--disabled': !allowStepDown }"
       :disabled="!allowStepDown"
-      :value="value - 1"
-      @click="$emit('changeCounter', $event)"
+      value="stepDown"
+      @click="click"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
     <input
+      ref="input"
       type="number"
       class="counter__input"
       :name="name"
       :value="value"
       readonly="true"
       disabled="true"
+      :min="min"
+      :max="max"
+      @input="$emit('input', $event)"
     />
     <button
       type="button"
       class="counter__button counter__button--plus"
       :class="{ 'counter__button--disabled': !allowStepUp }"
       :disabled="!allowStepUp"
-      :value="value + 1"
-      @click="$emit('changeCounter', $event)"
+      value="stepUp"
+      @click="click"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -39,21 +43,26 @@ export default {
       type: String,
       required: true,
     },
-    type: {
-      type: String,
-      equired: true,
-    },
     value: {
       type: Number,
       default: 0,
     },
+    min: Number,
+    max: Number,
   },
   computed: {
     allowStepDown() {
-      return this.value > 0;
+      return !this.min ? true : this.value > this.min;
     },
     allowStepUp() {
-      return this.value < 3;
+      return !this.max ? true : this.value < this.max;
+    },
+  },
+  methods: {
+    click(event) {
+      console.log({ event: event, input: this.$refs["input"] });
+      this.$refs["input"][event.target.value]();
+      this.$refs["input"].dispatchEvent(new Event("input"));
     },
   },
 };
