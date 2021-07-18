@@ -39,11 +39,14 @@ export default {
       pizzaUpdate: UPDATE_CHOICE,
     }),
     onChangeDough(choice) {
-      let doughs = this.doughs.map((dough) => ({ ...dough, checked: false }));
+      let doughs = [...this.doughs].map((dough) => ({
+        ...dough,
+        checked: false,
+      }));
       const index = doughs.findIndex(({ type }) => type === choice);
       if (~index) {
-        doughs[index].checked = true;
-        this.pizzaUpdate({ doughs: doughs });
+        Object.assign(doughs[index], { checked: true });
+        this.pizzaUpdate({ doughs });
       }
     },
   },

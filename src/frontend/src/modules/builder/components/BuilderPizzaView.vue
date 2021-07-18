@@ -54,7 +54,7 @@ export default {
       const payload = dataTransfer.getData("ingredients");
       if (payload) {
         const ingredients = JSON.parse(dataTransfer.getData("ingredients"));
-        this.pizzaUpdate({ ingredients: ingredients });
+        this.pizzaUpdate({ ingredients });
       }
     },
   },

@@ -72,34 +72,32 @@ export default {
       pizzaUpdate: UPDATE_CHOICE,
     }),
     onChangeSouse(choice) {
-      let sauces = this.sauces.map((sauce) => ({ ...sauce, checked: false }));
+      let sauces = [...this.sauces].map((sauce) => ({
+        ...sauce,
+        checked: false,
+      }));
       const index = sauces.findIndex(({ type }) => type === choice);
       if (~index) {
-        sauces[index].checked = true;
-        this.pizzaUpdate({ sauces: sauces });
+        Object.assign(sauces[index], { checked: true });
+        this.pizzaUpdate({ sauces });
       }
     },
     onChangeIngredient(choice, value) {
-      let ingredients = this.ingredients.map((ingredient) => ({
-        ...ingredient,
-      }));
+      let ingredients = [...this.ingredients];
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
-        ingredients[index].count = value * 1;
-        this.pizzaUpdate({ ingredients: ingredients });
+        Object.assign(ingredients[index], { count: value * 1 });
+        this.pizzaUpdate({ ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
-      let ingredients = this.ingredients.map((ingredient) => ({
-        ...ingredient,
-      }));
+      let ingredients = [...this.ingredients];
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
-        if (ingredients[index].count >= 3) {
-          return;
+        if (ingredients[index].count < 3) {
+          ingredients[index].count += 1;
+          dataTransfer.setData("ingredients", JSON.stringify(ingredients));
         }
-        ingredients[index].count += 1;
-        dataTransfer.setData("ingredients", JSON.stringify(ingredients));
       }
     },
   },

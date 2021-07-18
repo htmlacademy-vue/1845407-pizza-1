@@ -38,11 +38,11 @@ export default {
       pizzaUpdate: UPDATE_CHOICE,
     }),
     onChangeSize(choice) {
-      let sizes = this.sizes.map((size) => ({ ...size, checked: false }));
+      let sizes = [...this.sizes].map((size) => ({ ...size, checked: false }));
       const index = sizes.findIndex(({ type }) => type === choice);
       if (~index) {
-        sizes[index].checked = true;
-        this.pizzaUpdate({ sizes: sizes });
+        Object.assign(sizes[index], { checked: true });
+        this.pizzaUpdate({ sizes });
       }
     },
   },
