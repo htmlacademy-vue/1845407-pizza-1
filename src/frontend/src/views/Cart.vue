@@ -8,9 +8,16 @@
       <!-- <div class="sheet cart__empty">
         <p>В корзине нет ни одного товара</p>
       </div> -->
-      <pzz-cart-pizzas />
-      <pzz-cart-additional />
-      <pzz-cart-delivery />
+      <template v-if="isEmpty">
+        <div class="sheet cart__empty">
+          <p>В корзине нет ни одного товара</p>
+        </div>
+      </template>
+      <template v-else>
+        <pzz-cart-pizzas />
+        <pzz-cart-additional />
+        <pzz-cart-delivery />
+      </template>
     </div>
     <pzz-cart-footer />
   </form>
@@ -22,6 +29,8 @@ import PzzCartAdditional from "@/modules/cart/components/CartAdditional.vue";
 import PzzCartDelivery from "@/modules/cart/components/CartDelivery.vue";
 import PzzCartFooter from "@/modules/cart/components/CartFooter.vue";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "Cart",
   components: {
@@ -29,6 +38,9 @@ export default {
     PzzCartAdditional,
     PzzCartDelivery,
     PzzCartFooter,
+  },
+  computed: {
+    ...mapGetters("Cart", ["isEmpty"]),
   },
 };
 </script>

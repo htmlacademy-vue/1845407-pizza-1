@@ -1,12 +1,17 @@
 import { uniqueId } from "lodash";
 
+import additionalData from "@/static/misc.json";
+import { MISC_ADDITIONAL } from "@/common/constants";
+import { pizzaTypesMixin } from "@/common/helpers";
+
 export const ADD_TO_CART = "ADD_TO_CART";
+export const UPDATE_CART = "UPDATE_CART";
 
 export default {
   namespaced: true,
   state: () => ({
     pizzas: [],
-    additional: [],
+    additional: pizzaTypesMixin(additionalData, MISC_ADDITIONAL),
     delivery: {
       type: "",
       phone: "",
@@ -25,21 +30,29 @@ export default {
       );
       return price;
     },
+    isEmpty({ pizzas }) {
+      return !pizzas.length;
+    },
   },
   actions: {
     [ADD_TO_CART]({ commit }, pizza) {
       commit(ADD_TO_CART, { uid: uniqueId(), count: 1, ...pizza });
     },
+    [UPDATE_CART]({ commit }, cart) {
+      commit(UPDATE_CART, { ...cart });
+    },
   },
   mutations: {
     [ADD_TO_CART](state, pizza) {
-      console.log({ cart: pizza });
       const index = state.pizzas.findIndex(({ uid }) => uid === pizza.uid);
       if (~index) {
         state.pizzas.splice(index, 1, pizza);
       } else {
         state.pizzas.push(pizza);
       }
+    },
+    [UPDATE_CART](state, cart) {
+      Object.assign(state, cart);
     },
   },
 };

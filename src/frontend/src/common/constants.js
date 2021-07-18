@@ -119,3 +119,18 @@ export const PIZZA_SIZES_TYPES = [
     type: "large",
   },
 ];
+
+export const MISC_ADDITIONAL = [
+  {
+    name: "Cola-Cola 0,5 литра",
+    count: 0,
+  },
+  {
+    name: "Острый соус",
+    count: 0,
+  },
+  {
+    name: "Картошка из печи",
+    count: 0,
+  },
+];
