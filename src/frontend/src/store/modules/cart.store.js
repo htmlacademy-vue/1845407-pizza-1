@@ -28,14 +28,18 @@ export default {
   },
   actions: {
     [ADD_TO_CART]({ commit }, pizza) {
-      const uid = pizza.uid || uniqueId();
-      commit(ADD_TO_CART, { ...pizza, uid, count: 1 });
+      commit(ADD_TO_CART, { uid: uniqueId(), count: 1, ...pizza });
     },
   },
   mutations: {
     [ADD_TO_CART](state, pizza) {
       console.log({ cart: pizza });
-      state.pizzas = [...state.pizzas, pizza];
+      const index = state.pizzas.findIndex(({ uid }) => uid === pizza.uid);
+      if (~index) {
+        state.pizzas.splice(index, 1, pizza);
+      } else {
+        state.pizzas.push(pizza);
+      }
     },
   },
 };

@@ -5,7 +5,7 @@
       :key="pizza.uid"
       v-bind="pizza"
       class="cart-list__item"
-      @onChangeCount="onChangeCount"
+      @onChangeCount="addToCart({ ...pizza, count: $event * 1 })"
     />
   </ul>
 </template>
@@ -13,7 +13,8 @@
 <script>
 import PzzCartPizzasItem from "@/modules/cart/components/CartPizzasItem.vue";
 
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
+import { ADD_TO_CART } from "@/store/modules/cart.store";
 
 export default {
   name: "CartPizzas",
@@ -22,9 +23,9 @@ export default {
     ...mapState("Cart", ["pizzas"]),
   },
   methods: {
-    onChangeCount(event) {
-      console.log({ onChangeCount: event });
-    },
+    ...mapActions("Cart", {
+      addToCart: ADD_TO_CART,
+    }),
   },
 };
 </script>

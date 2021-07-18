@@ -85,7 +85,7 @@ export default {
       }));
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
-        ingredients[index].count = parseInt(value);
+        ingredients[index].count = value * 1;
         this.pizzaUpdate({ ingredients: ingredients });
       }
     },
