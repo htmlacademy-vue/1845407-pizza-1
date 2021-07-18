@@ -3,12 +3,14 @@ export const PIZZA_DOUGH_TYPES = [
     name: "Тонкое",
     type: "light",
     value: "small",
+    desc: "на тонком тесте",
     checked: true,
   },
   {
     name: "Толстое",
     type: "large",
     value: "big",
+    desc: "на толстом тесте",
   },
 ];
 

@@ -1,3 +1,5 @@
+import { uniqueId } from "lodash";
+
 export const ADD_TO_CART = "ADD_TO_CART";
 
 export default {
@@ -26,12 +28,13 @@ export default {
   },
   actions: {
     [ADD_TO_CART]({ commit }, pizza) {
-      console.log({ cart: pizza });
-      commit(ADD_TO_CART, { ...pizza, count: 1 });
+      const uid = pizza.uid || uniqueId();
+      commit(ADD_TO_CART, { ...pizza, uid, count: 1 });
     },
   },
   mutations: {
     [ADD_TO_CART](state, pizza) {
+      console.log({ cart: pizza });
       state.pizzas = [...state.pizzas, pizza];
     },
   },
