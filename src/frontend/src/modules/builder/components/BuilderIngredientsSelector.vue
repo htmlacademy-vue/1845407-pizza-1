@@ -83,7 +83,9 @@ export default {
       }
     },
     onChangeIngredient(choice, value) {
-      let ingredients = [...this.ingredients];
+      let ingredients = [...this.ingredients].map((ingredient) => ({
+        ...ingredient,
+      }));
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
         Object.assign(ingredients[index], { count: value * 1 });
@@ -91,7 +93,9 @@ export default {
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
-      let ingredients = [...this.ingredients];
+      let ingredients = [...this.ingredients].map((ingredient) => ({
+        ...ingredient,
+      }));
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
         if (ingredients[index].count < 3) {

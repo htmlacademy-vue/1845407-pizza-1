@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import { some } from "lodash";
+
 import { mapGetters } from "vuex";
 
 export default {
@@ -20,7 +22,7 @@ export default {
   computed: {
     ...mapGetters("Builder", ["choice"]),
     ready() {
-      return !!this.choice.ingredients.length && !!this.choice.title;
+      return some(this.choice.ingredients, "count") && !!this.choice.title;
     },
   },
 };

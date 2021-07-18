@@ -7,7 +7,7 @@
   >
     <div class="pizza" :class="foundationClass">
       <div class="pizza__wrapper">
-        <template v-for="{ type, count } in choice.ingredients">
+        <template v-for="{ type, count } in ingredients">
           <div
             v-for="index in count"
             :key="`${type}-${index}`"
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { filter } from "lodash";
+
 import { mapGetters, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
@@ -28,6 +30,9 @@ export default {
   name: "PzzBuilderPizzaView",
   computed: {
     ...mapGetters("Builder", ["choice"]),
+    ingredients() {
+      return filter(this.choice.ingredients, "count");
+    },
     foundationClass() {
       return `pizza--foundation--${this.choice.dough.value}-${this.choice.sauce.type}`;
     },

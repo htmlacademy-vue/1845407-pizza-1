@@ -29,7 +29,6 @@ export default {
   state,
   getters: {
     choice({ title, doughs, sizes, sauces, ingredients }) {
-      ingredients = _.filter(ingredients, "count");
       const dough = _.find(doughs, "checked"),
         size = _.find(sizes, "checked"),
         sauce = _.find(sauces, "checked");
@@ -48,8 +47,21 @@ export default {
     [UPDATE_CHOICE]({ commit }, choice) {
       commit(UPDATE_CHOICE, choice);
     },
-    [LOAD_CHOICE]({ commit }, choice) {
-      commit(LOAD_CHOICE, choice);
+    [LOAD_CHOICE]({ commit }, { id, title, dough, size, sauce, ingredients }) {
+      let { doughs, sizes, sauces } = state();
+      doughs = pizzaTypesMixin(
+        doughs.map(({ dough }) => ({ ...dough, checked: false })),
+        [dough]
+      );
+      sizes = pizzaTypesMixin(
+        sizes.map(({ size }) => ({ ...size, checked: false })),
+        [size]
+      );
+      sauces = pizzaTypesMixin(
+        sauces.map(({ sauce }) => ({ ...sauce, checked: false })),
+        [sauce]
+      );
+      commit(UPDATE_CHOICE, { id, title, doughs, sizes, sauces, ingredients });
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
@@ -59,28 +71,6 @@ export default {
   mutations: {
     [UPDATE_CHOICE](state, choice) {
       Object.assign(state, choice);
-    },
-    [LOAD_CHOICE](state, { id, title, dough, size, sauce, ingredients }) {
-      const doughs = pizzaTypesMixin(
-        state.doughs.map(({ dough }) => ({ ...dough, checked: false })),
-        [dough]
-      );
-      const sizes = pizzaTypesMixin(
-        state.sizes.map(({ size }) => ({ ...size, checked: false })),
-        [size]
-      );
-      const sauces = pizzaTypesMixin(
-        state.sauces.map(({ sauce }) => ({ ...sauce, checked: false })),
-        [sauce]
-      );
-      ingredients = pizzaTypesMixin(
-        state.ingredients.map(({ ingredient }) => ({
-          ...ingredient,
-          count: 0,
-        })),
-        ingredients
-      );
-      Object.assign(state, { id, title, doughs, sizes, sauces, ingredients });
     },
   },
 };

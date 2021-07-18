@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { filter } from "lodash";
 import BaseItemCounter from "@/common/components/ItemCounter.vue";
 
 export default {
@@ -57,7 +58,7 @@ export default {
       return this.sauce.name.toLowerCase();
     },
     ingredientsDesc() {
-      return this.ingredients
+      return filter(this.ingredients, "count")
         .map(({ name }) => name)
         .join(", ")
         .toLowerCase();
