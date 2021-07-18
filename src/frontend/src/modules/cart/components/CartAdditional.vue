@@ -2,8 +2,8 @@
   <div class="cart__additional">
     <ul class="additional-list">
       <pzz-cart-additional-item
-        v-for="(addition, index) of additional"
-        :key="index"
+        v-for="addition of additional"
+        :key="addition.id"
         v-bind="addition"
         @onChangeCount="changeAddition({ ...addition, count: $event * 1 })"
       />

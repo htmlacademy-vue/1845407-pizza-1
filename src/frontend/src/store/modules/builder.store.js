@@ -9,9 +9,11 @@ import {
 import { pizzaTypesMixin } from "@/common/helpers";
 
 export const UPDATE_CHOICE = "UPDATE_CHOICE";
+export const LOAD_CHOICE = "LOAD_CHOICE";
 export const ADD_TO_CART = "ADD_TO_CART";
 
 const state = () => ({
+  id: "",
   title: "",
   doughs: pizzaTypesMixin(pizzaConfigParts.dough, PIZZA_DOUGH_TYPES),
   sizes: pizzaTypesMixin(pizzaConfigParts.sizes, PIZZA_SIZES_TYPES),
@@ -43,8 +45,11 @@ export default {
     },
   },
   actions: {
-    [UPDATE_CHOICE]({ commit }, data) {
-      commit(UPDATE_CHOICE, data);
+    [UPDATE_CHOICE]({ commit }, choice) {
+      commit(UPDATE_CHOICE, choice);
+    },
+    [LOAD_CHOICE]({ commit }, choice) {
+      commit(LOAD_CHOICE, choice);
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
@@ -52,8 +57,30 @@ export default {
     },
   },
   mutations: {
-    [UPDATE_CHOICE](state, data) {
-      Object.assign(state, data);
+    [UPDATE_CHOICE](state, choice) {
+      Object.assign(state, choice);
+    },
+    [LOAD_CHOICE](state, { id, title, dough, size, sauce, ingredients }) {
+      const doughs = pizzaTypesMixin(
+        state.doughs.map(({ dough }) => ({ ...dough, checked: false })),
+        [dough]
+      );
+      const sizes = pizzaTypesMixin(
+        state.sizes.map(({ size }) => ({ ...size, checked: false })),
+        [size]
+      );
+      const sauces = pizzaTypesMixin(
+        state.sauces.map(({ sauce }) => ({ ...sauce, checked: false })),
+        [sauce]
+      );
+      ingredients = pizzaTypesMixin(
+        state.ingredients.map(({ ingredient }) => ({
+          ...ingredient,
+          count: 0,
+        })),
+        ingredients
+      );
+      Object.assign(state, { id, title, doughs, sizes, sauces, ingredients });
     },
   },
 };
