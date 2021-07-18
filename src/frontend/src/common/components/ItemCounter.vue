@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     click(event) {
-      console.log({ event: event, input: this.$refs["input"] });
       this.$refs["input"][event.target.value]();
       this.$refs["input"].dispatchEvent(new Event("input"));
     },
