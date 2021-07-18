@@ -22,8 +22,8 @@
       class="cart-list__counter"
       :name="`pizza[${uid}][count]`"
       :value="count"
-      min="0"
-      @input="onChangeCount"
+      :min="0"
+      @input="$emit('onChangeCount', $event.target.value)"
     />
 
     <div class="cart-list__price">
@@ -65,11 +65,6 @@ export default {
 
     cost() {
       return this.count * this.price;
-    },
-  },
-  methods: {
-    onChangeCount(event) {
-      console.log({ onChangeCount: event });
     },
   },
 };

@@ -5,6 +5,7 @@
       :key="pizza.uid"
       v-bind="pizza"
       class="cart-list__item"
+      @onChangeCount="onChangeCount"
     />
   </ul>
 </template>
@@ -19,6 +20,11 @@ export default {
   components: { PzzCartPizzasItem },
   computed: {
     ...mapState("Cart", ["pizzas"]),
+  },
+  methods: {
+    onChangeCount(event) {
+      console.log({ onChangeCount: event });
+    },
   },
 };
 </script>
