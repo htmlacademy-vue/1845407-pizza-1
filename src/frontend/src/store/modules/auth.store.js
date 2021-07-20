@@ -1,11 +1,11 @@
-import _ from "lodash";
-
-export const AUTHENTICATE = "AUTHENTICATE";
-export const SET_ACCOUNT = "SET_ACCOUNT";
+import { isEmpty } from "lodash";
+import router from "@/router";
 
 import accountData from "@/static/user.json";
 
-import router from "@/router";
+export const AUTHENTICATE = "AUTHENTICATE";
+export const LOGIN_REDIRECT = "LOGIN_REDIRECT";
+export const CART_ORDER_REDIRECT = "CART_ORDER_REDIRECT";
 
 export default {
   namespaced: true,
@@ -14,23 +14,33 @@ export default {
   }),
   getters: {
     isLogged({ account }) {
-      return !_.isEmpty(account);
+      return !isEmpty(account);
     },
   },
   actions: {
-    [AUTHENTICATE]({ commit }, account) {
+    [AUTHENTICATE]({ commit, dispatch }, account) {
       account = account.email && account.password ? accountData : {};
-      commit(SET_ACCOUNT, { account: account });
+      commit(AUTHENTICATE, { account: account });
+      dispatch(LOGIN_REDIRECT);
     },
-  },
-  mutations: {
-    [SET_ACCOUNT](state, account) {
-      Object.assign(state, account);
+    [LOGIN_REDIRECT]() {
       if (router.currentRoute.name === "login") {
         router.back();
       } else {
         router.push({ name: "builder" });
       }
+    },
+    [CART_ORDER_REDIRECT]({ getters }) {
+      if (getters.isLogged) {
+        router.replace({ name: "orders" });
+      } else {
+        router.replace({ name: "builder" });
+      }
+    },
+  },
+  mutations: {
+    [AUTHENTICATE](state, account) {
+      Object.assign(state, account);
     },
   },
 };

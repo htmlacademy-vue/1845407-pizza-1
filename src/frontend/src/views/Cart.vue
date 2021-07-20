@@ -1,5 +1,10 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form
+    action="/order"
+    method="post"
+    class="layout-form"
+    @submit.prevent="submit"
+  >
     <div class="container">
       <div class="cart__title">
         <h1 class="title title--big">Корзина</h1>
@@ -29,7 +34,8 @@ import PzzCartAdditional from "@/modules/cart/components/CartAdditional.vue";
 import PzzCartDelivery from "@/modules/cart/components/CartDelivery.vue";
 import PzzCartFooter from "@/modules/cart/components/CartFooter.vue";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { SUBMIT_CART } from "@/store/modules/cart.store";
 
 export default {
   name: "Cart",
@@ -41,6 +47,11 @@ export default {
   },
   computed: {
     ...mapGetters("Cart", ["isEmpty"]),
+  },
+  methods: {
+    ...mapActions("Cart", {
+      submit: SUBMIT_CART,
+    }),
   },
 };
 </script>
