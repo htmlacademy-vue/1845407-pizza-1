@@ -3,8 +3,8 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      :class="{ 'counter__button--disabled': !allowStepDown }"
-      :disabled="!allowStepDown"
+      :class="{ 'counter__button--disabled': !stepDownAllowed }"
+      :disabled="!stepDownAllowed"
       value="stepDown"
       @click="click"
     >
@@ -25,8 +25,8 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      :class="{ 'counter__button--disabled': !allowStepUp }"
-      :disabled="!allowStepUp"
+      :class="{ 'counter__button--disabled': !stepUpAllowed }"
+      :disabled="!stepUpAllowed"
       value="stepUp"
       @click="click"
     >
@@ -57,11 +57,11 @@ export default {
     },
   },
   computed: {
-    allowStepDown() {
-      return this.min != null ? this.value > this.min : true;
+    stepDownAllowed() {
+      return !this.min || this.min < this.value;
     },
-    allowStepUp() {
-      return this.max != null ? this.value < this.max : true;
+    stepUpAllowed() {
+      return !this.max || this.max > this.value;
     },
   },
   methods: {
