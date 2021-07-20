@@ -1,22 +1,14 @@
 <template>
-  <div id="app">
-    <app-header />
-    <component :is="layoutComponent" :class="layoutClass" />
-    <div class="modal">
-      <router-view name="popup" />
-    </div>
-  </div>
+  <component :is="layoutComponent" :class="layoutClass" />
 </template>
 
 <script>
-import _ from "lodash";
-import AppHeader from "./components/AppHeader";
+import { kebabCase } from "lodash";
 
 const defaultLayout = "Default";
 
 export default {
   name: "App",
-  components: { AppHeader },
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
@@ -24,7 +16,7 @@ export default {
     },
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
-      return _.kebabCase(`${layout}Layout`);
+      return kebabCase(`${layout}Layout`);
     },
   },
 };

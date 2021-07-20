@@ -5,6 +5,9 @@ import router from "./router";
 
 Vue.config.productionTip = false;
 
+import AppHeader from "@/components/AppHeader";
+Vue.component("AppHeader", AppHeader);
+
 new Vue({
   router,
   store,

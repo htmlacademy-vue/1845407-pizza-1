@@ -1,8 +1,14 @@
 <template>
-  <main class="layout">
-    <router-view name="sidebar" class="layout__sidebar" />
-    <router-view class="layout__content" />
-  </main>
+  <div id="app">
+    <app-header />
+    <main class="layout">
+      <router-view name="sidebar" class="layout__sidebar" />
+      <router-view class="layout__content" />
+    </main>
+    <div class="modal">
+      <router-view name="popup" />
+    </div>
+  </div>
 </template>
 
 <script>
