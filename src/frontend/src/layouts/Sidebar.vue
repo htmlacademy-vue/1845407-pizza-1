@@ -1,20 +1,19 @@
 <template>
-  <div class="with-sidebar-layout">
-    <app-header
-      :account="$attrs.account"
-      @authenticate="$emit('authenticate', $event)"
-    />
+  <div id="app">
+    <app-header />
     <main class="layout">
       <router-view name="sidebar" class="layout__sidebar" />
       <router-view class="layout__content" />
     </main>
-    <slot />
+    <div class="modal">
+      <router-view name="popup" />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "WithSidebarLayout",
+  name: "SidebarLayout",
 };
 </script>
 

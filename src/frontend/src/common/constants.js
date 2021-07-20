@@ -3,12 +3,14 @@ export const PIZZA_DOUGH_TYPES = [
     name: "Тонкое",
     type: "light",
     value: "small",
+    desc: "на тонком тесте",
     checked: true,
   },
   {
     name: "Толстое",
     type: "large",
     value: "big",
+    desc: "на толстом тесте",
   },
 ];
 
@@ -115,5 +117,20 @@ export const PIZZA_SIZES_TYPES = [
   {
     name: "45 см",
     type: "large",
+  },
+];
+
+export const MISC_ADDITIONAL = [
+  {
+    name: "Cola-Cola 0,5 литра",
+    count: 0,
+  },
+  {
+    name: "Острый соус",
+    count: 0,
+  },
+  {
+    name: "Картошка из печи",
+    count: 0,
   },
 ];

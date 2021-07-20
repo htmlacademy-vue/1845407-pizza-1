@@ -9,9 +9,10 @@ export default [
   {
     path: "/login",
     name: "login",
+    meta: { layout: "Popup" },
     components: {
-      default: () => import("@/views/Builder.vue"),
-      popup: () => import("@/views/Login.vue"),
+      default: () => import("@/views/Login.vue"),
+      main: () => import("@/views/Builder.vue"),
     },
   },
   {
@@ -22,21 +23,30 @@ export default [
     },
   },
   {
+    path: "/cart/thanks",
+    name: "thanks",
+    meta: { layout: "Popup" },
+    components: {
+      default: () => import("@/views/Thanks.vue"),
+      main: () => import("@/views/Cart.vue"),
+    },
+  },
+  {
     path: "/orders",
     name: "orders",
+    meta: { layout: "Sidebar" },
     components: {
       default: () => import("@/views/Orders.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
     },
-    meta: { layout: "WithSidebar" },
   },
   {
     path: "/profile",
     name: "profile",
+    meta: { layout: "Sidebar" },
     components: {
       default: () => import("@/views/Profile.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
     },
-    meta: { layout: "WithSidebar" },
   },
 ];

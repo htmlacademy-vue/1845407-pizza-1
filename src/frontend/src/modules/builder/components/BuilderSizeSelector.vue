@@ -24,22 +24,25 @@
 <script>
 import BaseRadioButton from "@/common/components/RadioButton.vue";
 
+import { mapState, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+
 export default {
   name: "PzzBuilderSizeSelector",
   components: { BaseRadioButton },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["sizes"]),
   },
   methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
     onChangeSize(choice) {
-      let sizes = this.sizes.map((size) => ({ ...size, checked: false }));
+      let sizes = [...this.sizes].map((size) => ({ ...size, checked: false }));
       const index = sizes.findIndex(({ type }) => type === choice);
       if (~index) {
-        sizes[index].checked = true;
-        this.$emit("pizzaUpdate", { sizes: sizes });
+        Object.assign(sizes[index], { checked: true });
+        this.pizzaUpdate({ sizes });
       }
     },
   },

@@ -1,11 +1,11 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ cost }} ₽</p>
+    <p>Итого: {{ choice.price }} ₽</p>
     <button
-      type="button"
+      type="submit"
       class="button"
-      :class="{ 'button--disabled': !hasIngredients || !title }"
-      :disabled="!hasIngredients || !title"
+      :class="{ 'button--disabled': !ready }"
+      :disabled="!ready"
     >
       Готовьте!
     </button>
@@ -13,31 +13,16 @@
 </template>
 
 <script>
+import { some } from "lodash";
+
+import { mapGetters } from "vuex";
+
 export default {
   name: "PzzBuilderPriceCounter",
-  props: {
-    pizzaChoice: {
-      type: Object,
-      required: true,
-    },
-  },
   computed: {
-    cost() {
-      let cost = 0;
-      cost += this.pizzaChoice.ingredients.reduce(
-        (total, ingredient) => total + ingredient.price * ingredient.count,
-        0
-      );
-      cost += this.pizzaChoice.dough.price;
-      cost += this.pizzaChoice.sauce.price;
-      cost *= this.pizzaChoice.size.multiplier;
-      return cost;
-    },
-    title() {
-      return this.pizzaChoice.title;
-    },
-    hasIngredients() {
-      return !!this.pizzaChoice.ingredients.length;
+    ...mapGetters("Builder", ["choice"]),
+    ready() {
+      return some(this.choice.ingredients, "count") && !!this.choice.title;
     },
   },
 };

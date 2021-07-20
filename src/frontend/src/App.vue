@@ -1,19 +1,22 @@
 <template>
-  <app-meta-layout id="app" v-bind="$data" @authenticate="authenticate" />
+  <component :is="layoutComponent" :class="layoutClass" />
 </template>
 
 <script>
+import { kebabCase } from "lodash";
+
+const defaultLayout = "Default";
+
 export default {
   name: "App",
-  data() {
-    return {
-      account: {},
-    };
-  },
-  methods: {
-    authenticate(account) {
-      this.account = account;
-      this.$router.push({ name: "builder" });
+  computed: {
+    layoutComponent() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return () => import(`@/layouts/${layout}.vue`);
+    },
+    layoutClass() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return kebabCase(`${layout}Layout`);
     },
   },
 };
@@ -21,4 +24,28 @@ export default {
 
 <style lang="scss">
 @import "../src/assets/scss/app";
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  > main {
+    flex-grow: 1;
+  }
+
+  .modal {
+    z-index: 10;
+
+    &:not(:empty):before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+}
 </style>

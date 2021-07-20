@@ -11,26 +11,22 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'cart' }">0 ₽</router-link>
+      <router-link :to="{ name: 'cart' }">{{ price }} ₽</router-link>
     </div>
-    <pzz-account-header
-      :account="account"
-      @authenticate="$emit('authenticate', $event)"
-    />
+    <pzz-account-header />
   </header>
 </template>
 
 <script>
 import PzzAccountHeader from "@/modules/account/components/Header.vue";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "AppHeader",
   components: { PzzAccountHeader },
-  props: {
-    account: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("Cart", ["price"]),
   },
 };
 </script>

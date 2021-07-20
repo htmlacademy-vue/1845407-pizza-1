@@ -7,7 +7,7 @@
   >
     <div class="pizza" :class="foundationClass">
       <div class="pizza__wrapper">
-        <template v-for="{ type, count } in pizzaChoice.ingredients">
+        <template v-for="{ type, count } in ingredients">
           <div
             v-for="index in count"
             :key="`${type}-${index}`"
@@ -21,25 +21,29 @@
 </template>
 
 <script>
-//import _ from "lodash";
+import { filter } from "lodash";
+
+import { mapGetters, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
   name: "PzzBuilderPizzaView",
-  props: {
-    pizzaChoice: {
-      type: Object,
-      required: true,
-    },
-  },
   computed: {
+    ...mapGetters("Builder", ["choice"]),
+    ingredients() {
+      return filter(this.choice.ingredients, "count");
+    },
     foundationClass() {
-      return `pizza--foundation--${this.pizzaChoice.dough.value}-${this.pizzaChoice.sauce.type}`;
+      return `pizza--foundation--${this.choice.dough.value}-${this.choice.sauce.type}`;
     },
     ingredientIndexClass() {
       return ["", "pizza__filling--second", "pizza__filling--third"];
     },
   },
   methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
     dropable(event) {
       const dataTransfer = event.dataTransfer;
 
@@ -55,7 +59,7 @@ export default {
       const payload = dataTransfer.getData("ingredients");
       if (payload) {
         const ingredients = JSON.parse(dataTransfer.getData("ingredients"));
-        this.$emit("pizzaUpdate", { ingredients: ingredients });
+        this.pizzaUpdate({ ingredients });
       }
     },
   },

@@ -41,9 +41,10 @@
               <base-item-counter
                 class="ingridients__counter"
                 :name="`counter[${type}]`"
-                :type="type"
                 :value="count"
-                @changeCounter="onChangeIngredient(type, $event.target.value)"
+                :min="0"
+                :max="3"
+                @input="onChangeIngredient(type, $event.target.value)"
               />
             </li>
           </ul>
@@ -57,49 +58,50 @@
 import BaseRadioButton from "@/common/components/RadioButton.vue";
 import BaseItemCounter from "@/common/components/ItemCounter.vue";
 
+import { mapState, mapActions } from "vuex";
+import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+
 export default {
   name: "PzzBuilderIngredientsSelector",
   components: { BaseRadioButton, BaseItemCounter },
-  props: {
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-    sauces: {
-      type: Array,
-      required: true,
-    },
+  computed: {
+    ...mapState("Builder", ["sauces", "ingredients"]),
   },
   methods: {
+    ...mapActions("Builder", {
+      pizzaUpdate: UPDATE_CHOICE,
+    }),
     onChangeSouse(choice) {
-      let sauces = this.sauces.map((sauce) => ({ ...sauce, checked: false }));
+      let sauces = [...this.sauces].map((sauce) => ({
+        ...sauce,
+        checked: false,
+      }));
       const index = sauces.findIndex(({ type }) => type === choice);
       if (~index) {
-        sauces[index].checked = true;
-        this.$emit("pizzaUpdate", { sauces: sauces });
+        Object.assign(sauces[index], { checked: true });
+        this.pizzaUpdate({ sauces });
       }
     },
     onChangeIngredient(choice, value) {
-      let ingredients = this.ingredients.map((ingredient) => ({
+      let ingredients = [...this.ingredients].map((ingredient) => ({
         ...ingredient,
       }));
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
-        ingredients[index].count = parseInt(value);
-        this.$emit("pizzaUpdate", { ingredients: ingredients });
+        Object.assign(ingredients[index], { count: value * 1 });
+        this.pizzaUpdate({ ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
-      let ingredients = this.ingredients.map((ingredient) => ({
+      let ingredients = [...this.ingredients].map((ingredient) => ({
         ...ingredient,
       }));
       const index = ingredients.findIndex(({ type }) => type === choice);
       if (~index) {
-        if (ingredients[index].count >= 3) {
-          return;
+        if (ingredients[index].count < 3) {
+          ingredients[index].count += 1;
+          dataTransfer.setData("ingredients", JSON.stringify(ingredients));
         }
-        ingredients[index].count += 1;
-        dataTransfer.setData("ingredients", JSON.stringify(ingredients));
       }
     },
   },

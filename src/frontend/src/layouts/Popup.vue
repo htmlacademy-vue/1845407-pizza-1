@@ -2,22 +2,16 @@
   <div id="app">
     <app-header />
     <main class="content">
-      <router-view />
+      <router-view name="main" />
     </main>
     <div class="modal">
-      <router-view name="popup" />
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "DefaultLayout",
+  name: "PopupLayout",
 };
 </script>
-
-<style lang="scss">
-main.content {
-  display: flex;
-}
-</style>
