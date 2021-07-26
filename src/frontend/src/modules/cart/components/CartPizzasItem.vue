@@ -20,9 +20,9 @@
 
     <base-item-counter
       class="cart-list__counter"
-      :name="`pizza[${uid}][count]`"
+      :name="`pizza[${id}][count]`"
       :value="count"
-      :min="0"
+      :min="1"
       @input="$emit('onChangeCount', $event.target.value)"
     />
 
@@ -31,20 +31,29 @@
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit">Изменить</button>
+      <button type="button" class="cart-list__edit" @click="onEditPizza">
+        Изменить
+      </button>
+      <button
+        type="button"
+        class="cart-list__edit"
+        @click="$emit('onChangeCount', 0)"
+      >
+        Удалить
+      </button>
     </div>
   </li>
 </template>
 
 <script>
-import { filter } from "lodash";
+import filter from "lodash/filter";
 import BaseItemCounter from "@/common/components/ItemCounter.vue";
 
 export default {
   name: "CartPizzasItem",
   components: { BaseItemCounter },
   props: {
-    uid: String,
+    id: String,
     title: String,
     dough: Object,
     size: Object,
@@ -68,5 +77,19 @@ export default {
       return this.count * this.price;
     },
   },
+  methods: {
+    onEditPizza() {
+      const id = this.id;
+      this.$router.push({ name: "builder", query: { id } });
+    },
+  },
 };
 </script>
+
+<style lang="scss" scoped>
+.cart-list__button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+</style>

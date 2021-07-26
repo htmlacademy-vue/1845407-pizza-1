@@ -1,4 +1,4 @@
-import { isEmpty } from "lodash";
+import isEmpty from "lodash/isEmpty";
 import router from "@/router";
 
 import accountData from "@/static/user.json";

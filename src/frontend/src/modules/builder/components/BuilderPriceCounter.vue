@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { some } from "lodash";
+import some from "lodash/some";
 
 import { mapGetters } from "vuex";
 
