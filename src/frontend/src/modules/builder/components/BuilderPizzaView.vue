@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { filter } from "lodash";
+import filter from "lodash/filter";
 
 import { mapGetters, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
