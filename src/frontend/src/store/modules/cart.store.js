@@ -1,4 +1,5 @@
-import { uniqueId, find } from "lodash";
+import uniqueId from "lodash/uniqueId";
+import find from "lodash/find";
 import router from "@/router";
 
 import additionalData from "@/static/misc.json";
@@ -29,6 +30,9 @@ export default {
   getters: {
     price({ pizzas, additional }) {
       let price = 0;
+
+      if (!pizzas.length) return price;
+
       price += pizzas.reduce((sum, { price, count }) => sum + price * count, 0);
       price += additional.reduce(
         (sum, { price, count }) => sum + price * count,
@@ -46,6 +50,7 @@ export default {
       let current = find(pizzas, ["id", pizza.id]);
       if (current) {
         Object.assign(current, pizza);
+        router.push({ name: "cart" });
       } else {
         Object.assign(pizza, { id: uniqueId(), count: 1 });
         pizzas.push(pizza);
@@ -53,7 +58,7 @@ export default {
       commit(UPDATE_CART, { pizzas });
     },
     [UPDATE_CART]({ commit }, cart) {
-      commit(UPDATE_CART, { ...cart });
+      commit(UPDATE_CART, cart);
     },
     [SUBMIT_CART]({ commit }) {
       // отправить заказ на сервер

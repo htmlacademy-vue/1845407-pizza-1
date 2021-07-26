@@ -25,8 +25,12 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { ADD_TO_CART } from "@/store/modules/builder.store";
+import { mapState, mapGetters, mapActions } from "vuex";
+import {
+  ADD_TO_CART,
+  LOAD_CHOICE,
+  RESET_CHOICE,
+} from "@/store/modules/builder.store";
 
 import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector.vue";
 import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector.vue";
@@ -45,10 +49,34 @@ export default {
     PzzBuilderPriceCounter,
     PzzBuilderTitleInput,
   },
+  computed: {
+    ...mapState("Cart", ["pizzas"]),
+    ...mapGetters("Builder", ["choice"]),
+  },
   methods: {
     ...mapActions("Builder", {
       addToCart: ADD_TO_CART,
+      loadChoice: LOAD_CHOICE,
+      resetChoice: RESET_CHOICE,
     }),
+  },
+  created() {
+    if (this.$route.query.id) {
+      // загрузить конфигурацию пиццы в билдер
+      const index = this.pizzas.findIndex(
+        ({ id }) => id === this.$route.query.id
+      );
+      if (~index) {
+        this.loadChoice(this.pizzas[index]);
+      } else {
+        this.$router.replace({ name: "builder" });
+      }
+    }
+  },
+  destroyed() {
+    if (this.choice.id) {
+      this.resetChoice();
+    }
   },
 };
 </script>
