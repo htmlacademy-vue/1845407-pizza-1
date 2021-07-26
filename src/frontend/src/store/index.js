@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-//import VuexPlugins from '@/plugins/vuexPlugins';
+import VuexPlugins from "@/plugins/vuexPlugins";
 import modules from "@/store/modules";
 
 Vue.use(Vuex);
@@ -15,6 +15,6 @@ export default new Vuex.Store({
   state,
   actions,
   mutations,
-  //plugins: [VuexPlugins],
+  plugins: [VuexPlugins],
   modules,
 });
