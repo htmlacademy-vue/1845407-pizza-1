@@ -34,7 +34,7 @@ export default {
       return filter(this.choice.ingredients, "count");
     },
     foundationClass() {
-      return `pizza--foundation--${this.choice.dough.value}-${this.choice.sauce.type}`;
+      return `pizza--foundation--${this.choice.dough?.value}-${this.choice.sauce?.type}`;
     },
     ingredientIndexClass() {
       return ["", "pizza__filling--second", "pizza__filling--third"];

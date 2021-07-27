@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import find from "lodash/find";
+
 import { mapState, mapGetters, mapActions } from "vuex";
 import {
   ADD_TO_CART,
@@ -63,11 +65,9 @@ export default {
   created() {
     if (this.$route.query.id) {
       // загрузить конфигурацию пиццы в билдер
-      const index = this.pizzas.findIndex(
-        ({ id }) => id === this.$route.query.id
-      );
-      if (~index) {
-        this.loadChoice(this.pizzas[index]);
+      const choice = find(this.pizzas, ["id", this.$route.query.id]);
+      if (choice) {
+        this.loadChoice(choice);
       } else {
         this.$router.replace({ name: "builder" });
       }

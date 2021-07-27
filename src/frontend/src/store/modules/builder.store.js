@@ -1,6 +1,5 @@
 import find from "lodash/find";
 
-import pizzaConfigParts from "@/static/pizza.json";
 import {
   PIZZA_DOUGH_TYPES,
   PIZZA_INGREDIENTS_TYPES,
@@ -17,13 +16,10 @@ export const ADD_TO_CART = "ADD_TO_CART";
 const state = () => ({
   id: "",
   title: "",
-  doughs: pizzaTypesMixin(pizzaConfigParts.dough, PIZZA_DOUGH_TYPES),
-  sizes: pizzaTypesMixin(pizzaConfigParts.sizes, PIZZA_SIZES_TYPES),
-  sauces: pizzaTypesMixin(pizzaConfigParts.sauces, PIZZA_SAUCES_TYPES),
-  ingredients: pizzaTypesMixin(
-    pizzaConfigParts.ingredients,
-    PIZZA_INGREDIENTS_TYPES
-  ),
+  doughs: [],
+  sizes: [],
+  sauces: [],
+  ingredients: [],
 });
 
 export default {
@@ -36,12 +32,12 @@ export default {
         sauce = find(sauces, "checked");
       let price = 0;
       price += ingredients.reduce(
-        (total, ingredient) => total + ingredient.price * ingredient.count,
+        (total, ingredient) => total + ingredient?.price * ingredient?.count,
         0
       );
-      price += dough.price;
-      price += sauce.price;
-      price *= size.multiplier;
+      price += dough?.price ?? 0;
+      price += sauce?.price ?? 0;
+      price *= size?.multiplier ?? 0;
       return { id, title, dough, size, sauce, ingredients, price };
     },
   },
@@ -49,8 +45,9 @@ export default {
     [UPDATE_CHOICE]({ commit }, choice) {
       commit(UPDATE_CHOICE, choice);
     },
-    [LOAD_CHOICE]({ commit }, { id, title, dough, size, sauce, ingredients }) {
-      let { doughs, sizes, sauces } = state();
+    [LOAD_CHOICE]({ state, commit }, choice) {
+      let { doughs, sizes, sauces } = state;
+      const { id, title, dough, size, sauce, ingredients } = choice;
       doughs = doughs.map((item) => ({ ...item, checked: false }));
       doughs = pizzaTypesMixin(doughs, [dough]);
       sizes = sizes.map((item) => ({ ...item, checked: false }));
@@ -59,12 +56,27 @@ export default {
       sauces = pizzaTypesMixin(sauces, [sauce]);
       commit(UPDATE_CHOICE, { id, title, doughs, sizes, sauces, ingredients });
     },
-    [RESET_CHOICE]({ dispatch }) {
-      dispatch(UPDATE_CHOICE, state());
+    async [RESET_CHOICE]({ dispatch }) {
+      const doughs = pizzaTypesMixin(
+        await this.$api.dough.query(),
+        PIZZA_DOUGH_TYPES
+      );
+      const sizes = pizzaTypesMixin(
+        await this.$api.sizes.query(),
+        PIZZA_SIZES_TYPES
+      );
+      const sauces = pizzaTypesMixin(
+        await this.$api.sauces.query(),
+        PIZZA_SAUCES_TYPES
+      );
+      const ingredients = pizzaTypesMixin(
+        await this.$api.ingredients.query(),
+        PIZZA_INGREDIENTS_TYPES
+      );
+      dispatch(UPDATE_CHOICE, { doughs, sizes, sauces, ingredients });
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
-      dispatch(RESET_CHOICE);
     },
   },
   mutations: {

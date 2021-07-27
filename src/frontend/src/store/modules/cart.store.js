@@ -9,7 +9,7 @@ import { pizzaTypesMixin } from "@/common/helpers";
 export const UPDATE_CART = "UPDATE_CART";
 export const SUBMIT_CART = "SUBMIT_CART";
 export const RESET_CART = "RESET_CART";
-import { ADD_TO_CART } from "@/store/modules/builder.store";
+import { ADD_TO_CART, RESET_CHOICE } from "@/store/modules/builder.store";
 import { CART_ORDER_REDIRECT } from "@/store/modules/auth.store.js";
 
 const state = () => ({
@@ -45,17 +45,18 @@ export default {
     },
   },
   actions: {
-    [ADD_TO_CART]({ commit, state }, pizza) {
+    [ADD_TO_CART]({ state, dispatch }, choice) {
       let pizzas = [...state.pizzas];
-      let current = find(pizzas, ["id", pizza.id]);
+      let current = find(pizzas, ["id", choice.id]);
       if (current) {
-        Object.assign(current, pizza);
+        Object.assign(current, choice);
         router.push({ name: "cart" });
       } else {
-        Object.assign(pizza, { id: uniqueId(), count: 1 });
-        pizzas.push(pizza);
+        Object.assign(choice, { id: uniqueId(), count: 1 });
+        pizzas = [...pizzas, choice];
+        dispatch(`Builder/${RESET_CHOICE}`, null, { root: true });
       }
-      commit(UPDATE_CART, { pizzas });
+      dispatch(UPDATE_CART, { pizzas });
     },
     [UPDATE_CART]({ commit }, cart) {
       commit(UPDATE_CART, cart);

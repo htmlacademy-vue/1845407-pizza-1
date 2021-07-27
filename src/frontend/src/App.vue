@@ -19,6 +19,9 @@ export default {
       return kebabCase(`${layout}Layout`);
     },
   },
+  created() {
+    this.$store.dispatch("init");
+  },
 };
 </script>
 
