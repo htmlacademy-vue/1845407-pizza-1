@@ -1,6 +1,5 @@
 import uniqueId from "lodash/uniqueId";
 import find from "lodash/find";
-import router from "@/router";
 
 import additionalData from "@/static/misc.json";
 import { MISC_ADDITIONAL } from "@/common/constants";
@@ -50,7 +49,7 @@ export default {
       let current = find(pizzas, ["id", choice.id]);
       if (current) {
         Object.assign(current, choice);
-        router.push({ name: "cart" });
+        this.$router.push({ name: "cart" });
       } else {
         Object.assign(choice, { id: uniqueId(), count: 1 });
         pizzas = [...pizzas, choice];
@@ -75,7 +74,7 @@ export default {
       Object.assign(state, cart);
     },
     [SUBMIT_CART]() {
-      router.push({ name: "thanks" });
+      this.$router.push({ name: "thanks" });
     },
   },
 };

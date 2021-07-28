@@ -12,7 +12,7 @@
         </picture>
         <span>{{ account.name }}</span>
       </router-link>
-      <a href="#" class="header__logout" @click.prevent="logout({})">
+      <a href="#" class="header__logout" @click.prevent="sign_out">
         <span>Выйти</span>
       </a>
     </template>
@@ -26,7 +26,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import { AUTHENTICATE } from "@/store/modules/auth.store.js";
+import { SIGN_OUT } from "@/store/modules/auth.store.js";
 
 export default {
   name: "PzzAccountHeader",
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     ...mapActions("Auth", {
-      logout: AUTHENTICATE,
+      sign_out: SIGN_OUT,
     }),
   },
 };

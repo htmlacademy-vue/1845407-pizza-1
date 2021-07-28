@@ -1,46 +1,56 @@
-import isEmpty from "lodash/isEmpty";
-import router from "@/router";
-
-import accountData from "@/static/user.json";
-
-export const AUTHENTICATE = "AUTHENTICATE";
-export const LOGIN_REDIRECT = "LOGIN_REDIRECT";
+export const SIGN_IN = "SIGN_IN";
+export const SIGN_OUT = "SIGN_OUT";
 export const CART_ORDER_REDIRECT = "CART_ORDER_REDIRECT";
+export const SET_ACCOUNT = "SET_ACCOUNT";
 
 export default {
   namespaced: true,
   state: () => ({
-    account: {},
+    account: undefined,
   }),
   getters: {
     isLogged({ account }) {
-      return !isEmpty(account);
+      return !!account;
     },
   },
   actions: {
-    [AUTHENTICATE]({ commit, dispatch }, account) {
-      account = account.email && account.password ? accountData : {};
-      commit(AUTHENTICATE, { account: account });
-      dispatch(LOGIN_REDIRECT);
+    async [SIGN_IN]({ dispatch }, { email, password }) {
+      const { token } = await this.$api.auth.login({ email, password });
+      this.$jwt.saveToken(token);
+      this.$api.auth.setAuthHeader();
+
+      dispatch(SET_ACCOUNT);
+
+      // await router.back();
     },
-    [LOGIN_REDIRECT]() {
-      if (router.currentRoute.name === "login") {
-        router.back();
-      } else {
-        router.push({ name: "builder" });
+    async [SIGN_OUT]({ commit }) {
+      await this.$api.auth.logout();
+      this.$jwt.deleteToken();
+      this.$api.auth.setAuthHeader();
+
+      commit(SET_ACCOUNT);
+
+      this.$router.push({ name: "builder" });
+    },
+    async [SET_ACCOUNT]({ dispatch, commit }) {
+      try {
+        const account = await this.$api.auth.whoAmI();
+        commit(SET_ACCOUNT, account);
+      } catch {
+        dispatch(SIGN_OUT);
       }
     },
     [CART_ORDER_REDIRECT]({ getters }) {
       if (getters.isLogged) {
-        router.replace({ name: "orders" });
+        this.$router.replace({ name: "orders" });
       } else {
-        router.replace({ name: "builder" });
+        this.$router.replace({ name: "builder" });
       }
     },
   },
   mutations: {
-    [AUTHENTICATE](state, account) {
-      Object.assign(state, account);
+    [SET_ACCOUNT](state, account = undefined) {
+      Object.assign(state, { account });
     },
   },
 };

@@ -17,7 +17,7 @@
         :value="delivery.phone"
         class="input--big-label"
         placeholder="+7 999-999-99-99"
-        @input="changeDelivery({ phone: $event.target.value })"
+        @input="changeDelivery({ phone: $event })"
       >
         <span>Контактный телефон:</span>
       </base-input-field>
@@ -30,7 +30,7 @@
             name="delivery[street]"
             :value="delivery.street"
             :required="true"
-            @input="changeDelivery({ street: $event.target.value })"
+            @input="changeDelivery({ street: $event })"
           >
             <span>Улица*</span>
           </base-input-field>
@@ -41,7 +41,7 @@
             name="delivery[building]"
             :value="delivery.building"
             :required="true"
-            @input="changeDelivery({ building: $event.target.value })"
+            @input="changeDelivery({ building: $event })"
           >
             <span>Дом*</span>
           </base-input-field>
@@ -51,7 +51,7 @@
           <base-input-field
             name="delivery[room]"
             :value="delivery.room"
-            @input="changeDelivery({ room: $event.target.value })"
+            @input="changeDelivery({ room: $event })"
           >
             <span>Квартира</span>
           </base-input-field>
