@@ -35,9 +35,14 @@ export default {
     ...mapGetters("Auth", ["isLogged"]),
   },
   methods: {
-    ...mapActions("Auth", {
-      sign_out: SIGN_OUT,
-    }),
+    ...mapActions("Auth", [SIGN_OUT]),
+    async sign_out() {
+      await this[SIGN_OUT]();
+
+      if (this.$router.currentRoute.name != "builder") {
+        this.$router.push({ name: "builder" });
+      }
+    },
   },
 };
 </script>

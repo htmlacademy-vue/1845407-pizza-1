@@ -20,8 +20,6 @@ export default {
       this.$api.auth.setAuthHeader();
 
       dispatch(SET_ACCOUNT);
-
-      // await router.back();
     },
     async [SIGN_OUT]({ commit }) {
       await this.$api.auth.logout();
@@ -29,8 +27,6 @@ export default {
       this.$api.auth.setAuthHeader();
 
       commit(SET_ACCOUNT);
-
-      this.$router.push({ name: "builder" });
     },
     async [SET_ACCOUNT]({ dispatch, commit }) {
       try {
