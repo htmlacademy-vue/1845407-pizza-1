@@ -11,12 +11,12 @@ const state = () => ({});
 
 const actions = {
   async init({ dispatch }) {
+    dispatch(`Builder/${RESET_CHOICE}`);
+
     if (this.$jwt.getToken()) {
       this.$api.auth.setAuthHeader();
-      await dispatch(`Auth/${SET_ACCOUNT}`);
+      dispatch(`Auth/${SET_ACCOUNT}`);
     }
-
-    await dispatch(`Builder/${RESET_CHOICE}`);
   },
 };
 

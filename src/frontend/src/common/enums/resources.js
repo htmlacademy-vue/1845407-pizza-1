@@ -1,6 +1,6 @@
 export default {
   AUTH: "auth",
-  DOUGHS: "dough",
+  DOUGH: "dough",
   SIZES: "sizes",
   SAUCES: "sauces",
   INGREDIENTS: "ingredients",

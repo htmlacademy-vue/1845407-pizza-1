@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import find from "lodash/find";
+
 import BaseRadioButton from "@/common/components/RadioButton.vue";
 import BaseItemCounter from "@/common/components/ItemCounter.vue";
 
@@ -72,34 +74,34 @@ export default {
       pizzaUpdate: UPDATE_CHOICE,
     }),
     onChangeSouse(choice) {
-      let sauces = [...this.sauces].map((sauce) => ({
-        ...sauce,
+      let sauces = this.sauces.map((item) => ({
+        ...item,
         checked: false,
       }));
-      const index = sauces.findIndex(({ type }) => type === choice);
-      if (~index) {
-        Object.assign(sauces[index], { checked: true });
+      const checked = find(sauces, ["type", choice]);
+      if (checked) {
+        Object.assign(checked, { checked: true });
         this.pizzaUpdate({ sauces });
       }
     },
     onChangeIngredient(choice, value) {
-      let ingredients = [...this.ingredients].map((ingredient) => ({
-        ...ingredient,
+      let ingredients = this.ingredients.map((item) => ({
+        ...item,
       }));
-      const index = ingredients.findIndex(({ type }) => type === choice);
-      if (~index) {
-        Object.assign(ingredients[index], { count: value * 1 });
+      const checked = find(ingredients, ["type", choice]);
+      if (checked) {
+        Object.assign(checked, { count: value * 1 });
         this.pizzaUpdate({ ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
-      let ingredients = [...this.ingredients].map((ingredient) => ({
-        ...ingredient,
+      let ingredients = this.ingredients.map((item) => ({
+        ...item,
       }));
-      const index = ingredients.findIndex(({ type }) => type === choice);
-      if (~index) {
-        if (ingredients[index].count < 3) {
-          ingredients[index].count += 1;
+      const checked = find(ingredients, ["type", choice]);
+      if (checked) {
+        if (checked.count < 3) {
+          checked.count += 1;
           dataTransfer.setData("ingredients", JSON.stringify(ingredients));
         }
       }

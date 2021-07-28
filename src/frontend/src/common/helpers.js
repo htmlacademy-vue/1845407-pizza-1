@@ -14,7 +14,7 @@ export const pizzaTypesMixin = (obj, types) => {
 export const createResources = () => {
   return {
     [resources.AUTH]: new AuthApiService(),
-    [resources.DOUGHS]: new BuilderApiService(resources.DOUGHS),
+    [resources.DOUGH]: new BuilderApiService(resources.DOUGH),
     [resources.SIZES]: new BuilderApiService(resources.SIZES),
     [resources.SAUCES]: new BuilderApiService(resources.SAUCES),
     [resources.INGREDIENTS]: new BuilderApiService(resources.INGREDIENTS),

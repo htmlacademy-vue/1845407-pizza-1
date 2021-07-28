@@ -22,11 +22,14 @@ export default {
       dispatch(SET_ACCOUNT);
     },
     async [SIGN_OUT]({ commit }) {
-      await this.$api.auth.logout();
-      this.$jwt.deleteToken();
-      this.$api.auth.setAuthHeader();
+      try {
+        await this.$api.auth.logout();
+      } finally {
+        this.$jwt.deleteToken();
+        this.$api.auth.setAuthHeader();
 
-      commit(SET_ACCOUNT);
+        commit(SET_ACCOUNT);
+      }
     },
     async [SET_ACCOUNT]({ dispatch, commit }) {
       try {

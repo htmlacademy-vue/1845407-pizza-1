@@ -16,7 +16,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 const state = () => ({
   id: "",
   title: "",
-  doughs: [],
+  dough: [],
   sizes: [],
   sauces: [],
   ingredients: [],
@@ -26,8 +26,8 @@ export default {
   namespaced: true,
   state,
   getters: {
-    choice({ id, title, doughs, sizes, sauces, ingredients }) {
-      const dough = find(doughs, "checked"),
+    choice({ id, title, dough, sizes, sauces, ingredients }) {
+      const _dough = find(dough, "checked"),
         size = find(sizes, "checked"),
         sauce = find(sauces, "checked");
       let price = 0;
@@ -38,7 +38,7 @@ export default {
       price += dough?.price ?? 0;
       price += sauce?.price ?? 0;
       price *= size?.multiplier ?? 0;
-      return { id, title, dough, size, sauce, ingredients, price };
+      return { id, title, dough: _dough, size, sauce, ingredients, price };
     },
   },
   actions: {
@@ -46,34 +46,38 @@ export default {
       commit(UPDATE_CHOICE, choice);
     },
     [LOAD_CHOICE]({ state, commit }, choice) {
-      let { doughs, sizes, sauces } = state;
-      const { id, title, dough, size, sauce, ingredients } = choice;
-      doughs = doughs.map((item) => ({ ...item, checked: false }));
-      doughs = pizzaTypesMixin(doughs, [dough]);
+      let { dough, sizes, sauces } = state;
+      const { id, title, ingredients } = choice;
+      dough = dough.map((item) => ({ ...item, checked: false }));
+      dough = pizzaTypesMixin(dough, [choice.dough]);
       sizes = sizes.map((item) => ({ ...item, checked: false }));
-      sizes = pizzaTypesMixin(sizes, [size]);
+      sizes = pizzaTypesMixin(sizes, [choice.size]);
       sauces = sauces.map((item) => ({ ...item, checked: false }));
-      sauces = pizzaTypesMixin(sauces, [sauce]);
+      sauces = pizzaTypesMixin(sauces, [choice.sauce]);
 
-      commit(UPDATE_CHOICE, { id, title, doughs, sizes, sauces, ingredients });
+      commit(UPDATE_CHOICE, { id, title, dough, sizes, sauces, ingredients });
     },
     async [RESET_CHOICE]({ dispatch }) {
-      let [doughs, sizes, sauces, ingredients] = await Promise.all([
-        this.$api.dough.query(),
-        this.$api.sizes.query(),
-        this.$api.sauces.query(),
-        this.$api.ingredients.query(),
-      ]);
-
-      doughs = pizzaTypesMixin(doughs, PIZZA_DOUGH_TYPES);
-      sizes = pizzaTypesMixin(sizes, PIZZA_SIZES_TYPES);
-      sauces = pizzaTypesMixin(sauces, PIZZA_SAUCES_TYPES);
-      ingredients = pizzaTypesMixin(ingredients, PIZZA_INGREDIENTS_TYPES);
-
-      dispatch(UPDATE_CHOICE, { doughs, sizes, sauces, ingredients });
+      dispatch("query", { component: "dough", mixin: PIZZA_DOUGH_TYPES });
+      dispatch("query", { component: "sizes", mixin: PIZZA_SIZES_TYPES });
+      dispatch("query", { component: "sauces", mixin: PIZZA_SAUCES_TYPES });
+      dispatch("query", {
+        component: "ingredients",
+        mixin: PIZZA_INGREDIENTS_TYPES,
+      });
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
+    },
+    async query({ dispatch }, { component, mixin }) {
+      console.log({ component, mixin });
+      const items = {};
+      items[component] = pizzaTypesMixin(
+        await this.$api[component].query(),
+        mixin
+      );
+      console.log(items);
+      dispatch(UPDATE_CHOICE, items);
     },
   },
   mutations: {
