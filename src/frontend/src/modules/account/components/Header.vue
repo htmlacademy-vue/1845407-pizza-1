@@ -2,14 +2,7 @@
   <div class="header__user">
     <template v-if="isLogged">
       <router-link :to="{ name: 'profile' }">
-        <picture>
-          <img
-            :src="account.avatar"
-            :alt="account.name"
-            width="32"
-            height="32"
-          />
-        </picture>
+        <avatar :width="32" :height="32" small="1x" big="2x" />
         <span>{{ account.name }}</span>
       </router-link>
       <a href="#" class="header__logout" @click.prevent="sign_out">
@@ -28,8 +21,11 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import { SIGN_OUT } from "@/store/modules/auth.store.js";
 
+import Avatar from "@/modules/account/components/Avatar";
+
 export default {
   name: "PzzAccountHeader",
+  components: { Avatar },
   computed: {
     ...mapState("Auth", ["account"]),
     ...mapGetters("Auth", ["isLogged"]),

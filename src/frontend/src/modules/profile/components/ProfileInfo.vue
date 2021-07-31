@@ -1,30 +1,25 @@
 <template>
   <div class="user">
-    <picture>
-      <source
-        type="image/webp"
-        srcset="
-          /public/img/users/user@2x.webp 1x,
-          /public/img/users/user@4x.webp 2x
-        "
-      />
-      <img
-        src="/public/img/users/user@2x.jpg"
-        srcset="/public/img/users/user5@4x.jpg"
-        alt="Василий Ложкин"
-        width="72"
-        height="72"
-      />
-    </picture>
+    <avatar :width="72" :height="72" small="2x" big="4x" />
     <div class="user__name">
-      <span>Василий Ложкин</span>
+      <span>{{ account.name }}</span>
     </div>
-    <p class="user__phone">Контактный телефон: <span>+7 999-999-99-99</span></p>
+    <p class="user__phone">
+      Контактный телефон: <span>{{ account.phone }}</span>
+    </p>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
+import Avatar from "@/modules/account/components/Avatar";
+
 export default {
   name: "ProfileInfo",
+  components: { Avatar },
+  computed: {
+    ...mapState("Auth", ["account"]),
+  },
 };
 </script>
