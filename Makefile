@@ -1,11 +1,13 @@
 # Makefile for local development
 
 rebuild_backend:
-	docker-compose down -v
+	# docker-compose down -v
+	docker-compose down
 	docker-compose run backend npm run rebuild
 
 start_project:
-	docker-compose down -v
+	# docker-compose down -v
+	docker-compose down
 	docker-compose up
 
 run_tests:
