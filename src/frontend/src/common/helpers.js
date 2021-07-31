@@ -1,7 +1,11 @@
 import find from "lodash/find";
 
 import resources from "@/common/enums/resources";
-import { AuthApiService, BuilderApiService } from "@/services/api.service";
+import {
+  AuthApiService,
+  BuilderApiService,
+  CrudApiService,
+} from "@/services/api.service";
 
 // Добавляем к объекту аттрибут type
 // из сопоставления { name: type }
@@ -18,5 +22,8 @@ export const createResources = () => {
     [resources.SIZES]: new BuilderApiService(resources.SIZES),
     [resources.SAUCES]: new BuilderApiService(resources.SAUCES),
     [resources.INGREDIENTS]: new BuilderApiService(resources.INGREDIENTS),
+    [resources.MISC]: new BuilderApiService(resources.MISC),
+    [resources.ORDERS]: new CrudApiService(resources.ORDERS),
+    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES),
   };
 };
