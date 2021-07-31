@@ -39,13 +39,6 @@ export default {
         dispatch(SIGN_OUT);
       }
     },
-    [CART_ORDER_REDIRECT]({ getters }) {
-      if (getters.isLogged) {
-        this.$router.replace({ name: "orders" });
-      } else {
-        this.$router.replace({ name: "builder" });
-      }
-    },
   },
   mutations: {
     [SET_ACCOUNT](state, account = undefined) {

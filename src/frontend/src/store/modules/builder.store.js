@@ -58,6 +58,7 @@ export default {
       commit(UPDATE_CHOICE, { id, title, dough, sizes, sauces, ingredients });
     },
     async [RESET_CHOICE]({ dispatch }) {
+      dispatch(UPDATE_CHOICE, state());
       dispatch("query", { component: "dough", mixin: PIZZA_DOUGH_TYPES });
       dispatch("query", { component: "sizes", mixin: PIZZA_SIZES_TYPES });
       dispatch("query", { component: "sauces", mixin: PIZZA_SAUCES_TYPES });
@@ -70,13 +71,11 @@ export default {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
     },
     async query({ dispatch }, { component, mixin }) {
-      console.log({ component, mixin });
       const items = {};
       items[component] = pizzaTypesMixin(
         await this.$api[component].query(),
         mixin
       );
-      console.log(items);
       dispatch(UPDATE_CHOICE, items);
     },
   },

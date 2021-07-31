@@ -1,7 +1,6 @@
 import uniqueId from "lodash/uniqueId";
 import find from "lodash/find";
 
-import additionalData from "@/static/misc.json";
 import { MISC_ADDITIONAL } from "@/common/constants";
 import { pizzaTypesMixin } from "@/common/helpers";
 
@@ -9,11 +8,10 @@ export const UPDATE_CART = "UPDATE_CART";
 export const SUBMIT_CART = "SUBMIT_CART";
 export const RESET_CART = "RESET_CART";
 import { ADD_TO_CART, RESET_CHOICE } from "@/store/modules/builder.store";
-import { CART_ORDER_REDIRECT } from "@/store/modules/auth.store.js";
 
 const state = () => ({
   pizzas: [],
-  additional: pizzaTypesMixin(additionalData, MISC_ADDITIONAL),
+  additional: [],
   delivery: {
     type: "",
     phone: "",
@@ -64,9 +62,13 @@ export default {
       // отправить заказ на сервер
       commit(SUBMIT_CART);
     },
-    [RESET_CART]({ commit, dispatch }) {
-      commit(UPDATE_CART, state());
-      dispatch(`Auth/${CART_ORDER_REDIRECT}`, null, { root: true });
+    async [RESET_CART]({ commit }) {
+      // загрузить допы
+      const additional = pizzaTypesMixin(
+        await this.$api.misc.query(),
+        MISC_ADDITIONAL
+      );
+      commit(UPDATE_CART, { ...state(), additional });
     },
   },
   mutations: {
