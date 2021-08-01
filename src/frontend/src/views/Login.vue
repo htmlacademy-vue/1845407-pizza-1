@@ -6,7 +6,7 @@
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
-    <form action="test.html" method="post" @submit.prevent="sign_in($data)">
+    <form action="test.html" method="post" @submit.prevent="sign_in">
       <div class="sign-form__input">
         <base-input-field
           ref="email"
@@ -39,7 +39,7 @@
 <script>
 import BaseInputField from "@/common/components/InputField.vue";
 
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { SIGN_IN } from "@/store/modules/auth.store.js";
 
 export default {
@@ -49,22 +49,35 @@ export default {
     return {
       email: "",
       password: "",
+      from: null,
     };
+  },
+  computed: {
+    ...mapGetters("Auth", ["isLogged"]),
   },
   methods: {
     ...mapActions("Auth", [SIGN_IN]),
     async sign_in() {
       try {
         await this[SIGN_IN](this.$data);
-        await this.$router.back();
+        await this.$router.replace(this.from.fullPath);
       } catch {
         this.password = "";
       }
     },
   },
+  async created() {
+    await this.$nextTick();
+    if (this.isLogged) await this.$router.replace(this.from.fullPath);
+  },
   mounted() {
     // при входе на страницу ставим фокус на email-инпуте
     this.$refs.email.$refs.input.focus();
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.from = from;
+    });
   },
 };
 </script>

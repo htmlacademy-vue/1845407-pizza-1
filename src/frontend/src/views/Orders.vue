@@ -212,5 +212,13 @@
 <script>
 export default {
   name: "Orders",
+  data() {
+    return {
+      orders: [],
+    };
+  },
+  async created() {
+    this.orders = await this.$api.orders.query();
+  },
 };
 </script>

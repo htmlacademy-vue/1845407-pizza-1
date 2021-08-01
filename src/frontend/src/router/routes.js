@@ -1,3 +1,5 @@
+import { auth, isLogged } from "@/middlewares";
+
 export default [
   {
     path: "/",
@@ -9,10 +11,12 @@ export default [
   {
     path: "/login",
     name: "login",
-    meta: { layout: "Popup" },
     components: {
       default: () => import("@/views/Login.vue"),
       main: () => import("@/views/Builder.vue"),
+    },
+    meta: {
+      layout: "Popup",
     },
   },
   {
@@ -25,28 +29,36 @@ export default [
   {
     path: "/cart/thanks",
     name: "thanks",
-    meta: { layout: "Popup" },
     components: {
       default: () => import("@/views/Thanks.vue"),
       main: () => import("@/views/Cart.vue"),
+    },
+    meta: {
+      layout: "Popup",
     },
   },
   {
     path: "/orders",
     name: "orders",
-    meta: { layout: "Sidebar" },
     components: {
       default: () => import("@/views/Orders.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
+    },
+    meta: {
+      layout: "Sidebar",
+      middlewares: [auth, isLogged],
     },
   },
   {
     path: "/profile",
     name: "profile",
-    meta: { layout: "Sidebar" },
     components: {
       default: () => import("@/views/Profile.vue"),
       sidebar: () => import("@/modules/account/components/Sidebar.vue"),
+    },
+    meta: {
+      layout: "Sidebar",
+      middlewares: [auth, isLogged],
     },
   },
 ];
