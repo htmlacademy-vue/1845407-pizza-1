@@ -113,22 +113,14 @@ export default {
   },
   methods: {
     async onSubmit() {
-      try {
-        const address = this.persisted
-          ? await this.$api.addresses.put(this.$data)
-          : await this.$api.addresses.post(this.$data);
-        this.$emit("updateList", { ...this.$data, ...address });
-      } catch (e) {
-        console.warn(e);
-      }
+      const address = this.persisted
+        ? await this.$api.addresses.put(this.$data)
+        : await this.$api.addresses.post(this.$data);
+      this.$emit("updateList", { ...this.$data, ...address });
     },
     async onDestroy() {
-      try {
-        await this.$api.addresses.delete(this.id);
-        this.$emit("updateList", { ...this.$data, _destroyed: true });
-      } catch (e) {
-        console.warn(e);
-      }
+      await this.$api.addresses.delete(this.id);
+      this.$emit("updateList", { ...this.$data, _destroyed: true });
     },
   },
 };
