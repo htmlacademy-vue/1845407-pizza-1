@@ -1,6 +1,5 @@
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
-export const CART_ORDER_REDIRECT = "CART_ORDER_REDIRECT";
 export const SET_ACCOUNT = "SET_ACCOUNT";
 
 export default {
