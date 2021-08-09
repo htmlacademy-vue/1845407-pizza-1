@@ -7,6 +7,8 @@
       :name="name"
       :placeholder="placeholder"
       :required="required"
+      :readonly="readonly"
+      :disabled="disabled"
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
@@ -34,6 +36,14 @@ export default {
       default: "",
     },
     required: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
