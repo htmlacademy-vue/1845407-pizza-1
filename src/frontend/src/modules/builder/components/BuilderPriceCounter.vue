@@ -1,14 +1,7 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ choice.price }} ₽</p>
-    <button
-      type="submit"
-      class="button"
-      :class="{ 'button--disabled': !ready }"
-      :disabled="!ready"
-    >
-      Готовьте!
-    </button>
+    <button type="submit" class="button" :disabled="!ready">Готовьте!</button>
   </div>
 </template>
 
