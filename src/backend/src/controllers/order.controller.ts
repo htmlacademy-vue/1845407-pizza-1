@@ -59,6 +59,13 @@ export class OrderController {
           schema: {
             example: {
               "userId": "string",
+              "phone": "+7 999-999-99-99",
+              "address": {
+                "street": "string",
+                "building": "string",
+                "flat": "string",
+                "comment": "string"
+              },
               "pizzas": [
                 {
                   "name": "string",
@@ -80,13 +87,6 @@ export class OrderController {
                   "quantity": 0
                 }
               ],
-              "address": {
-                "name": "string",
-                "street": "string",
-                "building": "string",
-                "flat": "string",
-                "comment": "string"
-              },
             }
           }
         },
