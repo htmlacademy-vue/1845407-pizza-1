@@ -1,7 +1,6 @@
 import {
   Count,
   CountSchema,
-  Filter,
   FilterExcludingWhere,
   repository,
   Where,
@@ -100,7 +99,8 @@ export class OrderController {
     let addressId = address?.id;
     // if it is a new address
     if (address && !addressId) {
-      const newAddress = await this.addressRepository.create({...address, userId});
+      const name = `ул.${address.street}, д.${address.building}, кв.${address.flat}`;
+      const newAddress = await this.addressRepository.create({...address, name, userId});
       addressId = newAddress.id;
     }
     const newOrder = await this.orderRepository.create({...orderToSave, addressId});
