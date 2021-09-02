@@ -1,14 +1,5 @@
 <template>
-  <div id="app">
-    <app-notification />
-    <app-header />
-    <main class="content">
-      <router-view />
-    </main>
-    <div class="modal">
-      <router-view name="popup" />
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <script>

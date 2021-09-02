@@ -1,4 +1,10 @@
-import { auth, allowAuthenticated, skipAuthenticated } from "@/middlewares";
+// eslint-disable-next-line no-unused-vars
+import {
+  auth,
+  allowAuthenticated,
+  skipAuthenticated,
+  fromCart,
+} from "@/middlewares";
 
 export default [
   {
@@ -7,18 +13,18 @@ export default [
     components: {
       default: () => import("@/views/Builder"),
     },
-  },
-  {
-    path: "/login",
-    name: "login",
-    components: {
-      default: () => import("@/views/Login"),
-      main: () => import("@/views/Builder"),
-    },
-    meta: {
-      layout: "Popup",
-      middlewares: [auth, skipAuthenticated],
-    },
+    children: [
+      {
+        path: "/login",
+        name: "login",
+        components: {
+          modal: () => import("@/views/Login"),
+        },
+        meta: {
+          middlewares: [auth, skipAuthenticated],
+        },
+      },
+    ],
   },
   {
     path: "/cart",
@@ -26,29 +32,24 @@ export default [
     components: {
       default: () => import("@/views/Cart"),
     },
-  },
-  {
-    path: "/cart/thanks",
-    name: "thanks",
-    components: {
-      default: () => import("@/views/Thanks"),
-      main: () => import("@/views/Cart"),
-    },
-    meta: {
-      layout: "Popup",
-    },
-    beforeEnter(to, from, next) {
-      // исключить попадание на эту страницу если это не переход из корзины
-      if (from.name == "cart") next();
-      else next(false);
-    },
+    children: [
+      {
+        path: "/cart/thanks",
+        name: "thanks",
+        components: {
+          modal: () => import("@/views/Thanks"),
+        },
+        meta: {
+          middlewares: [fromCart],
+        },
+      },
+    ],
   },
   {
     path: "/orders",
     name: "orders",
     components: {
       default: () => import("@/views/Orders"),
-      sidebar: () => import("@/modules/account/components/Sidebar"),
     },
     meta: {
       layout: "Sidebar",
@@ -60,7 +61,6 @@ export default [
     name: "profile",
     components: {
       default: () => import("@/views/Profile"),
-      sidebar: () => import("@/modules/account/components/Sidebar"),
     },
     meta: {
       layout: "Sidebar",

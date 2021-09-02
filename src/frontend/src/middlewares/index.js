@@ -1,7 +1,14 @@
+import middlewarePipeline from "@/middlewares/middlewarePipeline";
+
 import auth from "@/middlewares/auth";
 import allowAuthenticated from "@/middlewares/allowAuthenticated";
 import skipAuthenticated from "@/middlewares/skipAuthenticated";
+import fromCart from "@/middlewares/fromCart";
 
-import middlewarePipeline from "@/middlewares/middlewarePipeline";
-
-export { auth, allowAuthenticated, skipAuthenticated, middlewarePipeline };
+export {
+  middlewarePipeline,
+  auth,
+  allowAuthenticated,
+  skipAuthenticated,
+  fromCart,
+};

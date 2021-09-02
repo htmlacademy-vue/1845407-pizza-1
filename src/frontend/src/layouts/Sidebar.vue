@@ -1,20 +1,16 @@
 <template>
-  <div id="app">
-    <app-notification />
-    <app-header />
-    <main class="layout">
-      <router-view name="sidebar" class="layout__sidebar" />
-      <router-view class="layout__content" />
-    </main>
-    <div class="modal">
-      <router-view name="popup" />
-    </div>
-  </div>
+  <main class="layout">
+    <account-sidebar class="layout__sidebar" />
+    <router-view class="layout__content" />
+  </main>
 </template>
 
 <script>
+import AccountSidebar from "@/modules/account/components/Sidebar";
+
 export default {
   name: "SidebarLayout",
+  components: { AccountSidebar },
 };
 </script>
 

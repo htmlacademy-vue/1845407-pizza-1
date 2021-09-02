@@ -1,5 +1,9 @@
 <template>
-  <component :is="layoutComponent" :class="layoutClass" />
+  <div id="app">
+    <app-notification />
+    <app-header />
+    <component :is="layoutComponent" :class="layoutClass" />
+  </div>
 </template>
 
 <script>

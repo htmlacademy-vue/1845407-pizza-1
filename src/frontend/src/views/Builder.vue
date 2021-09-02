@@ -1,27 +1,32 @@
 <template>
-  <form
-    action="#"
-    method="post"
-    class="layout-form"
-    @submit.prevent="addToCart"
-  >
-    <div class="content__wrapper">
-      <h1 class="title title--big">Конструктор пиццы</h1>
+  <main class="content">
+    <form
+      action="#"
+      method="post"
+      class="layout-form"
+      @submit.prevent="addToCart"
+    >
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-      <pzz-builder-dough-selector />
+        <pzz-builder-dough-selector />
 
-      <pzz-builder-size-selector />
+        <pzz-builder-size-selector />
 
-      <pzz-builder-ingredients-selector />
+        <pzz-builder-ingredients-selector />
 
-      <div class="content__pizza">
-        <pzz-builder-title-input />
+        <div class="content__pizza">
+          <pzz-builder-title-input />
 
-        <pzz-builder-pizza-view />
-        <pzz-builder-price-counter />
+          <pzz-builder-pizza-view />
+          <pzz-builder-price-counter />
+        </div>
       </div>
+    </form>
+    <div class="modal">
+      <router-view name="modal" />
     </div>
-  </form>
+  </main>
 </template>
 
 <script>

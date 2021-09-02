@@ -1,6 +1,7 @@
 const allowAuthenticated = ({ from, next, store, nextMiddleware }) => {
-  if (!store.getters["Auth/isLogged"]) next(from.fullPath);
-  return nextMiddleware();
+  return store.getters["Auth/isLogged"]
+    ? nextMiddleware()
+    : next(from.fullPath);
 };
 
 export default allowAuthenticated;

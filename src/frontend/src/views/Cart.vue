@@ -1,31 +1,36 @@
 <template>
-  <form
-    action="/orders"
-    method="post"
-    class="layout-form"
-    @submit.prevent="submit"
-  >
-    <div class="container">
-      <div class="cart__title">
-        <h1 class="title title--big">Корзина</h1>
-      </div>
-
-      <!-- <div class="sheet cart__empty">
-        <p>В корзине нет ни одного товара</p>
-      </div> -->
-      <template v-if="isEmpty">
-        <div class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
+  <main class="content">
+    <form
+      action="/orders"
+      method="post"
+      class="layout-form"
+      @submit.prevent="submit"
+    >
+      <div class="container">
+        <div class="cart__title">
+          <h1 class="title title--big">Корзина</h1>
         </div>
-      </template>
-      <template v-else>
-        <pzz-cart-pizzas />
-        <pzz-cart-misc />
-        <pzz-cart-delivery />
-      </template>
+
+        <!-- <div class="sheet cart__empty">
+          <p>В корзине нет ни одного товара</p>
+        </div> -->
+        <template v-if="isEmpty">
+          <div class="sheet cart__empty">
+            <p>В корзине нет ни одного товара</p>
+          </div>
+        </template>
+        <template v-else>
+          <pzz-cart-pizzas />
+          <pzz-cart-misc />
+          <pzz-cart-delivery />
+        </template>
+      </div>
+      <pzz-cart-footer />
+    </form>
+    <div class="modal">
+      <router-view name="modal" />
     </div>
-    <pzz-cart-footer />
-  </form>
+  </main>
 </template>
 
 <script>
