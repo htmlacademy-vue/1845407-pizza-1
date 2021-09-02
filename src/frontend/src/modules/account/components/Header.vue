@@ -38,6 +38,7 @@ export default {
       if (this.$router.currentRoute.name != "builder") {
         this.$router.push({ name: "builder" });
       }
+      //location.reload();
     },
   },
 };

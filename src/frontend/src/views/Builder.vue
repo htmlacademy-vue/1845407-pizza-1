@@ -34,12 +34,12 @@ import {
   RESET_CHOICE,
 } from "@/store/modules/builder.store";
 
-import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector.vue";
-import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector.vue";
-import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector.vue";
-import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView.vue";
-import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter.vue";
-import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput.vue";
+import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
 
 export default {
   name: "Builder",
@@ -58,8 +58,8 @@ export default {
   methods: {
     ...mapActions("Builder", {
       addToCart: ADD_TO_CART,
-      loadChoice: LOAD_CHOICE,
-      resetChoice: RESET_CHOICE,
+      LOAD_CHOICE,
+      RESET_CHOICE,
     }),
   },
   created() {
@@ -67,7 +67,7 @@ export default {
       // загрузить конфигурацию пиццы в билдер
       const choice = find(this.pizzas, ["id", this.$route.query.id]);
       if (choice) {
-        this.loadChoice(choice);
+        this[LOAD_CHOICE](choice);
       } else {
         this.$router.replace({ name: "builder" });
       }
@@ -75,7 +75,7 @@ export default {
   },
   destroyed() {
     if (this.choice.id) {
-      this.resetChoice();
+      this[RESET_CHOICE]();
     }
   },
 };

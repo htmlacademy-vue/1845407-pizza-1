@@ -6,7 +6,7 @@ import {
   PIZZA_SAUCES_TYPES,
   PIZZA_SIZES_TYPES,
 } from "@/common/constants";
-import { pizzaTypesMixin } from "@/common/helpers";
+import { normalizeByKey } from "@/common/helpers";
 
 export const UPDATE_CHOICE = "UPDATE_CHOICE";
 export const LOAD_CHOICE = "LOAD_CHOICE";
@@ -15,7 +15,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 
 const state = () => ({
   id: "",
-  title: "",
+  name: "",
   dough: [],
   sizes: [],
   sauces: [],
@@ -26,19 +26,19 @@ export default {
   namespaced: true,
   state,
   getters: {
-    choice({ id, title, dough, sizes, sauces, ingredients }) {
+    choice({ id, name, dough, sizes, sauces, ingredients }) {
       const _dough = find(dough, "checked"),
         size = find(sizes, "checked"),
         sauce = find(sauces, "checked");
       let price = 0;
       price += ingredients.reduce(
-        (total, ingredient) => total + ingredient?.price * ingredient?.count,
+        (total, ingredient) => total + ingredient?.price * ingredient?.quantity,
         0
       );
       price += dough?.price ?? 0;
       price += sauce?.price ?? 0;
       price *= size?.multiplier ?? 0;
-      return { id, title, dough: _dough, size, sauce, ingredients, price };
+      return { id, name, dough: _dough, size, sauce, ingredients, price };
     },
   },
   actions: {
@@ -47,36 +47,37 @@ export default {
     },
     [LOAD_CHOICE]({ state, commit }, choice) {
       let { dough, sizes, sauces } = state;
-      const { id, title, ingredients } = choice;
+      const { id, name, ingredients } = choice;
       dough = dough.map((item) => ({ ...item, checked: false }));
-      dough = pizzaTypesMixin(dough, [choice.dough]);
+      dough = normalizeByKey(dough, [choice.dough], "name");
       sizes = sizes.map((item) => ({ ...item, checked: false }));
-      sizes = pizzaTypesMixin(sizes, [choice.size]);
+      sizes = normalizeByKey(sizes, [choice.size], "name");
       sauces = sauces.map((item) => ({ ...item, checked: false }));
-      sauces = pizzaTypesMixin(sauces, [choice.sauce]);
+      sauces = normalizeByKey(sauces, [choice.sauce], "name");
 
-      commit(UPDATE_CHOICE, { id, title, dough, sizes, sauces, ingredients });
+      commit(UPDATE_CHOICE, { id, name, dough, sizes, sauces, ingredients });
     },
     async [RESET_CHOICE]({ dispatch }) {
       dispatch(UPDATE_CHOICE, state());
-      dispatch("query", { component: "dough", mixin: PIZZA_DOUGH_TYPES });
-      dispatch("query", { component: "sizes", mixin: PIZZA_SIZES_TYPES });
-      dispatch("query", { component: "sauces", mixin: PIZZA_SAUCES_TYPES });
+      dispatch("query", { resource: "dough", mixin: PIZZA_DOUGH_TYPES });
+      dispatch("query", { resource: "sizes", mixin: PIZZA_SIZES_TYPES });
+      dispatch("query", { resource: "sauces", mixin: PIZZA_SAUCES_TYPES });
       dispatch("query", {
-        component: "ingredients",
+        resource: "ingredients",
         mixin: PIZZA_INGREDIENTS_TYPES,
       });
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
     },
-    async query({ dispatch }, { component, mixin }) {
-      const items = {};
-      items[component] = pizzaTypesMixin(
-        await this.$api[component].query(),
-        mixin
+    async query({ dispatch }, { resource, mixin }) {
+      const resources = {};
+      resources[resource] = normalizeByKey(
+        await this.$api[resource].query(),
+        mixin,
+        "name"
       );
-      dispatch(UPDATE_CHOICE, items);
+      dispatch(UPDATE_CHOICE, resources);
     },
   },
   mutations: {

@@ -4,33 +4,43 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select name="delivery[type]" class="select">
-          <option value="1">Заберу сам</option>
-          <option value="2">Новый адрес</option>
-          <option value="3">Дом</option>
+        <select
+          name="addressSelector"
+          class="select"
+          :value="addressValue(address)"
+          @change="selectAddress"
+        >
+          <option
+            v-for="item in selectAddresses"
+            :key="item.value"
+            :value="item.value"
+          >
+            {{ item.value }}
+          </option>
         </select>
       </label>
 
       <base-input-field
         type="tel"
-        name="delivery[phone]"
-        :value="delivery.phone"
+        name="address[phone]"
+        :value="phone"
         class="input--big-label"
         placeholder="+7 999-999-99-99"
-        @input="changeDelivery({ phone: $event })"
+        @input="changePhone"
       >
         <span>Контактный телефон:</span>
       </base-input-field>
 
-      <div class="cart-form__address">
-        <span class="cart-form__label">Новый адрес:</span>
+      <div class="cart-form__address" v-if="!isNullAddress">
+        <span class="cart-form__label">{{ addressValue(address) }}:</span>
 
         <div class="cart-form__input">
           <base-input-field
-            name="delivery[street]"
-            :value="delivery.street"
+            name="address[street]"
+            :value="address.street"
             :required="true"
-            @input="changeDelivery({ street: $event })"
+            :disabled="readonlyAddress"
+            @input="changeAddress({ street: $event })"
           >
             <span>Улица*</span>
           </base-input-field>
@@ -38,10 +48,11 @@
 
         <div class="cart-form__input cart-form__input--small">
           <base-input-field
-            name="delivery[building]"
-            :value="delivery.building"
+            name="address[building]"
+            :value="address.building"
             :required="true"
-            @input="changeDelivery({ building: $event })"
+            :disabled="readonlyAddress"
+            @input="changeAddress({ building: $event })"
           >
             <span>Дом*</span>
           </base-input-field>
@@ -49,9 +60,10 @@
 
         <div class="cart-form__input cart-form__input--small">
           <base-input-field
-            name="delivery[room]"
-            :value="delivery.room"
-            @input="changeDelivery({ room: $event })"
+            name="address[flat]"
+            :value="address.flat"
+            :disabled="readonlyAddress"
+            @input="changeAddress({ flat: $event })"
           >
             <span>Квартира</span>
           </base-input-field>
@@ -62,24 +74,61 @@
 </template>
 
 <script>
-import BaseInputField from "@/common/components/InputField.vue";
-import { mapState, mapActions } from "vuex";
+import isNull from "lodash/isNull";
+
+import BaseInputField from "@/common/components/InputField";
+import { mapState, mapGetters, mapActions } from "vuex";
 import { UPDATE_CART } from "@/store/modules/cart.store";
+import { LOAD_ADDRESSES } from "@/store/modules/auth.store";
 
 export default {
   name: "CartDelivery",
   components: { BaseInputField },
   computed: {
-    ...mapState("Cart", ["delivery"]),
+    ...mapState("Cart", ["phone", "address"]),
+    ...mapGetters("Auth", ["deliveryAddresses", "newAddress"]),
+    readonlyAddress() {
+      return !!this.address?.id;
+    },
+    selectAddresses() {
+      return this.deliveryAddresses.map((item) => ({
+        ...item,
+        value: this.addressValue(item),
+      }));
+    },
+    isNullAddress() {
+      return isNull(this.address);
+    },
   },
   methods: {
-    ...mapActions("Cart", {
-      updateCart: UPDATE_CART,
-    }),
-    changeDelivery(part) {
-      const delivery = { ...this.delivery, ...part };
-      this.updateCart({ delivery });
+    ...mapActions("Cart", [UPDATE_CART]),
+    ...mapActions("Auth", [LOAD_ADDRESSES]),
+    selectAddress(event) {
+      const address = this.deliveryAddresses[event.target.selectedIndex];
+      this.changeAddress(address);
     },
+    changeAddress(data) {
+      const address = isNull(data)
+        ? data
+        : { ...this.newAddress, ...this.address, ...data };
+      this[UPDATE_CART]({ address });
+    },
+    changePhone(phone) {
+      this[UPDATE_CART]({ phone });
+    },
+    addressValue(address) {
+      switch (address?.name) {
+        case undefined:
+          return "Заберу сам";
+        case null:
+          return "Новый адрес";
+        default:
+          return address.name;
+      }
+    },
+  },
+  async created() {
+    this[LOAD_ADDRESSES]();
   },
 };
 </script>

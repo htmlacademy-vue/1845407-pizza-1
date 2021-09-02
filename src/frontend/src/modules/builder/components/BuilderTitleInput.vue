@@ -5,8 +5,8 @@
       type="text"
       name="pizza_name"
       placeholder="Введите название пиццы"
-      :value="title"
-      @input="pizzaUpdate({ title: $event.target.value })"
+      :value="name"
+      @input="onInputTitle({ name: $event.target.value })"
     />
   </label>
 </template>
@@ -18,11 +18,11 @@ import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 export default {
   name: "PzzBuilderTitleInput",
   computed: {
-    ...mapState("Builder", ["title"]),
+    ...mapState("Builder", ["name"]),
   },
   methods: {
     ...mapActions("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
+      onInputTitle: UPDATE_CHOICE,
     }),
   },
 };

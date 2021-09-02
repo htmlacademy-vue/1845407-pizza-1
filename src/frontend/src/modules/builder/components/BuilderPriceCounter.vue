@@ -15,7 +15,7 @@ export default {
   computed: {
     ...mapGetters("Builder", ["choice"]),
     ready() {
-      return some(this.choice.ingredients, "count") && !!this.choice.title;
+      return some(this.choice.ingredients, "quantity") && !!this.choice.name;
     },
   },
 };

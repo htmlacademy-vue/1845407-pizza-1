@@ -7,23 +7,21 @@ import {
   CrudApiService,
 } from "@/services/api.service";
 
-// Добавляем к объекту аттрибут type
-// из сопоставления { name: type }
-export const pizzaTypesMixin = (obj, types) => {
-  return obj.map((item) =>
-    Object.assign(item, find(types, ["name", item.name]))
-  );
-};
+export const normalizeByKey = (list, data, key) =>
+  list.map((item) => Object.assign(item, find(data, [key, item[key]])));
 
-export const createResources = () => {
+export const createResources = (notifier) => {
   return {
-    [resources.AUTH]: new AuthApiService(),
-    [resources.DOUGH]: new BuilderApiService(resources.DOUGH),
-    [resources.SIZES]: new BuilderApiService(resources.SIZES),
-    [resources.SAUCES]: new BuilderApiService(resources.SAUCES),
-    [resources.INGREDIENTS]: new BuilderApiService(resources.INGREDIENTS),
-    [resources.MISC]: new BuilderApiService(resources.MISC),
-    [resources.ORDERS]: new CrudApiService(resources.ORDERS),
-    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES),
+    [resources.AUTH]: new AuthApiService(notifier),
+    [resources.DOUGH]: new BuilderApiService(resources.DOUGH, notifier),
+    [resources.SIZES]: new BuilderApiService(resources.SIZES, notifier),
+    [resources.SAUCES]: new BuilderApiService(resources.SAUCES, notifier),
+    [resources.INGREDIENTS]: new BuilderApiService(
+      resources.INGREDIENTS,
+      notifier
+    ),
+    [resources.MISC]: new BuilderApiService(resources.MISC, notifier),
+    [resources.ORDERS]: new CrudApiService(resources.ORDERS, notifier),
+    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES, notifier),
   };
 };

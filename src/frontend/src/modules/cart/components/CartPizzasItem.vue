@@ -6,10 +6,10 @@
         class="product__img"
         width="56"
         height="56"
-        :alt="title"
+        :alt="name"
       />
       <div class="product__text">
-        <h2>{{ title }}</h2>
+        <h2>{{ name }}</h2>
         <ul>
           <li>{{ size.name }}, {{ dough.desc }}</li>
           <li>Соус: {{ sauceDesc }}</li>
@@ -20,8 +20,8 @@
 
     <base-item-counter
       class="cart-list__counter"
-      :name="`pizza[${id}][count]`"
-      :value="count"
+      :name="`pizza[${id}][quantity]`"
+      :value="quantity"
       :min="1"
       @input="$emit('onChangeCount', $event.target.value)"
     />
@@ -31,7 +31,11 @@
     </div>
 
     <div class="cart-list__button">
-      <button type="button" class="cart-list__edit" @click="onEditPizza">
+      <button
+        type="button"
+        class="cart-list__edit"
+        @click="$router.push({ name: 'builder', query: { id } })"
+      >
         Изменить
       </button>
       <button
@@ -46,20 +50,19 @@
 </template>
 
 <script>
-import filter from "lodash/filter";
-import BaseItemCounter from "@/common/components/ItemCounter.vue";
+import BaseItemCounter from "@/common/components/ItemCounter";
 
 export default {
   name: "CartPizzasItem",
   components: { BaseItemCounter },
   props: {
-    id: String,
-    title: String,
+    id: [String, Number],
+    name: String,
     dough: Object,
     size: Object,
     sauce: Object,
     ingredients: Array,
-    count: Number,
+    quantity: Number,
     price: Number,
   },
   computed: {
@@ -67,20 +70,15 @@ export default {
       return this.sauce.name.toLowerCase();
     },
     ingredientsDesc() {
-      return filter(this.ingredients, "count")
+      return this.ingredients
+        .filter(({ quantity }) => quantity)
         .map(({ name }) => name)
         .join(", ")
         .toLowerCase();
     },
 
     cost() {
-      return this.count * this.price;
-    },
-  },
-  methods: {
-    onEditPizza() {
-      const id = this.id;
-      this.$router.push({ name: "builder", query: { id } });
+      return this.quantity * this.price;
     },
   },
 };

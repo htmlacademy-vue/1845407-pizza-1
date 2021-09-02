@@ -24,7 +24,7 @@
 <script>
 import find from "lodash/find";
 
-import BaseRadioButton from "@/common/components/RadioButton.vue";
+import BaseRadioButton from "@/common/components/RadioButton";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
@@ -36,15 +36,13 @@ export default {
     ...mapState("Builder", ["sizes"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
-    }),
+    ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeSize(choice) {
       let sizes = this.sizes.map((item) => ({ ...item, checked: false }));
       const checked = find(sizes, ["type", choice]);
       if (checked) {
         Object.assign(checked, { checked: true });
-        this.pizzaUpdate({ sizes });
+        this[UPDATE_CHOICE]({ sizes });
       }
     },
   },

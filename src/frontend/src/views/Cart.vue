@@ -1,6 +1,6 @@
 <template>
   <form
-    action="/order"
+    action="/orders"
     method="post"
     class="layout-form"
     @submit.prevent="submit"
@@ -20,7 +20,7 @@
       </template>
       <template v-else>
         <pzz-cart-pizzas />
-        <pzz-cart-additional />
+        <pzz-cart-misc />
         <pzz-cart-delivery />
       </template>
     </div>
@@ -29,29 +29,35 @@
 </template>
 
 <script>
-import PzzCartPizzas from "@/modules/cart/components/CartPizzas.vue";
-import PzzCartAdditional from "@/modules/cart/components/CartAdditional.vue";
-import PzzCartDelivery from "@/modules/cart/components/CartDelivery.vue";
-import PzzCartFooter from "@/modules/cart/components/CartFooter.vue";
+import PzzCartPizzas from "@/modules/cart/components/CartPizzas";
+import PzzCartMisc from "@/modules/cart/components/CartMisc";
+import PzzCartDelivery from "@/modules/cart/components/CartDelivery";
+import PzzCartFooter from "@/modules/cart/components/CartFooter";
 
-import { mapGetters, mapActions } from "vuex";
-import { SUBMIT_CART } from "@/store/modules/cart.store";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
   components: {
     PzzCartPizzas,
-    PzzCartAdditional,
+    PzzCartMisc,
     PzzCartDelivery,
     PzzCartFooter,
   },
   computed: {
-    ...mapGetters("Cart", ["isEmpty"]),
+    ...mapGetters("Cart", ["isEmpty", "toJson"]),
+    ...mapState("Auth", ["account"]),
   },
   methods: {
-    ...mapActions("Cart", {
-      submit: SUBMIT_CART,
-    }),
+    async submit() {
+      const userId = this.account && this.account?.id;
+      try {
+        await this.$api.orders.post({ ...this.toJson, userId });
+        await this.$router.push({ name: "thanks" });
+      } catch (err) {
+        // continue regardless of error
+      }
+    },
   },
 };
 </script>

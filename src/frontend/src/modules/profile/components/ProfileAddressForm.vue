@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import BaseInputField from "@/common/components/InputField.vue";
+import BaseInputField from "@/common/components/InputField";
 
 import { mapState } from "vuex";
 
@@ -113,14 +113,22 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const address = this.persisted
-        ? await this.$api.addresses.put(this.$data)
-        : await this.$api.addresses.post(this.$data);
-      this.$emit("updateList", { ...this.$data, ...address });
+      try {
+        const address = this.persisted
+          ? await this.$api.addresses.put(this.$data)
+          : await this.$api.addresses.post(this.$data);
+        this.$emit("updateList", { ...this.$data, ...address });
+      } catch (e) {
+        // continue regardless of error
+      }
     },
     async onDestroy() {
-      await this.$api.addresses.delete(this.id);
-      this.$emit("updateList", { ...this.$data, _destroyed: true });
+      try {
+        await this.$api.addresses.delete(this.id);
+        this.$emit("updateList", { ...this.$data, _destroyed: true });
+      } catch (e) {
+        // continue regardless of error
+      }
     },
   },
 };

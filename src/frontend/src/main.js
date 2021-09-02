@@ -8,7 +8,9 @@ import "@/plugins/vuePlugins";
 Vue.config.productionTip = false;
 
 import AppHeader from "@/components/AppHeader";
+import AppNotification from "@/components/AppNotification";
 Vue.component("AppHeader", AppHeader);
+Vue.component("AppNotification", AppNotification);
 
 new Vue({
   router,

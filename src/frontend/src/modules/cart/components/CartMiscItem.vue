@@ -8,8 +8,8 @@
     <div class="additional-list__wrapper">
       <base-item-counter
         class="additional-list__counter"
-        name="addition[count]"
-        :value="count"
+        name="addition[quantity]"
+        :value="quantity"
         :min="0"
         @input="$emit('onChangeCount', $event.target.value)"
       />
@@ -21,20 +21,20 @@
 </template>
 
 <script>
-import BaseItemCounter from "@/common/components/ItemCounter.vue";
+import BaseItemCounter from "@/common/components/ItemCounter";
 
 export default {
-  name: "CartAdditionalItem",
+  name: "CartMiscItem",
   components: { BaseItemCounter },
   props: {
     name: String,
     image: String,
-    count: Number,
+    quantity: Number,
     price: Number,
   },
   computed: {
     cost() {
-      return this.count * this.price;
+      return this.quantity * this.price;
     },
   },
 };

@@ -25,7 +25,7 @@
 
           <ul class="ingridients__list">
             <li
-              v-for="{ name, type, count } of ingredients"
+              v-for="{ name, type, quantity } of ingredients"
               :key="type"
               class="ingridients__item"
             >
@@ -41,7 +41,7 @@
               <base-item-counter
                 class="ingridients__counter"
                 :name="`counter[${type}]`"
-                :value="count"
+                :value="quantity"
                 :min="0"
                 :max="3"
                 @input="onChangeIngredient(type, $event.target.value)"
@@ -57,8 +57,8 @@
 <script>
 import find from "lodash/find";
 
-import BaseRadioButton from "@/common/components/RadioButton.vue";
-import BaseItemCounter from "@/common/components/ItemCounter.vue";
+import BaseRadioButton from "@/common/components/RadioButton";
+import BaseItemCounter from "@/common/components/ItemCounter";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
@@ -70,9 +70,7 @@ export default {
     ...mapState("Builder", ["sauces", "ingredients"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
-    }),
+    ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeSouse(choice) {
       let sauces = this.sauces.map((item) => ({
         ...item,
@@ -81,7 +79,7 @@ export default {
       const checked = find(sauces, ["type", choice]);
       if (checked) {
         Object.assign(checked, { checked: true });
-        this.pizzaUpdate({ sauces });
+        this[UPDATE_CHOICE]({ sauces });
       }
     },
     onChangeIngredient(choice, value) {
@@ -90,8 +88,8 @@ export default {
       }));
       const checked = find(ingredients, ["type", choice]);
       if (checked) {
-        Object.assign(checked, { count: value * 1 });
-        this.pizzaUpdate({ ingredients });
+        Object.assign(checked, { quantity: value * 1 });
+        this[UPDATE_CHOICE]({ ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
@@ -100,8 +98,8 @@ export default {
       }));
       const checked = find(ingredients, ["type", choice]);
       if (checked) {
-        if (checked.count < 3) {
-          checked.count += 1;
+        if (checked.quantity < 3) {
+          checked.quantity += 1;
           dataTransfer.setData("ingredients", JSON.stringify(ingredients));
         }
       }

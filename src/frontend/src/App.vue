@@ -12,7 +12,7 @@ export default {
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
-      return () => import(`@/layouts/${layout}.vue`);
+      return () => import(`@/layouts/${layout}`);
     },
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;

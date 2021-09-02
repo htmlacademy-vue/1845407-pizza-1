@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import BaseInputField from "@/common/components/InputField.vue";
+import BaseInputField from "@/common/components/InputField";
 
-import { mapGetters, mapActions } from "vuex";
-import { SIGN_IN } from "@/store/modules/auth.store.js";
+import { mapActions } from "vuex";
+import { SIGN_IN } from "@/store/modules/auth.store";
 
 export default {
   name: "Login",
@@ -51,9 +51,6 @@ export default {
       password: "",
       from: null,
     };
-  },
-  computed: {
-    ...mapGetters("Auth", ["isLogged"]),
   },
   methods: {
     ...mapActions("Auth", [SIGN_IN]),
@@ -66,18 +63,14 @@ export default {
       }
     },
   },
-  async created() {
-    await this.$nextTick();
-    if (this.isLogged) await this.$router.replace(this.from.fullPath);
-  },
   mounted() {
     // при входе на страницу ставим фокус на email-инпуте
     this.$refs.email.$refs.input.focus();
   },
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.from = from;
-    });
+    // запоминаем откуда был переход на форму логина,
+    // что бы после авторизации вернуть обратно
+    next((vm) => (vm.from = from));
   },
 };
 </script>

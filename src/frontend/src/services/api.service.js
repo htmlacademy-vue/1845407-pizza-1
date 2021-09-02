@@ -2,14 +2,20 @@ import JwtService from "@/services/jwt.service";
 import axios from "@/plugins/axios";
 
 // Базовый API-сервис
-export class BaseApiService {}
+export class BaseApiService {
+  constructor(notifier) {
+    if (!axios.$notifier) {
+      axios.$notifier = notifier;
+    }
+  }
+}
 
 export class ReadOnlyApiService extends BaseApiService {
   // resource — приватное свойство класса. Добавляем его к базовому URL, чтобы получить
   // финальный URL, на который нужно отправлять запросы
   #resource;
-  constructor(resource) {
-    super();
+  constructor(resource, notifier) {
+    super(notifier);
     this.#resource = resource;
   }
 
@@ -32,8 +38,8 @@ export class CrudApiService extends ReadOnlyApiService {
   // resource — приватное свойство класса. Добавляем его к базовому URL, чтобы получить
   // финальный URL, на который нужно отправлять запросы
   #resource;
-  constructor(resource) {
-    super(resource);
+  constructor(resource, notifier) {
+    super(resource, notifier);
     this.#resource = resource;
   }
 
@@ -60,8 +66,8 @@ export class CrudApiService extends ReadOnlyApiService {
 }
 
 export class AuthApiService extends BaseApiService {
-  constructor() {
-    super();
+  constructor(notifier) {
+    super(notifier);
   }
 
   setAuthHeader() {
@@ -91,8 +97,8 @@ export class BuilderApiService extends BaseApiService {
   // resource — приватное свойство класса. Добавляем его к базовому URL, чтобы получить
   // финальный URL, на который нужно отправлять запросы
   #resource;
-  constructor(resource) {
-    super();
+  constructor(resource, notifier) {
+    super(notifier);
     this.#resource = resource;
   }
 

@@ -17,6 +17,7 @@
 
     <div class="layout__button">
       <button
+        v-if="edit != null"
         type="button"
         class="button button--border"
         @click.prevent="
@@ -27,6 +28,7 @@
             building: '',
             flat: '',
             comment: '',
+            userId: account.id,
           })
         "
       >
@@ -39,9 +41,11 @@
 <script>
 import isNull from "lodash/isNull";
 
-import PzzProfileInfo from "@/modules/profile/components/ProfileInfo.vue";
-import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem.vue";
-import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm.vue";
+import PzzProfileInfo from "@/modules/profile/components/ProfileInfo";
+import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem";
+import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
+
+import { mapState } from "vuex";
 
 export default {
   name: "Profile",
@@ -51,6 +55,9 @@ export default {
       addresses: [],
       edit: false,
     };
+  },
+  computed: {
+    ...mapState("Auth", ["account"]),
   },
   methods: {
     toggleEdit(addressId) {

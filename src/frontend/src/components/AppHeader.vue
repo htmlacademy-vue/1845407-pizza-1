@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import PzzAccountHeader from "@/modules/account/components/Header.vue";
+import PzzAccountHeader from "@/modules/account/components/Header";
 
 import { mapGetters } from "vuex";
 

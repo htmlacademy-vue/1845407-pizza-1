@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <app-notification />
     <app-header />
     <main class="layout">
       <router-view name="sidebar" class="layout__sidebar" />
