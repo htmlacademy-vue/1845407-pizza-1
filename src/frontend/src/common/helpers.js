@@ -1,16 +1,27 @@
-// Добавляем к объекту аттрибут type
-// из сопоставления { name: type }
-export const pizzaTypesMixin = (obj, types) => {
-  return obj.map((item) => ({
-    ...item,
-    ...findTypeByName(types, item.name),
-  }));
-};
+import find from "lodash/find";
 
-// Ищет среди записей вида
-// [{ name: "", type: ""}]
-// подходящую по имени, и возвращает объект
-const findTypeByName = (types, name) => {
-  // возможно исключение, когда нет записи с исхомым именем
-  return types.find((obj) => obj.name === name) || {};
+import resources from "@/common/enums/resources";
+import {
+  AuthApiService,
+  BuilderApiService,
+  CrudApiService,
+} from "@/services/api.service";
+
+export const normalizeByKey = (list, data, key) =>
+  list.map((item) => Object.assign(item, find(data, [key, item[key]])));
+
+export const createResources = (notifier) => {
+  return {
+    [resources.AUTH]: new AuthApiService(notifier),
+    [resources.DOUGH]: new BuilderApiService(resources.DOUGH, notifier),
+    [resources.SIZES]: new BuilderApiService(resources.SIZES, notifier),
+    [resources.SAUCES]: new BuilderApiService(resources.SAUCES, notifier),
+    [resources.INGREDIENTS]: new BuilderApiService(
+      resources.INGREDIENTS,
+      notifier
+    ),
+    [resources.MISC]: new BuilderApiService(resources.MISC, notifier),
+    [resources.ORDERS]: new CrudApiService(resources.ORDERS, notifier),
+    [resources.ADDRESSES]: new CrudApiService(resources.ADDRESSES, notifier),
+  };
 };

@@ -1,9 +1,13 @@
 <template>
-  <component :is="layoutComponent" :class="layoutClass" />
+  <div id="app">
+    <app-notification />
+    <app-header />
+    <component :is="layoutComponent" :class="layoutClass" />
+  </div>
 </template>
 
 <script>
-import { kebabCase } from "lodash";
+import kebabCase from "lodash/kebabCase";
 
 const defaultLayout = "Default";
 
@@ -12,12 +16,15 @@ export default {
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
-      return () => import(`@/layouts/${layout}.vue`);
+      return () => import(`@/layouts/${layout}`);
     },
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
       return kebabCase(`${layout}Layout`);
     },
+  },
+  created() {
+    this.$store.dispatch("init");
   },
 };
 </script>

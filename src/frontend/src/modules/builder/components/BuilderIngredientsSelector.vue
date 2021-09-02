@@ -25,7 +25,7 @@
 
           <ul class="ingridients__list">
             <li
-              v-for="{ name, type, count } of ingredients"
+              v-for="{ name, type, quantity } of ingredients"
               :key="type"
               class="ingridients__item"
             >
@@ -41,7 +41,7 @@
               <base-item-counter
                 class="ingridients__counter"
                 :name="`counter[${type}]`"
-                :value="count"
+                :value="quantity"
                 :min="0"
                 :max="3"
                 @input="onChangeIngredient(type, $event.target.value)"
@@ -55,8 +55,10 @@
 </template>
 
 <script>
-import BaseRadioButton from "@/common/components/RadioButton.vue";
-import BaseItemCounter from "@/common/components/ItemCounter.vue";
+import find from "lodash/find";
+
+import BaseRadioButton from "@/common/components/RadioButton";
+import BaseItemCounter from "@/common/components/ItemCounter";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
@@ -68,38 +70,36 @@ export default {
     ...mapState("Builder", ["sauces", "ingredients"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
-    }),
+    ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeSouse(choice) {
-      let sauces = [...this.sauces].map((sauce) => ({
-        ...sauce,
+      let sauces = this.sauces.map((item) => ({
+        ...item,
         checked: false,
       }));
-      const index = sauces.findIndex(({ type }) => type === choice);
-      if (~index) {
-        Object.assign(sauces[index], { checked: true });
-        this.pizzaUpdate({ sauces });
+      const checked = find(sauces, ["type", choice]);
+      if (checked) {
+        Object.assign(checked, { checked: true });
+        this[UPDATE_CHOICE]({ sauces });
       }
     },
     onChangeIngredient(choice, value) {
-      let ingredients = [...this.ingredients].map((ingredient) => ({
-        ...ingredient,
+      let ingredients = this.ingredients.map((item) => ({
+        ...item,
       }));
-      const index = ingredients.findIndex(({ type }) => type === choice);
-      if (~index) {
-        Object.assign(ingredients[index], { count: value * 1 });
-        this.pizzaUpdate({ ingredients });
+      const checked = find(ingredients, ["type", choice]);
+      if (checked) {
+        Object.assign(checked, { quantity: value * 1 });
+        this[UPDATE_CHOICE]({ ingredients });
       }
     },
     onDragIngredient({ dataTransfer }, choice) {
-      let ingredients = [...this.ingredients].map((ingredient) => ({
-        ...ingredient,
+      let ingredients = this.ingredients.map((item) => ({
+        ...item,
       }));
-      const index = ingredients.findIndex(({ type }) => type === choice);
-      if (~index) {
-        if (ingredients[index].count < 3) {
-          ingredients[index].count += 1;
+      const checked = find(ingredients, ["type", choice]);
+      if (checked) {
+        if (checked.quantity < 3) {
+          checked.quantity += 1;
           dataTransfer.setData("ingredients", JSON.stringify(ingredients));
         }
       }

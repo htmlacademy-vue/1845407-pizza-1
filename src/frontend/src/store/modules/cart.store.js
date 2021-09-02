@@ -1,25 +1,24 @@
-import { uniqueId, find } from "lodash";
-import router from "@/router";
+import uniqueId from "lodash/uniqueId";
+import find from "lodash/find";
+import pick from "lodash/pick";
 
-import additionalData from "@/static/misc.json";
 import { MISC_ADDITIONAL } from "@/common/constants";
-import { pizzaTypesMixin } from "@/common/helpers";
+import { normalizeByKey } from "@/common/helpers";
 
 export const UPDATE_CART = "UPDATE_CART";
-export const SUBMIT_CART = "SUBMIT_CART";
 export const RESET_CART = "RESET_CART";
-import { ADD_TO_CART } from "@/store/modules/builder.store";
-import { CART_ORDER_REDIRECT } from "@/store/modules/auth.store.js";
+import { ADD_TO_CART, RESET_CHOICE } from "@/store/modules/builder.store";
 
 const state = () => ({
   pizzas: [],
-  additional: pizzaTypesMixin(additionalData, MISC_ADDITIONAL),
-  delivery: {
-    type: "",
-    phone: "",
+  misc: [],
+  phone: "",
+  address: {
+    id: null,
+    name: null,
     street: "",
     building: "",
-    room: "",
+    flat: "",
   },
 });
 
@@ -27,11 +26,17 @@ export default {
   namespaced: true,
   state,
   getters: {
-    price({ pizzas, additional }) {
+    price({ pizzas, misc }) {
       let price = 0;
-      price += pizzas.reduce((sum, { price, count }) => sum + price * count, 0);
-      price += additional.reduce(
-        (sum, { price, count }) => sum + price * count,
+
+      if (!pizzas.length) return price;
+
+      price += pizzas.reduce(
+        (sum, { price, quantity }) => sum + price * quantity,
+        0
+      );
+      price += misc.reduce(
+        (sum, { price, quantity }) => sum + price * quantity,
         0
       );
       return price;
@@ -39,37 +44,60 @@ export default {
     isEmpty({ pizzas }) {
       return !pizzas.length;
     },
+    toJson({ pizzas, misc, phone, address }) {
+      return {
+        pizzas: pizzas.map(
+          ({ dough, size, sauce, ingredients, name, quantity }) => ({
+            name,
+            quantity,
+            doughId: dough.id,
+            sizeId: size.id,
+            sauceId: sauce.id,
+            ingredients: ingredients
+              .filter(({ quantity }) => quantity)
+              .map(({ id, quantity }) => ({ ingredientId: id, quantity })),
+          })
+        ),
+        misc: misc
+          .filter(({ quantity }) => quantity)
+          .map(({ id, quantity }) => ({ miscId: id, quantity })),
+        phone,
+        address:
+          address &&
+          pick(address, address.id ? ["id"] : ["street", "building", "flat"]),
+      };
+    },
   },
   actions: {
-    [ADD_TO_CART]({ commit, state }, pizza) {
+    [ADD_TO_CART]({ state, dispatch }, choice) {
       let pizzas = [...state.pizzas];
-      let current = find(pizzas, ["id", pizza.id]);
+      let current = find(pizzas, ["id", choice.id]);
       if (current) {
-        Object.assign(current, pizza);
+        Object.assign(current, choice);
+        this.$router.push({ name: "cart" });
       } else {
-        Object.assign(pizza, { id: uniqueId(), count: 1 });
-        pizzas.push(pizza);
+        pizzas = [...pizzas, { ...choice, id: uniqueId(), quantity: 1 }];
+        dispatch(`Builder/${RESET_CHOICE}`, null, { root: true });
       }
-      commit(UPDATE_CART, { pizzas });
+      dispatch(UPDATE_CART, { pizzas });
     },
     [UPDATE_CART]({ commit }, cart) {
-      commit(UPDATE_CART, { ...cart });
+      commit(UPDATE_CART, cart);
     },
-    [SUBMIT_CART]({ commit }) {
-      // отправить заказ на сервер
-      commit(SUBMIT_CART);
-    },
-    [RESET_CART]({ commit, dispatch }) {
-      commit(UPDATE_CART, state());
-      dispatch(`Auth/${CART_ORDER_REDIRECT}`, null, { root: true });
+    async [RESET_CART]({ dispatch }) {
+      dispatch(UPDATE_CART, state());
+      // загрузить допы
+      const misc = normalizeByKey(
+        await this.$api.misc.query(),
+        MISC_ADDITIONAL,
+        "name"
+      );
+      dispatch(UPDATE_CART, { misc });
     },
   },
   mutations: {
     [UPDATE_CART](state, cart) {
       Object.assign(state, cart);
-    },
-    [SUBMIT_CART]() {
-      router.push({ name: "thanks" });
     },
   },
 };

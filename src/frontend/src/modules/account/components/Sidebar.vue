@@ -3,14 +3,14 @@
     <router-link
       :to="{ name: 'orders' }"
       class="layout__link"
-      :active-class="activeClass"
+      active-class="layout__link--active"
     >
       История заказов
     </router-link>
     <router-link
       :to="{ name: 'profile' }"
       class="layout__link"
-      :active-class="activeClass"
+      active-class="layout__link--active"
     >
       Мои данные
     </router-link>
@@ -18,19 +18,7 @@
 </template>
 
 <script>
-const activeClass = "layout__link--active";
-
 export default {
   name: "PzzAccountSidebar",
-  computed: {
-    activeClass() {
-      return activeClass;
-    },
-  },
-  methods: {
-    authenticate(account) {
-      this.account = account;
-    },
-  },
 };
 </script>

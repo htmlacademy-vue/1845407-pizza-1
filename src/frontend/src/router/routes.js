@@ -1,52 +1,70 @@
+// eslint-disable-next-line no-unused-vars
+import {
+  auth,
+  allowAuthenticated,
+  skipAuthenticated,
+  fromCart,
+} from "@/middlewares";
+
 export default [
   {
     path: "/",
     name: "builder",
     components: {
-      default: () => import("@/views/Builder.vue"),
+      default: () => import("@/views/Builder"),
     },
-  },
-  {
-    path: "/login",
-    name: "login",
-    meta: { layout: "Popup" },
-    components: {
-      default: () => import("@/views/Login.vue"),
-      main: () => import("@/views/Builder.vue"),
-    },
+    children: [
+      {
+        path: "/login",
+        name: "login",
+        components: {
+          modal: () => import("@/views/Login"),
+        },
+        meta: {
+          middlewares: [auth, skipAuthenticated],
+        },
+      },
+    ],
   },
   {
     path: "/cart",
     name: "cart",
     components: {
-      default: () => import("@/views/Cart.vue"),
+      default: () => import("@/views/Cart"),
     },
-  },
-  {
-    path: "/cart/thanks",
-    name: "thanks",
-    meta: { layout: "Popup" },
-    components: {
-      default: () => import("@/views/Thanks.vue"),
-      main: () => import("@/views/Cart.vue"),
-    },
+    children: [
+      {
+        path: "/cart/thanks",
+        name: "thanks",
+        components: {
+          modal: () => import("@/views/Thanks"),
+        },
+        meta: {
+          middlewares: [fromCart],
+        },
+      },
+    ],
   },
   {
     path: "/orders",
     name: "orders",
-    meta: { layout: "Sidebar" },
     components: {
-      default: () => import("@/views/Orders.vue"),
-      sidebar: () => import("@/modules/account/components/Sidebar.vue"),
+      default: () => import("@/views/Orders"),
+    },
+    meta: {
+      layout: "Sidebar",
+      middlewares: [auth, allowAuthenticated],
     },
   },
   {
     path: "/profile",
     name: "profile",
-    meta: { layout: "Sidebar" },
     components: {
-      default: () => import("@/views/Profile.vue"),
-      sidebar: () => import("@/modules/account/components/Sidebar.vue"),
+      default: () => import("@/views/Profile"),
+    },
+    meta: {
+      layout: "Sidebar",
+      middlewares: [auth, allowAuthenticated],
     },
   },
 ];

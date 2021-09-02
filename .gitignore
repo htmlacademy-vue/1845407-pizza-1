@@ -1,6 +1,8 @@
 # Файлы и папки операционной системы
 .DS_Store
 Thumbs.db
+build/
+package-lock.json
 
 # Файлы редактора
 .idea
@@ -10,4 +12,3 @@ Thumbs.db
 # Вспомогательные файлы
 *.log*
 node_modules/
-/template/build/

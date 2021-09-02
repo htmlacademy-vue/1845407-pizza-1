@@ -1,3 +1,5 @@
+export const MESSAGE_LIVE_TIME = 5000;
+
 export const PIZZA_DOUGH_TYPES = [
   {
     name: "Тонкое",
@@ -18,77 +20,77 @@ export const PIZZA_INGREDIENTS_TYPES = [
   {
     name: "Грибы",
     type: "mushrooms",
-    count: 1,
+    quantity: 1,
   },
   {
     name: "Чеддер",
     type: "cheddar",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Салями",
     type: "salami",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Ветчина",
     type: "ham",
-    count: 1,
+    quantity: 1,
   },
   {
     name: "Ананас",
     type: "ananas",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Бекон",
     type: "bacon",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Лук",
     type: "onion",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Чили",
     type: "chile",
-    count: 1,
+    quantity: 1,
   },
   {
     name: "Халапеньо",
     type: "jalapeno",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Маслины",
     type: "olives",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Томаты",
     type: "tomatoes",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Лосось",
     type: "salmon",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Моцарелла",
     type: "mozzarella",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Пармезан",
     type: "parmesan",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Блю чиз",
     type: "blue_cheese",
-    count: 0,
+    quantity: 0,
   },
 ];
 
@@ -123,14 +125,14 @@ export const PIZZA_SIZES_TYPES = [
 export const MISC_ADDITIONAL = [
   {
     name: "Cola-Cola 0,5 литра",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Острый соус",
-    count: 0,
+    quantity: 0,
   },
   {
     name: "Картошка из печи",
-    count: 0,
+    quantity: 0,
   },
 ];

@@ -5,7 +5,7 @@
 
       <div class="sheet__content dough">
         <base-radio-button
-          v-for="{ name, type, checked, description } in doughs"
+          v-for="{ name, type, checked, description } in dough"
           :key="type"
           class="dough__input"
           :class="`dough__input--${type}`"
@@ -23,7 +23,9 @@
 </template>
 
 <script>
-import BaseRadioButton from "@/common/components/RadioButton.vue";
+import find from "lodash/find";
+
+import BaseRadioButton from "@/common/components/RadioButton";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
@@ -32,21 +34,19 @@ export default {
   name: "PzzBuilderDoughSelector",
   components: { BaseRadioButton },
   computed: {
-    ...mapState("Builder", ["doughs"]),
+    ...mapState("Builder", ["dough"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      pizzaUpdate: UPDATE_CHOICE,
-    }),
+    ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeDough(choice) {
-      let doughs = [...this.doughs].map((dough) => ({
-        ...dough,
+      let dough = this.dough.map((item) => ({
+        ...item,
         checked: false,
       }));
-      const index = doughs.findIndex(({ type }) => type === choice);
-      if (~index) {
-        Object.assign(doughs[index], { checked: true });
-        this.pizzaUpdate({ doughs });
+      const checked = find(dough, ["type", choice]);
+      if (checked) {
+        Object.assign(checked, { checked: true });
+        this[UPDATE_CHOICE]({ dough });
       }
     },
   },

@@ -6,33 +6,30 @@
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
-    <form
-      action="test.html"
-      method="post"
-      @submit.prevent="authenticate($data)"
-    >
+    <form action="test.html" method="post" @submit.prevent="sign_in">
       <div class="sign-form__input">
-        <label class="input">
+        <base-input-field
+          ref="email"
+          type="email"
+          name="email"
+          placeholder="example@mail.ru"
+          :required="true"
+          v-model="email"
+        >
           <span>E-mail</span>
-          <input
-            type="email"
-            name="email"
-            placeholder="example@mail.ru"
-            v-model="email"
-          />
-        </label>
+        </base-input-field>
       </div>
 
       <div class="sign-form__input">
-        <label class="input">
+        <base-input-field
+          type="password"
+          name="password"
+          placeholder="***********"
+          :required="true"
+          v-model="password"
+        >
           <span>Пароль</span>
-          <input
-            type="password"
-            name="pass"
-            placeholder="***********"
-            v-model="password"
-          />
-        </label>
+        </base-input-field>
       </div>
       <button type="submit" class="button">Авторизоваться</button>
     </form>
@@ -40,21 +37,40 @@
 </template>
 
 <script>
+import BaseInputField from "@/common/components/InputField";
+
 import { mapActions } from "vuex";
-import { AUTHENTICATE } from "@/store/modules/auth.store.js";
+import { SIGN_IN } from "@/store/modules/auth.store";
 
 export default {
   name: "Login",
+  components: { BaseInputField },
   data() {
     return {
       email: "",
       password: "",
+      from: null,
     };
   },
   methods: {
-    ...mapActions("Auth", {
-      authenticate: AUTHENTICATE,
-    }),
+    ...mapActions("Auth", [SIGN_IN]),
+    async sign_in() {
+      try {
+        await this[SIGN_IN](this.$data);
+        await this.$router.replace(this.from.fullPath);
+      } catch {
+        this.password = "";
+      }
+    },
+  },
+  mounted() {
+    // при входе на страницу ставим фокус на email-инпуте
+    this.$refs.email.$refs.input.focus();
+  },
+  beforeRouteEnter(to, from, next) {
+    // запоминаем откуда был переход на форму логина,
+    // что бы после авторизации вернуть обратно
+    next((vm) => (vm.from = from));
   },
 };
 </script>
