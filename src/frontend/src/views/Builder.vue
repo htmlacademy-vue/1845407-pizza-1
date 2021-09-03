@@ -24,7 +24,13 @@
       </div>
     </form>
     <div class="modal">
-      <router-view name="modal" />
+      <transition
+        name="popup"
+        appear
+        appear-active-class="animate__animated animate__bounceInDown"
+      >
+        <router-view name="modal" />
+      </transition>
     </div>
   </main>
 </template>
