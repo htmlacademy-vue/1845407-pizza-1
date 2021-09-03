@@ -40,10 +40,6 @@ export default {
 @import "../src/assets/scss/app";
 @import "~animate.css";
 
-.animate__animated {
-  /*--animate-duration: 5s;*/
-}
-
 #app {
   display: flex;
   flex-direction: column;
