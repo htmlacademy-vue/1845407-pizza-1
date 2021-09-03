@@ -2,7 +2,9 @@
   <div id="app">
     <app-notification />
     <app-header />
-    <component :is="layoutComponent" :class="layoutClass" />
+    <transition name="slide" v-bind="transitionMeta">
+      <component :is="layoutComponent" :class="layoutClass" />
+    </transition>
   </div>
 </template>
 
@@ -22,6 +24,11 @@ export default {
       const layout = this.$route.meta.layout || defaultLayout;
       return kebabCase(`${layout}Layout`);
     },
+    transitionMeta() {
+      const transition = this.$route.meta.transition || {};
+      console.log({ transition });
+      return transition;
+    },
   },
   created() {
     this.$store.dispatch("init");
@@ -31,6 +38,11 @@ export default {
 
 <style lang="scss">
 @import "../src/assets/scss/app";
+@import "~animate.css";
+
+.animate__animated {
+  /*--animate-duration: 5s;*/
+}
 
 #app {
   display: flex;

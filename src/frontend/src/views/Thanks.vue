@@ -36,3 +36,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.popup {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: fit-content;
+  transform: unset;
+}
+</style>

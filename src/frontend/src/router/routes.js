@@ -13,6 +13,12 @@ export default [
     components: {
       default: () => import("@/views/Builder"),
     },
+    meta: {
+      transition: {
+        "enter-active-class":
+          "animate__animated animate__fast animate__slideInLeft",
+      },
+    },
     children: [
       {
         path: "/login",
@@ -31,6 +37,12 @@ export default [
     name: "cart",
     components: {
       default: () => import("@/views/Cart"),
+    },
+    meta: {
+      transition: {
+        "enter-active-class":
+          "animate__animated animate__fast animate__slideInLeft",
+      },
     },
     children: [
       {
@@ -53,6 +65,10 @@ export default [
     },
     meta: {
       layout: "Sidebar",
+      transition: {
+        "enter-active-class":
+          "animate__animated animate__fast animate__slideInLeft",
+      },
       middlewares: [auth, allowAuthenticated],
     },
   },
@@ -64,6 +80,10 @@ export default [
     },
     meta: {
       layout: "Sidebar",
+      transition: {
+        "enter-active-class":
+          "animate__animated animate__fast animate__slideInLeft",
+      },
       middlewares: [auth, allowAuthenticated],
     },
   },
