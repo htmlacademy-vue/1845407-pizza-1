@@ -51,6 +51,13 @@ export default {
       type: String,
       default: "",
     },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  mounted() {
+    if (this.autofocus) this.$refs.input.focus();
   },
 };
 </script>

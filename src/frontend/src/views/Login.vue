@@ -14,6 +14,7 @@
           name="email"
           placeholder="example@mail.ru"
           :required="true"
+          :autofocus="true"
           v-model="email"
         >
           <span>E-mail</span>
@@ -62,10 +63,6 @@ export default {
         this.password = "";
       }
     },
-  },
-  mounted() {
-    // при входе на страницу ставим фокус на email-инпуте
-    this.$refs.email.$refs.input.focus();
   },
   beforeRouteEnter(to, from, next) {
     // запоминаем откуда был переход на форму логина,
