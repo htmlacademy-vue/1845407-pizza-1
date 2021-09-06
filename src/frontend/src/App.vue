@@ -2,7 +2,7 @@
   <div id="app">
     <app-notification />
     <app-header />
-    <transition name="slide" v-bind="transitionMeta">
+    <transition v-bind="layoutTransition">
       <component :is="layoutComponent" :class="layoutClass" />
     </transition>
   </div>
@@ -15,6 +15,12 @@ const defaultLayout = "Default";
 
 export default {
   name: "App",
+  data() {
+    return {
+      appTransition: {},
+      layoutTransition: {},
+    };
+  },
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
@@ -24,10 +30,40 @@ export default {
       const layout = this.$route.meta.layout || defaultLayout;
       return kebabCase(`${layout}Layout`);
     },
-    transitionMeta() {
-      const transition = this.$route.meta.transition || {};
-      console.log({ transition });
-      return transition;
+  },
+  watch: {
+    $route(to, from) {
+      switch (true) {
+        case from.name == null:
+          // при начальной загрузке приложения используем специальную анимацию
+          // вместо слайдера для последующих переходов
+          this.layoutTransition = {
+            "enter-active-class":
+              "animate__animated animate__fast animate__fadeIn",
+          };
+          break;
+        case ["login", "thanks"].includes(to.name):
+          // при открытии модали не нужно ни каких анимация на лейауте
+          // сработают только анимации самой модали
+          this.layoutTransition = {};
+          break;
+        case ["login", "thanks"].includes(from.name):
+          this.layoutTransition = {
+            // хитрая задержка что бы было видно анимацию закрытия модали
+            mode: "out-in",
+            "leave-active-class": "animate__animated animate__faster",
+          };
+          break;
+        default:
+          this.layoutTransition = {
+            // типовая анимация смены роутов слайдером влево
+            mode: "out-in",
+            "enter-active-class":
+              "animate__animated animate__fast animate__slideInLeft",
+            "leave-active-class":
+              "animate__animated animate__faster animate__slideOutRight",
+          };
+      }
     },
   },
   created() {
@@ -60,6 +96,16 @@ export default {
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.5);
+    }
+
+    .close {
+      /*background-color: transparent;*/
+      /*border-color: transparent;*/
+
+      &:before,
+      &:after {
+        /*background-color: currentColor;*/
+      }
     }
   }
 }

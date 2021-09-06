@@ -1,8 +1,11 @@
 <template>
   <div class="sign-form">
-    <router-link :to="{ name: 'builder' }" class="close close--white">
+    <button
+      class="button button--transparent close close--white"
+      @click.prevent="$emit('close', from)"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
-    </router-link>
+    </button>
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
@@ -58,7 +61,7 @@ export default {
     async sign_in() {
       try {
         await this[SIGN_IN](this.$data);
-        await this.$router.replace(this.from.fullPath);
+        this.$emit("close", this.from);
       } catch {
         this.password = "";
       }

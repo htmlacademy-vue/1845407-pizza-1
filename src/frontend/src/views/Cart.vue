@@ -27,15 +27,9 @@
       </div>
       <pzz-cart-footer />
     </form>
-    <div class="modal">
-      <transition
-        name="popup"
-        appear
-        appear-active-class="animate__animated animate__bounceInDown"
-      >
-        <router-view name="modal" />
-      </transition>
-    </div>
+    <base-modal v-slot="modal">
+      <router-view name="modal" @close="modal.close" />
+    </base-modal>
   </main>
 </template>
 
