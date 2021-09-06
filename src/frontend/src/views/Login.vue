@@ -1,8 +1,11 @@
 <template>
   <div class="sign-form">
-    <router-link :to="{ name: 'builder' }" class="close close--white">
+    <button
+      class="button button--transparent close close--white"
+      @click.prevent="$emit('close', from)"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
-    </router-link>
+    </button>
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
@@ -13,7 +16,8 @@
           type="email"
           name="email"
           placeholder="example@mail.ru"
-          :required="true"
+          required
+          autofocus
           v-model="email"
         >
           <span>E-mail</span>
@@ -25,7 +29,7 @@
           type="password"
           name="password"
           placeholder="***********"
-          :required="true"
+          required
           v-model="password"
         >
           <span>Пароль</span>
@@ -57,15 +61,11 @@ export default {
     async sign_in() {
       try {
         await this[SIGN_IN](this.$data);
-        await this.$router.replace(this.from.fullPath);
+        this.$emit("close", this.from);
       } catch {
         this.password = "";
       }
     },
-  },
-  mounted() {
-    // при входе на страницу ставим фокус на email-инпуте
-    this.$refs.email.$refs.input.focus();
   },
   beforeRouteEnter(to, from, next) {
     // запоминаем откуда был переход на форму логина,
@@ -74,3 +74,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.sign-form {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: fit-content;
+  transform: unset;
+}
+</style>

@@ -74,7 +74,6 @@ export default {
       let current = find(pizzas, ["id", choice.id]);
       if (current) {
         Object.assign(current, choice);
-        this.$router.push({ name: "cart" });
       } else {
         pizzas = [...pizzas, { ...choice, id: uniqueId(), quantity: 1 }];
         dispatch(`Builder/${RESET_CHOICE}`, null, { root: true });

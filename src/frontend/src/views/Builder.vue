@@ -23,9 +23,9 @@
         </div>
       </div>
     </form>
-    <div class="modal">
-      <router-view name="modal" />
-    </div>
+    <base-modal v-slot="modal">
+      <router-view name="modal" @close="modal.close" />
+    </base-modal>
   </main>
 </template>
 
@@ -61,11 +61,13 @@ export default {
     ...mapGetters("Builder", ["choice"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      addToCart: ADD_TO_CART,
-      LOAD_CHOICE,
-      RESET_CHOICE,
-    }),
+    ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE, RESET_CHOICE]),
+    addToCart(choice) {
+      this[ADD_TO_CART](choice);
+      if (this.$route.query.id) {
+        this.$router.push({ name: "cart" });
+      }
+    },
   },
   created() {
     if (this.$route.query.id) {

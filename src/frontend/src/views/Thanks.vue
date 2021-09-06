@@ -1,14 +1,17 @@
 <template>
   <div class="popup">
-    <a href="#" class="close" @click.prevent="$router.replace(nextRoute)">
+    <button
+      class="button button--transparent close"
+      @click.prevent="$emit('close', nextRoute)"
+    >
       <span class="visually-hidden">Закрыть попап</span>
-    </a>
+    </button>
     <div class="popup__title">
       <h2 class="title">Спасибо за заказ</h2>
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <a href="#" class="button" @click.prevent="$router.replace(nextRoute)">
+      <a href="#" class="button" @click.prevent="$emit('close', nextRoute)">
         Отлично, я жду!
       </a>
     </div>
@@ -36,3 +39,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.popup {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: fit-content;
+  transform: unset;
+}
+</style>

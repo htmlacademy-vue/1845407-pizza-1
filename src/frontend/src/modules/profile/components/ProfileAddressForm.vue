@@ -23,7 +23,7 @@
         <base-input-field
           name="name"
           v-model="name"
-          :required="true"
+          required
           placeholder="Введите название адреса"
         >
           <span>Название адреса*</span>
@@ -33,7 +33,7 @@
         <base-input-field
           name="street"
           v-model="street"
-          :required="true"
+          required
           placeholder="Введите название улицы"
         >
           <span>Улица*</span>
@@ -43,7 +43,7 @@
         <base-input-field
           name="building"
           v-model="building"
-          :required="true"
+          required
           placeholder="Введите номер дома"
         >
           <span>Дом*</span>

@@ -7,14 +7,21 @@
   >
     <div class="pizza" :class="foundationClass">
       <div class="pizza__wrapper">
-        <template v-for="{ type, quantity } in ingredients">
-          <div
-            v-for="index in quantity"
-            :key="`${type}-${index}`"
-            class="pizza__filling"
-            :class="[`pizza__filling--${type}`, ingredientIndexClass[index]]"
-          ></div>
-        </template>
+        <transition-group
+          name="drop"
+          tag="div"
+          enter-active-class="animate__animated animate__fadeIn"
+          leave-active-class="animate__animated animate__fadeOut"
+        >
+          <template v-for="{ type, quantity } in ingredients">
+            <div
+              v-for="index in quantity"
+              :key="`${type}-${index}`"
+              class="pizza__filling"
+              :class="[`pizza__filling--${type}`, ingredientIndexClass[index]]"
+            />
+          </template>
+        </transition-group>
       </div>
     </div>
   </div>

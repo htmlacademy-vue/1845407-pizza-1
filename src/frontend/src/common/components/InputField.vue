@@ -9,6 +9,7 @@
       :required="required"
       :readonly="readonly"
       :disabled="disabled"
+      :autofocus="autofocus"
       :value="value"
       @input="$emit('input', $event.target.value)"
     />
@@ -51,6 +52,14 @@ export default {
       type: String,
       default: "",
     },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  mounted() {
+    console.log({ autofocus: this.autofocus });
+    if (this.autofocus) this.$refs.input.focus();
   },
 };
 </script>

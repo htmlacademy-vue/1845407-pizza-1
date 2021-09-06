@@ -27,9 +27,9 @@
       </div>
       <pzz-cart-footer />
     </form>
-    <div class="modal">
-      <router-view name="modal" />
-    </div>
+    <base-modal v-slot="modal">
+      <router-view name="modal" @close="modal.close" />
+    </base-modal>
   </main>
 </template>
 
