@@ -32,7 +32,7 @@
               <span
                 class="filling"
                 :class="`filling--${type}`"
-                draggable="true"
+                draggable
                 @dragstart="onDragIngredient($event, type)"
               >
                 {{ name }}

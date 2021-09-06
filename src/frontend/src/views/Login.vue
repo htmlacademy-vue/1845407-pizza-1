@@ -16,8 +16,8 @@
           type="email"
           name="email"
           placeholder="example@mail.ru"
-          :required="true"
-          :autofocus="true"
+          required
+          autofocus
           v-model="email"
         >
           <span>E-mail</span>
@@ -29,7 +29,7 @@
           type="password"
           name="password"
           placeholder="***********"
-          :required="true"
+          required
           v-model="password"
         >
           <span>Пароль</span>

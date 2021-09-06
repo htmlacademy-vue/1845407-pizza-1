@@ -38,7 +38,7 @@
           <base-input-field
             name="address[street]"
             :value="address.street"
-            :required="true"
+            required
             :disabled="readonlyAddress"
             @input="changeAddress({ street: $event })"
           >
@@ -50,7 +50,7 @@
           <base-input-field
             name="address[building]"
             :value="address.building"
-            :required="true"
+            required
             :disabled="readonlyAddress"
             @input="changeAddress({ building: $event })"
           >

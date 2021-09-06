@@ -15,8 +15,8 @@
       class="counter__input"
       :name="name"
       :value="value"
-      readonly="true"
-      disabled="true"
+      readonly
+      disabled
       :min="min"
       :max="max"
       @input="$emit('input', $event)"
