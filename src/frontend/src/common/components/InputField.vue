@@ -7,7 +7,6 @@
       :name="name"
       :placeholder="placeholder"
       :required="required"
-      :readonly="readonly"
       :disabled="disabled"
       :autofocus="autofocus"
       :value="value"
@@ -40,10 +39,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -58,7 +53,6 @@ export default {
     },
   },
   mounted() {
-    console.log({ autofocus: this.autofocus });
     if (this.autofocus) this.$refs.input.focus();
   },
 };

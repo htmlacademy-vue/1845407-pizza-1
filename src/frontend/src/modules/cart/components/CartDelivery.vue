@@ -39,7 +39,7 @@
             name="address[street]"
             :value="address.street"
             required
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ street: $event })"
           >
             <span>Улица*</span>
@@ -51,7 +51,7 @@
             name="address[building]"
             :value="address.building"
             required
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ building: $event })"
           >
             <span>Дом*</span>
@@ -62,7 +62,7 @@
           <base-input-field
             name="address[flat]"
             :value="address.flat"
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ flat: $event })"
           >
             <span>Квартира</span>
@@ -87,7 +87,7 @@ export default {
   computed: {
     ...mapState("Cart", ["phone", "address"]),
     ...mapGetters("Auth", ["deliveryAddresses", "newAddress"]),
-    readonlyAddress() {
+    disabled() {
       return !!this.address?.id;
     },
     selectAddresses() {

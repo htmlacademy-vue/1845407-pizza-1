@@ -15,7 +15,6 @@
       class="counter__input"
       :name="name"
       :value="value"
-      readonly
       disabled
       :min="min"
       :max="max"
