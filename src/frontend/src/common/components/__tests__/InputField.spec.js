@@ -55,6 +55,14 @@ describe("InputField", () => {
     expect(wrapper.emitted().input).toBeTruthy();
   });
 
+  it('emits the current input value when typing', async () => {
+    createComponent({ propsData });
+    let input = wrapper.find("input");
+    input.element.value = "test";
+    await input.trigger("input");
+    expect(wrapper.emitted().input[0][0]).toEqual("test");
+  });
+
   it("Input required defaults to false", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").element.required).toBeFalsy();
