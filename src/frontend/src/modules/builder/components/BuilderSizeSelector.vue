@@ -12,7 +12,7 @@
           name="diameter"
           :value="type"
           :checked="checked"
-          @changeChoice="onChangeSize($event.target.value)"
+          @change="onChangeSize"
         >
           <span>{{ name }}</span>
         </base-radio-button>

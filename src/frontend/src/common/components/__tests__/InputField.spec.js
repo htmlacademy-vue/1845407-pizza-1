@@ -9,7 +9,7 @@ describe("InputField", () => {
     type: "submit",
     placeholder: "test",
   };
-  const slots = { default: 'content' };
+  const slots = { default: "content" };
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
@@ -21,30 +21,32 @@ describe("InputField", () => {
     wrapper.destroy();
   });
 
-  it('Renders out the slot content', () => {
+  it("It renders out the slot content", () => {
     createComponent({ propsData, slots });
     expect(wrapper.html()).toContain(slots.default);
   });
 
-  it("Input type is prop type", () => {
+  it("It sets initial type", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").attributes("type")).toBe(propsData.type);
   });
 
-  it("Input name is prop name", () => {
+  it("It sets initial name", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").attributes("name")).toBe(propsData.name);
   });
 
-  it("Input placeholder is prop placeholder", () => {
+  it("It sets initial placeholder", () => {
     createComponent({ propsData });
-    expect(wrapper.find("input").attributes("placeholder")).toBe(propsData.placeholder);
+    expect(wrapper.find("input").attributes("placeholder")).toBe(
+      propsData.placeholder
+    );
   });
 
-  it("Input is focus on prop autofocus", () => {
+  it("It focus input on prop autofocus", () => {
     propsData.autofocus = true;
     createComponent({ propsData, attachToDocument: true });
-    let input = wrapper.find('input').element;
+    let input = wrapper.find("input").element;
     expect(input).toBe(document.activeElement);
   });
 
@@ -60,7 +62,7 @@ describe("InputField", () => {
     expect(wrapper.emitted().input).toBeTruthy();
   });
 
-  it('emits the current input value when typing', async () => {
+  it("It emits the current input value when typing", async () => {
     createComponent({ propsData });
     let input = wrapper.find("input");
     input.element.value = "test input";
@@ -68,26 +70,25 @@ describe("InputField", () => {
     expect(wrapper.emitted().input[0][0]).toEqual("test input");
   });
 
-  it("Input required defaults to false", () => {
+  it("It sets defaults required to false", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").element.required).toBeFalsy();
   });
 
-  it("Input required is prop required", () => {
+  it("It sets initial required", () => {
     propsData.required = true;
     createComponent({ propsData });
     expect(wrapper.find("input").element.required).toBeTruthy();
   });
 
-  it("Input disabled defaults to false", () => {
+  it("It sets defaults disabled to false", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").element.disabled).toBeFalsy();
   });
 
-  it("Input disabled is prop disabled", () => {
+  it("It sets initial disabled", () => {
     propsData.disabled = true;
     createComponent({ propsData });
     expect(wrapper.find("input").element.disabled).toBeTruthy();
   });
-
 });

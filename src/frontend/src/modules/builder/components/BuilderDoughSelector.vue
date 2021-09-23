@@ -12,7 +12,7 @@
           name="dough"
           :value="type"
           :checked="checked"
-          @changeChoice="onChangeDough($event.target.value)"
+          @change="onChangeDough"
         >
           <b>{{ name }}</b>
           <span>{{ description }}</span>

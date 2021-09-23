@@ -14,7 +14,7 @@
             name="sauce"
             :value="type"
             :checked="checked"
-            @changeChoice="onChangeSouse($event.target.value)"
+            @change="onChangeSouse"
           >
             <span>{{ name }}</span>
           </base-radio-button>
