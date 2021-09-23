@@ -9,6 +9,7 @@ describe("InputField", () => {
     type: "submit",
     placeholder: "test",
   };
+  const slots = { default: 'content' };
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
@@ -20,7 +21,11 @@ describe("InputField", () => {
     wrapper.destroy();
   });
 
-  // Проверяем переданные props
+  it('Renders out the slot content', () => {
+    createComponent({ propsData, slots });
+    expect(wrapper.html()).toContain(slots.default);
+  });
+
   it("Input type is prop type", () => {
     createComponent({ propsData });
     expect(wrapper.find("input").attributes("type")).toBe(propsData.type);
@@ -58,9 +63,9 @@ describe("InputField", () => {
   it('emits the current input value when typing', async () => {
     createComponent({ propsData });
     let input = wrapper.find("input");
-    input.element.value = "test";
+    input.element.value = "test input";
     await input.trigger("input");
-    expect(wrapper.emitted().input[0][0]).toEqual("test");
+    expect(wrapper.emitted().input[0][0]).toEqual("test input");
   });
 
   it("Input required defaults to false", () => {
