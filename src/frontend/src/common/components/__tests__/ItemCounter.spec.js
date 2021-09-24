@@ -7,7 +7,6 @@ describe("ItemCounter", () => {
   // Определяем входные параметры по умолчанию и заглушки.
   const propsData = {
     name: "test",
-    value: 1,
     min: 0,
     max: 2,
   };
@@ -47,32 +46,42 @@ describe("ItemCounter", () => {
     expect(wrapper.find("input").attributes("max") * 1).toBe(propsData.max);
   });
 
-  it("It sets initial value", () => {
+  it("It check default value", () => {
     createComponent({ propsData });
-    expect(wrapper.find("input").element.value * 1).toBe(propsData.value);
+    expect(wrapper.find("input").element.value * 1).toBe(0);
+  });
+
+  it("It sets initial value", () => {
+    const value = 1;
+    createComponent({ propsData: { ...propsData, value } });
+    expect(wrapper.find("input").element.value * 1).toBe(value);
   });
 
   it("Has button minus disabled on value = min", () => {
-    createComponent({ propsData: { ...propsData, value: propsData.min } });
+    const value = propsData.min;
+    createComponent({ propsData: { ...propsData, value } });
     expect(wrapper.find(`.${buttonClassMinus}`).element.disabled).toBeTruthy();
   });
 
   it("Has button plus disabled on value = max", () => {
-    createComponent({ propsData: { ...propsData, value: propsData.max } });
+    const value = propsData.max;
+    createComponent({ propsData: { ...propsData, value } });
     expect(wrapper.find(`.${buttonClassPlus}`).element.disabled).toBeTruthy();
   });
 
   it("It emits an input value when button minus click", async () => {
-    createComponent({ propsData });
+    const value = 1;
+    createComponent({ propsData: { ...propsData, value } });
     let button = wrapper.find(`.${buttonClassMinus}`);
     await button.trigger("click");
-    expect(wrapper.emitted("input")[0]).toEqual([propsData.value - 1]);
+    expect(wrapper.emitted("input")[0]).toEqual([value - 1]);
   });
 
   it("It emits an input value when button plus click", async () => {
-    createComponent({ propsData });
+    const value = 1;
+    createComponent({ propsData: { ...propsData, value } });
     let button = wrapper.find(`.${buttonClassPlus}`);
     await button.trigger("click");
-    expect(wrapper.emitted("input")[0]).toEqual([propsData.value + 1]);
+    expect(wrapper.emitted("input")[0]).toEqual([value + 1]);
   });
 });
