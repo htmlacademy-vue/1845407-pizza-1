@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "BaseModal",
+  name: "Modal",
   data() {
     return {
       visible: true,

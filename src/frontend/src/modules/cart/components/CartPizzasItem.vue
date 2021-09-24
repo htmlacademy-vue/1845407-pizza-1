@@ -23,7 +23,7 @@
       :name="`pizza[${id}][quantity]`"
       :value="quantity"
       :min="1"
-      @input="$emit('onChangeCount', $event.target.value)"
+      @input="$emit('onChangeCount', $event)"
     />
 
     <div class="cart-list__price">

@@ -5,7 +5,7 @@
       :key="pizza.id"
       v-bind="pizza"
       class="cart-list__item"
-      @onChangeCount="changePizza({ ...pizza, quantity: $event * 1 })"
+      @onChangeCount="changePizza({ ...pizza, quantity: $event })"
     />
   </ul>
 </template>

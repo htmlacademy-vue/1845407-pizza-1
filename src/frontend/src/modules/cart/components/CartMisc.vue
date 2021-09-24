@@ -5,7 +5,7 @@
         v-for="item of misc"
         :key="item.id"
         v-bind="item"
-        @onChangeCount="changeAddition({ ...item, quantity: $event * 1 })"
+        @onChangeCount="changeAddition({ ...item, quantity: $event })"
       />
     </ul>
   </div>

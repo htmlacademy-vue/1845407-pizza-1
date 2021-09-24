@@ -36,7 +36,7 @@ describe("RadioButton", () => {
 
   it("It emits value after click", async () => {
     createComponent({ propsData });
-    await wrapper.find("input").trigger("click");
-    expect(wrapper.emitted().change[0][0]).toEqual(propsData.value);
+    await wrapper.find("input").setChecked();
+    expect(wrapper.emitted().change[0]).toEqual([propsData.value]);
   });
 });

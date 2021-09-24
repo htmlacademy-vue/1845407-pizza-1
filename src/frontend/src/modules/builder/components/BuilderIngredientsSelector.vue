@@ -33,7 +33,7 @@
                 class="filling"
                 :class="`filling--${type}`"
                 draggable
-                @dragstart="onDragIngredient($event, type)"
+                @dragstart="onDragIngredient(type, $event)"
               >
                 {{ name }}
               </span>
@@ -44,7 +44,7 @@
                 :value="quantity"
                 :min="0"
                 :max="3"
-                @input="onChangeIngredient(type, $event.target.value)"
+                @input="onChangeIngredient(type, $event)"
               />
             </li>
           </ul>
@@ -71,32 +71,32 @@ export default {
   },
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
-    onChangeSouse(choice) {
+    onChangeSouse(type) {
       let sauces = this.sauces.map((item) => ({
         ...item,
         checked: false,
       }));
-      const checked = find(sauces, ["type", choice]);
+      const checked = find(sauces, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ sauces });
       }
     },
-    onChangeIngredient(choice, value) {
+    onChangeIngredient(type, quantity) {
       let ingredients = this.ingredients.map((item) => ({
         ...item,
       }));
-      const checked = find(ingredients, ["type", choice]);
+      const checked = find(ingredients, { type });
       if (checked) {
-        Object.assign(checked, { quantity: value * 1 });
+        Object.assign(checked, { quantity });
         this[UPDATE_CHOICE]({ ingredients });
       }
     },
-    onDragIngredient({ dataTransfer }, choice) {
+    onDragIngredient(type, { dataTransfer }) {
       let ingredients = this.ingredients.map((item) => ({
         ...item,
       }));
-      const checked = find(ingredients, ["type", choice]);
+      const checked = find(ingredients, { type });
       if (checked) {
         if (checked.quantity < 3) {
           checked.quantity += 1;

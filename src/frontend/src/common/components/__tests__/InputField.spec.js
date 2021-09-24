@@ -44,10 +44,12 @@ describe("InputField", () => {
   });
 
   it("It focus input on prop autofocus", () => {
-    propsData.autofocus = true;
-    createComponent({ propsData, attachToDocument: true });
-    let input = wrapper.find("input").element;
-    expect(input).toBe(document.activeElement);
+    //propsData.autofocus = true;
+    createComponent({
+      propsData: { ...propsData, autofocus: true },
+      attachTo: document.body,
+    });
+    expect(wrapper.find("input").element).toBe(document.activeElement);
   });
 
   it("It sets initial value", () => {
@@ -57,17 +59,15 @@ describe("InputField", () => {
 
   it("It emits an input event when typing", async () => {
     createComponent({ propsData });
-    let input = wrapper.find("input");
-    await input.trigger("input");
+    await wrapper.find("input").trigger("input");
     expect(wrapper.emitted().input).toBeTruthy();
   });
 
   it("It emits the current input value when typing", async () => {
     createComponent({ propsData });
-    let input = wrapper.find("input");
-    input.element.value = "test input";
-    await input.trigger("input");
-    expect(wrapper.emitted().input[0][0]).toEqual("test input");
+    const value = "test input";
+    await wrapper.find("input").setValue(value);
+    expect(wrapper.emitted().input[0][0]).toEqual(value);
   });
 
   it("It sets defaults required to false", () => {
@@ -76,8 +76,8 @@ describe("InputField", () => {
   });
 
   it("It sets initial required", () => {
-    propsData.required = true;
-    createComponent({ propsData });
+    // propsData.required = true;
+    createComponent({ propsData: { ...propsData, required: true } });
     expect(wrapper.find("input").element.required).toBeTruthy();
   });
 
@@ -87,8 +87,8 @@ describe("InputField", () => {
   });
 
   it("It sets initial disabled", () => {
-    propsData.disabled = true;
-    createComponent({ propsData });
+    //propsData.disabled = true;
+    createComponent({ propsData: { ...propsData, disabled: true } });
     expect(wrapper.find("input").element.disabled).toBeTruthy();
   });
 });

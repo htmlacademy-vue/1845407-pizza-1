@@ -4,8 +4,7 @@
       type="button"
       class="counter__button counter__button--minus"
       :disabled="!stepDownAllowed"
-      value="stepDown"
-      @click="click"
+      @click="stepDown"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -18,14 +17,13 @@
       disabled
       :min="min"
       :max="max"
-      @input="$emit('input', $event)"
+      @input="$emit('input', $event.target.valueAsNumber)"
     />
     <button
       type="button"
       class="counter__button counter__button--plus"
       :disabled="!stepUpAllowed"
-      value="stepUp"
-      @click="click"
+      @click="stepUp"
     >
       <span class="visually-hidden">Больше</span>
     </button>
@@ -62,9 +60,11 @@ export default {
     },
   },
   methods: {
-    click(event) {
-      this.$refs["input"][event.target.value]();
-      this.$refs["input"].dispatchEvent(new Event("input"));
+    stepDown() {
+      if (this.stepDownAllowed) this.$emit("input", this.value - 1);
+    },
+    stepUp() {
+      if (this.stepUpAllowed) this.$emit("input", this.value + 1);
     },
   },
 };

@@ -11,7 +11,7 @@
         name="addition[quantity]"
         :value="quantity"
         :min="0"
-        @input="$emit('onChangeCount', $event.target.value)"
+        @input="$emit('onChangeCount', $event)"
       />
       <div class="additional-list__price">
         <b>{{ cost }} ₽</b>

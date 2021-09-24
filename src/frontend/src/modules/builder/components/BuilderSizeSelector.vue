@@ -37,9 +37,9 @@ export default {
   },
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
-    onChangeSize(choice) {
+    onChangeSize(type) {
       let sizes = this.sizes.map((item) => ({ ...item, checked: false }));
-      const checked = find(sizes, ["type", choice]);
+      const checked = find(sizes, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ sizes });
