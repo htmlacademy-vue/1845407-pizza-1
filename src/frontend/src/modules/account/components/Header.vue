@@ -2,14 +2,7 @@
   <div class="header__user">
     <template v-if="isLogged">
       <router-link :to="{ name: 'profile' }">
-        <avatar
-          :src="account.avatar"
-          :alt="account.name"
-          width="32"
-          height="32"
-          small="1x"
-          big="2x"
-        />
+        <avatar :src="account.avatar" :alt="account.name" :size="32" />
         <span>{{ account.name }}</span>
       </router-link>
       <a href="#" class="header__logout" @click.prevent="sign_out">

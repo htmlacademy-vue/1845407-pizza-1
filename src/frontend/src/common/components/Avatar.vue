@@ -2,14 +2,14 @@
   <picture>
     <source
       type="image/webp"
-      :srcset="`${webp[small]} 1x, ${webp[small]} 2x`"
+      :srcset="`${webp[x.small]} 1x, ${webp[x.big]} 2x`"
     />
     <img
-      :src="jpg[small]"
-      :srcset="jpg[big]"
+      :src="jpg[x.small]"
+      :srcset="`${jpg[x.small]} 1x, ${jpg[x.big]} 2x`"
       :alt="alt"
-      :width="width"
-      :height="height"
+      :width="size"
+      :height="size"
     />
   </picture>
 </template>
@@ -26,24 +26,17 @@ export default {
       type: String,
       default: "",
     },
-    width: {
+    size: {
       type: Number,
       default: 32,
-    },
-    height: {
-      type: Number,
-      default: 32,
-    },
-    small: {
-      type: String,
-      default: "1x",
-    },
-    big: {
-      type: String,
-      default: "2x",
     },
   },
   computed: {
+    x() {
+      return this.size > 32
+        ? { small: "2x", big: "4x" }
+        : { small: "1x", big: "2x" };
+    },
     jpg() {
       return {
         "1x": this.src,

@@ -1,13 +1,6 @@
 <template>
   <div class="user">
-    <avatar
-      :src="account.avatar"
-      :alt="account.name"
-      width="72"
-      height="72"
-      small="2x"
-      big="4x"
-    />
+    <avatar :src="account.avatar" :alt="account.name" :size="72" />
     <div class="user__name">
       <span>{{ account.name }}</span>
     </div>
