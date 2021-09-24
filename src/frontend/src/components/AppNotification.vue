@@ -3,7 +3,8 @@
     <div
       v-for="({ text, type }, index) in notifications"
       :key="index"
-      :class="`notification notification--${type}`"
+      class="notification"
+      :class="`notification--${type}`"
     >
       <span>{{ text }}</span>
     </div>
