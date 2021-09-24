@@ -1,6 +1,13 @@
 <template>
   <div class="user">
-    <avatar :width="72" :height="72" small="2x" big="4x" />
+    <avatar
+      :src="account.avatar"
+      :alt="account.name"
+      width="72"
+      height="72"
+      small="2x"
+      big="4x"
+    />
     <div class="user__name">
       <span>{{ account.name }}</span>
     </div>
@@ -13,7 +20,7 @@
 <script>
 import { mapState } from "vuex";
 
-import Avatar from "@/modules/account/components/Avatar";
+import Avatar from "@/common/components/Avatar";
 
 export default {
   name: "ProfileInfo",
