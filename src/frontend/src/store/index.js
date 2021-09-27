@@ -16,11 +16,11 @@ export const UPDATE_NOTIFICATIONS = "UPDATE_NOTIFICATIONS";
 
 Vue.use(Vuex);
 
-const state = () => ({
+export const state = () => ({
   notifications: [],
 });
 
-const actions = {
+export const actions = {
   async init({ dispatch }) {
     dispatch(`Builder/${RESET_CHOICE}`);
     dispatch(`Cart/${RESET_CART}`);
@@ -45,7 +45,7 @@ const actions = {
   },
 };
 
-const mutations = {
+export const mutations = {
   [UPDATE_NOTIFICATIONS](state, notifications) {
     Object.assign(state, { notifications });
   },
