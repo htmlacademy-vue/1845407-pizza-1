@@ -3,7 +3,8 @@ import reject from "lodash/reject";
 
 import Vue from "vue";
 import Vuex from "vuex";
-import VuexPlugins from "@/plugins/vuexPlugins";
+//import VuexPlugins from "@/plugins/vuexPlugins";
+import createPlugin from "@/plugins/vuexPlugins";
 import modules from "@/store/modules";
 import { RESET_CHOICE } from "./modules/builder.store";
 import { RESET_CART } from "./modules/cart.store";
@@ -55,6 +56,6 @@ export default new Vuex.Store({
   state,
   actions,
   mutations,
-  plugins: [VuexPlugins],
+  plugins: [createPlugin()],
   modules,
 });
