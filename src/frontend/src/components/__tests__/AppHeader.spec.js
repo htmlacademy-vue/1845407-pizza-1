@@ -1,5 +1,5 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import Vuex from "vuex";
+import Vuex from "vuex"
 import { generateMockStore } from "@/store/mocks";
 import AppHeader from "../AppHeader";
 import PzzAccountHeader from "@/modules/account/components/Header";
@@ -41,7 +41,35 @@ describe("AppHeader", () => {
   });
 
   it('is rendered', () => {
-    createComponent({ localVue, store, mocks, stubs });
+    createComponent({ localVue, store, mocks });
     expect(wrapper.exists()).toBeTruthy();
   });
+
+  it("header logo is rendered", () => {
+    createComponent({ localVue, store, mocks, stubs });
+    expect(wrapper.find(".header__logo").exists()).toBeTruthy();
+  });
+
+  it("header cart is rendered", () => {
+    createComponent({ localVue, store, mocks, stubs });
+    expect(wrapper.find(".header__cart").exists()).toBeTruthy();
+  });
+
+  it("header empty cart cost is 0", () => {
+    createComponent({ localVue, store, mocks, stubs });
+    expect(wrapper.find(".header__cart").text()).toContain("0 ₽");
+  });
+
+  it("header account is rendered", () => {
+    createComponent({ localVue, store, mocks, stubs });
+    expect(wrapper.find(".header__user").exists()).toBeTruthy();
+  });
 });
+
+/*
+Ссылка логотипа ведет на рут
+
+Ссылка блока цены ведет в корзину
+
+Проверка отображаемой суммы корзины (тут пока не знаю надо ли делать отдельно для пустой и для корзины с чем-то)
+*/
