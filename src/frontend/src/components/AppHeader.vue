@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'cart' }">{{ price }} ₽</router-link>
+      <router-link :to="{ name: 'cart' }"><pzz-cart-cost /></router-link>
     </div>
     <pzz-account-header />
   </header>
@@ -19,15 +19,11 @@
 
 <script>
 import PzzAccountHeader from "@/modules/account/components/Header";
-
-import { mapGetters } from "vuex";
+import PzzCartCost from "@/modules/cart/components/CartCost";
 
 export default {
   name: "AppHeader",
-  components: { PzzAccountHeader },
-  computed: {
-    ...mapGetters("Cart", ["price"]),
-  },
+  components: { PzzAccountHeader, PzzCartCost },
 };
 </script>
 
