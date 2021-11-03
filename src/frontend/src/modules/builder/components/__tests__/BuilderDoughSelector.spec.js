@@ -56,7 +56,7 @@ describe("BuilderDoughSelector", () => {
     });
   });
 
-  it("emits dough checked event", async  () => {
+  it("emits dough checked event", async () => {
     createComponent({ localVue, store });
     let index = dough.findIndex(({ checked }) => !checked);
 
