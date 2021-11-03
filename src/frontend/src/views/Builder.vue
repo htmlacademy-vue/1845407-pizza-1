@@ -13,7 +13,17 @@
 
         <pzz-builder-size-selector />
 
-        <pzz-builder-ingredients-selector />
+        <div class="content__ingridients">
+          <div class="sheet">
+            <h2 class="title title--small sheet__title">
+              Выберите ингридиенты
+            </h2>
+            <div class="sheet__content ingridients">
+              <pzz-builder-sauce-selector />
+              <pzz-builder-ingredients-selector />
+            </div>
+          </div>
+        </div>
 
         <div class="content__pizza">
           <pzz-builder-title-input />
@@ -41,6 +51,7 @@ import {
 
 import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import PzzBuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
 import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
@@ -51,6 +62,7 @@ export default {
   components: {
     PzzBuilderDoughSelector,
     PzzBuilderSizeSelector,
+    PzzBuilderSauceSelector,
     PzzBuilderIngredientsSelector,
     PzzBuilderPizzaView,
     PzzBuilderPriceCounter,
