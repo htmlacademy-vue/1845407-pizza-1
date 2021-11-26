@@ -26,7 +26,7 @@ describe("BuilderSauceSelector", () => {
   beforeEach(() => {
     actions = {
       Builder: {
-        UPDATE_CHOICE: jest.fn(),
+        [UPDATE_CHOICE]: jest.fn(),
       },
     };
     store = generateMockStore(actions);
@@ -66,7 +66,7 @@ describe("BuilderSauceSelector", () => {
     Object.assign(choice[index], { checked: true });
     let input = wrapper.find(`input[value='${choice[index].type}']`);
     await input.trigger("click");
-    expect(actions.Builder.UPDATE_CHOICE).toHaveBeenCalledWith(
+    expect(actions.Builder[UPDATE_CHOICE]).toHaveBeenCalledWith(
       expect.any(Object),
       { sauces: choice }
     );

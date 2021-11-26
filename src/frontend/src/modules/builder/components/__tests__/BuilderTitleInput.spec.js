@@ -25,7 +25,7 @@ describe("BuilderTitleInput", () => {
   beforeEach(() => {
     actions = {
       Builder: {
-        UPDATE_CHOICE: jest.fn(),
+        [UPDATE_CHOICE]: jest.fn(),
       },
     };
     store = generateMockStore(actions);
@@ -55,7 +55,7 @@ describe("BuilderTitleInput", () => {
     const input = wrapper.find("input[name='pizza_name']");
     input.element.value = name;
     await input.trigger("input");
-    expect(actions.Builder.UPDATE_CHOICE).toHaveBeenCalledWith(
+    expect(actions.Builder[UPDATE_CHOICE]).toHaveBeenCalledWith(
       expect.any(Object),
       { name }
     );

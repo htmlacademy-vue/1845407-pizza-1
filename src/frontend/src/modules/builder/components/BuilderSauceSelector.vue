@@ -37,7 +37,7 @@ export default {
         ...item,
         checked: false,
       }));
-      const checked = find(sauces, { type });
+      let checked = find(sauces, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ sauces });

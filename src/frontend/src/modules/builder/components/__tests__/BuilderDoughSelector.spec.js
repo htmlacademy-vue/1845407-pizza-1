@@ -26,7 +26,7 @@ describe("BuilderDoughSelector", () => {
   beforeEach(() => {
     actions = {
       Builder: {
-        UPDATE_CHOICE: jest.fn(),
+        [UPDATE_CHOICE]: jest.fn(),
       },
     };
     store = generateMockStore(actions);
@@ -47,6 +47,7 @@ describe("BuilderDoughSelector", () => {
     let radioButtonComponentList = wrapper.findAllComponents(BaseRadioButton);
     dough.forEach((item, index) => {
       let component = radioButtonComponentList.wrappers[index];
+      expect(component.classes()).toContain(`dough__input--${item.type}`);
       expect(component.find("b").text()).toBe(item.name);
       expect(component.find("span").text()).toBe(item.description);
       let input = component.find("input[name='dough']");
@@ -67,7 +68,7 @@ describe("BuilderDoughSelector", () => {
     Object.assign(choice[index], { checked: true });
     let input = wrapper.find(`input[value='${choice[index].type}']`);
     await input.trigger("click");
-    expect(actions.Builder.UPDATE_CHOICE).toHaveBeenCalledWith(
+    expect(actions.Builder[UPDATE_CHOICE]).toHaveBeenCalledWith(
       expect.any(Object),
       { dough: choice }
     );

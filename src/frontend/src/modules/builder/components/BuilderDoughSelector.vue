@@ -43,7 +43,7 @@ export default {
         ...item,
         checked: false,
       }));
-      const checked = find(dough, { type });
+      let checked = find(dough, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ dough });

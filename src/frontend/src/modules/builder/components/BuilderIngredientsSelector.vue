@@ -32,6 +32,7 @@
 
 <script>
 import find from "lodash/find";
+import cloneDeep from "lodash/cloneDeep";
 
 import BaseItemCounter from "@/common/components/ItemCounter";
 
@@ -47,26 +48,19 @@ export default {
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeIngredient(type, quantity) {
-      let ingredients = this.ingredients.map((item) => ({
-        ...item,
-      }));
-      const checked = find(ingredients, { type });
-      if (checked) {
-        Object.assign(checked, { quantity });
+      let ingredients = cloneDeep(this.ingredients);
+      let ingredient = find(ingredients, { type });
+      if (ingredient) {
+        Object.assign(ingredient, { quantity });
         this[UPDATE_CHOICE]({ ingredients });
       }
     },
     onDragIngredient(type, { dataTransfer }) {
-      let ingredients = this.ingredients.map((item) => ({
-        ...item,
-      }));
-      const checked = find(ingredients, { type });
-      if (checked) {
-        if (checked.quantity < 3) {
-          checked.quantity += 1;
-          dataTransfer.setData("ingredients", JSON.stringify(ingredients));
-        }
-      }
+      const ingredient = find(this.ingredients, { type });
+
+      if (!ingredient || ingredient.quantity >= 3) return;
+
+      dataTransfer.setData("ingredient", JSON.stringify(ingredient));
     },
   },
 };

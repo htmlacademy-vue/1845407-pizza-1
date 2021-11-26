@@ -1,7 +1,7 @@
 <template>
   <div
     class="content__constructor"
-    @drop="onDrop"
+    @drop.prevent="onDrop"
     @dragover="dropable"
     @dragenter="dropable"
   >
@@ -18,7 +18,10 @@
               v-for="index in quantity"
               :key="`${type}-${index}`"
               class="pizza__filling"
-              :class="[`pizza__filling--${type}`, ingredientIndexClass[index]]"
+              :class="[
+                `pizza__filling--${type}`,
+                PIZZA_FILLING_QUANTITY_CLASSES[index - 1],
+              ]"
             />
           </template>
         </transition-group>
@@ -28,40 +31,55 @@
 </template>
 
 <script>
+import find from "lodash/find";
+import cloneDeep from "lodash/cloneDeep";
+import isUndefined from "lodash/isUndefined";
+
+import { PIZZA_FILLING_QUANTITY_CLASSES } from "@/common/constants";
+
 import { mapGetters, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
   name: "PzzBuilderPizzaView",
+  data() {
+    return {
+      PIZZA_FILLING_QUANTITY_CLASSES: PIZZA_FILLING_QUANTITY_CLASSES,
+    };
+  },
   computed: {
     ...mapGetters("Builder", ["choice"]),
     ingredients() {
       return this.choice.ingredients.filter(({ quantity }) => quantity);
     },
     foundationClass() {
-      return `pizza--foundation--${this.choice.dough?.value}-${this.choice.sauce?.type}`;
-    },
-    ingredientIndexClass() {
-      return ["", "pizza__filling--second", "pizza__filling--third"];
+      return [
+        "pizza--foundation-",
+        this.choice.dough?.value,
+        this.choice.sauce?.type,
+      ]
+        .filter(Boolean)
+        .join("-");
     },
   },
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     dropable(event) {
-      const dataTransfer = event.dataTransfer;
-
-      if (!dataTransfer) return;
-
-      if (dataTransfer.types.includes("ingredients")) {
+      if (event.dataTransfer.types.includes("ingredient")) {
         event.preventDefault();
       }
     },
     onDrop({ dataTransfer }) {
-      if (!dataTransfer) return;
+      const payload = dataTransfer.getData("ingredient");
+      let { type, quantity } = payload && JSON.parse(payload);
 
-      const payload = dataTransfer.getData("ingredients");
-      if (payload) {
-        const ingredients = JSON.parse(dataTransfer.getData("ingredients"));
+      if (isUndefined(type) || isUndefined(quantity)) return;
+
+      let ingredients = cloneDeep(this.choice.ingredients);
+      let ingredient = find(ingredients, { type });
+      if (ingredient) {
+        quantity += 1;
+        Object.assign(ingredient, { quantity });
         this[UPDATE_CHOICE]({ ingredients });
       }
     },

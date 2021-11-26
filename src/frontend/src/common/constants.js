@@ -136,3 +136,9 @@ export const MISC_ADDITIONAL = [
     quantity: 0,
   },
 ];
+
+export const PIZZA_FILLING_QUANTITY_CLASSES = [
+  "",
+  "pizza__filling--second",
+  "pizza__filling--third",
+];
