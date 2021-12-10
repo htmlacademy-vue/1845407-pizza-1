@@ -2,9 +2,6 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 
-// import find from "lodash/find";
-// import cloneDeep from "lodash/cloneDeep";
-
 import { SET_ACCOUNT } from "@/store/modules/auth.store";
 import { account } from "@/common/mocks/user";
 

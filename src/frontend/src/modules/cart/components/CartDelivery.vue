@@ -12,7 +12,7 @@
         >
           <option
             v-for="item in selectAddresses"
-            :key="item.value"
+            :key="item.id"
             :value="item.value"
           >
             {{ item.value }}
@@ -88,7 +88,7 @@ export default {
     ...mapState("Cart", ["phone", "address"]),
     ...mapGetters("Auth", ["deliveryAddresses", "newAddress"]),
     disabled() {
-      return !!this.address?.id;
+      return !isNull(this.address?.name);
     },
     selectAddresses() {
       return this.deliveryAddresses.map((item) => ({

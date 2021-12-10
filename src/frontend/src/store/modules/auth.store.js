@@ -4,6 +4,8 @@ export const SET_ACCOUNT = "SET_ACCOUNT";
 export const LOAD_ADDRESSES = "LOAD_ADDRESSES";
 export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES";
 
+import { UPDATE_CART } from "@/store/modules/cart.store";
+
 export default {
   namespaced: true,
   state: () => ({
@@ -35,13 +37,18 @@ export default {
 
       dispatch(SET_ACCOUNT);
     },
-    async [SIGN_OUT]({ commit }) {
+    async [SIGN_OUT]({ commit, getters }) {
       try {
         await this.$api.auth.logout();
       } finally {
         this.$jwt.deleteToken();
         this.$api.auth.setAuthHeader();
 
+        commit(
+          `Cart/${UPDATE_CART}`,
+          { address: getters.newAddress },
+          { root: true }
+        );
         commit(SET_ACCOUNT);
         commit(UPDATE_ADDRESSES);
       }
@@ -55,8 +62,10 @@ export default {
         dispatch(SIGN_OUT);
       }
     },
-    async [LOAD_ADDRESSES]({ commit }) {
-      const addresses = await this.$api.addresses.query();
+    async [LOAD_ADDRESSES]({ commit, getters }) {
+      const addresses = getters.isLogged
+        ? await this.$api.addresses.query()
+        : [];
       commit(UPDATE_ADDRESSES, addresses);
     },
   },
