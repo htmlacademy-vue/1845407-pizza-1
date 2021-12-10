@@ -35,7 +35,7 @@ export default {
 
       dispatch(SET_ACCOUNT);
     },
-    async [SIGN_OUT]({ dispatch, commit }) {
+    async [SIGN_OUT]({ commit }) {
       try {
         await this.$api.auth.logout();
       } finally {
@@ -43,7 +43,7 @@ export default {
         this.$api.auth.setAuthHeader();
 
         commit(SET_ACCOUNT);
-        dispatch(LOAD_ADDRESSES);
+        commit(UPDATE_ADDRESSES);
       }
     },
     async [SET_ACCOUNT]({ dispatch, commit }) {
@@ -55,10 +55,8 @@ export default {
         dispatch(SIGN_OUT);
       }
     },
-    async [LOAD_ADDRESSES]({ commit, getters }) {
-      const addresses = getters["isLogged"]
-        ? await this.$api.addresses.query()
-        : [];
+    async [LOAD_ADDRESSES]({ commit }) {
+      const addresses = await this.$api.addresses.query();
       commit(UPDATE_ADDRESSES, addresses);
     },
   },

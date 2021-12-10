@@ -3,7 +3,7 @@
     <div class="address-form__header">
       <b>{{ address.name }}</b>
       <div class="address-form__edit">
-        <button type="button" class="icon" @click.prevent="$emit('toggleEdit')">
+        <button type="button" class="icon" @click.prevent="toggleEdit">
           <span class="visually-hidden">Изменить адрес</span>
         </button>
       </div>
@@ -34,6 +34,11 @@ export default {
     },
     partsJoined() {
       return [this.street, this.building, this.flat].filter(Boolean).join(", ");
+    },
+  },
+  methods: {
+    toggleEdit() {
+      this.$emit("toggleEdit", this.address.id);
     },
   },
 };

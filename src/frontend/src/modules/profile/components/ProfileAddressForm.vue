@@ -11,7 +11,7 @@
         <button
           type="button"
           class="icon icon-close"
-          @click.prevent="$emit('toggleEdit')"
+          @click.prevent="$emit('toggleEdit', false)"
         >
           <span class="visually-hidden">Отмена</span>
         </button>
@@ -71,9 +71,9 @@
 
     <div class="address-form__buttons">
       <button
+        v-if="persisted"
         type="button"
         class="button button--transparent"
-        v-if="persisted"
         @click.prevent="onDestroy"
       >
         Удалить
@@ -86,8 +86,6 @@
 <script>
 import BaseInputField from "@/common/components/InputField";
 
-import { mapState } from "vuex";
-
 export default {
   name: "ProfileAddressForm",
   components: { BaseInputField },
@@ -98,7 +96,6 @@ export default {
     },
   },
   computed: {
-    ...mapState("Auth", ["account"]),
     persisted() {
       return !!this.address.id;
     },

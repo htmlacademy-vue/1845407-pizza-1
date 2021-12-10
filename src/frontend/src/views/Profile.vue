@@ -10,7 +10,7 @@
       <component
         :is="address.id != edit ? 'ProfileAddressItem' : 'ProfileAddressForm'"
         :address="address"
-        @toggleEdit="toggleEdit(address.id)"
+        @toggleEdit="toggleEdit"
         @updateList="updateList"
       />
     </div>
@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     toggleEdit(addressId) {
-      this.edit = this.edit != addressId && addressId;
+      this.edit = addressId;
 
       // подчищаем форму нового адреса в свернутом состоянии
       if (!isNull(this.edit)) {
