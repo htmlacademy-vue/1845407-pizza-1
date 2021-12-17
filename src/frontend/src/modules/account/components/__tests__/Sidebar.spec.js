@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import VueRouter from "vue-router";
 
-import Sidebar from "@/modules/account/components/Sidebar";
+import Sidebar from "../Sidebar";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
