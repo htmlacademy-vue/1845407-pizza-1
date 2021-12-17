@@ -8,14 +8,17 @@
         </button>
       </div>
     </div>
-    <p>{{ partsJoined }}</p>
+    <base-address-string v-bind="address" />
     <small>{{ address.comment }}</small>
   </div>
 </template>
 
 <script>
+import BaseAddressString from "@/common/components/AddressString";
+
 export default {
   name: "ProfileAddressItem",
+  components: { BaseAddressString },
   props: {
     address: {
       type: Object,

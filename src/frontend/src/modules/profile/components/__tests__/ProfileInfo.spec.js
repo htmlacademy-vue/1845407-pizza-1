@@ -5,7 +5,7 @@ import { generateMockStore } from "@/store/mocks";
 import { SET_ACCOUNT } from "@/store/modules/auth.store";
 import { account } from "@/common/mocks/user";
 
-import ProfileInfo from "@/modules/profile/components/ProfileInfo";
+import ProfileInfo from "../ProfileInfo";
 import Avatar from "@/common/components/Avatar";
 
 const localVue = createLocalVue();
