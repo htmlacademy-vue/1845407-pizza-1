@@ -11,19 +11,25 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'cart' }"><pzz-cart-cost /></router-link>
+      <router-link :to="{ name: 'cart' }">
+        <base-cost v-bind="{ pizzas, misc }" />
+      </router-link>
     </div>
-    <pzz-account-header />
+    <account-header />
   </header>
 </template>
 
 <script>
-import PzzAccountHeader from "@/modules/account/components/Header";
-import PzzCartCost from "@/modules/cart/components/CartCost";
+import AccountHeader from "@/modules/account/components/Header";
+import BaseCost from "@/common/components/Cost";
+import { mapState } from "vuex";
 
 export default {
   name: "AppHeader",
-  components: { PzzAccountHeader, PzzCartCost },
+  components: { AccountHeader, BaseCost },
+  computed: {
+    ...mapState("Cart", ["pizzas", "misc"]),
+  },
 };
 </script>
 
