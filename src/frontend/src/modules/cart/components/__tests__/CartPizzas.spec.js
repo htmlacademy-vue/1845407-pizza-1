@@ -6,7 +6,7 @@ import random from "lodash/random";
 import times from "lodash/times";
 
 import { UPDATE_CART } from "@/store/modules/cart.store";
-import { generateMockPizza } from "@/common/mocks/cart";
+import { mockPizza } from "@/common/mocks/cart";
 
 import CartPizzas from "../CartPizzas";
 import CartPizzasItem from "@/modules/cart/components/CartPizzasItem";
@@ -16,8 +16,8 @@ localVue.component("CartPizzasItem", CartPizzasItem);
 localVue.use(Vuex);
 
 let pizzas = [];
-times(random(2,5), () => {
-  pizzas.push(generateMockPizza());
+times(random(2, 5), () => {
+  pizzas.push(mockPizza());
 });
 
 describe("CartPizzas", () => {

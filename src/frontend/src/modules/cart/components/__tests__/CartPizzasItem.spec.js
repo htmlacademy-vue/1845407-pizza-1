@@ -2,14 +2,14 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import CartPizzasItem from "../CartPizzasItem";
 import BaseItemCounter from "@/common/components/ItemCounter";
 
-import { generateMockPizza } from "@/common/mocks/cart";
+import { mockPizza } from "@/common/mocks/cart";
 
 const localVue = createLocalVue();
 localVue.component("BaseItemCounter", BaseItemCounter);
 
 describe("CartPizzasItem", () => {
   // Определяем входные параметры по умолчанию и заглушки.
-  const propsData = { ...generateMockPizza() };
+  const propsData = { ...mockPizza() };
   const mocks = {
     $router: {
       push: jest.fn(),
