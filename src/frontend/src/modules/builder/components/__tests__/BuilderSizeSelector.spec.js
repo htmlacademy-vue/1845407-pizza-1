@@ -5,7 +5,7 @@ import { generateMockStore } from "@/store/mocks";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 import { sizes } from "@/common/mocks/pizza";
 
-import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import BuilderSizeSelector from "../BuilderSizeSelector";
 import BaseRadioButton from "@/common/components/RadioButton";
 
 const localVue = createLocalVue();

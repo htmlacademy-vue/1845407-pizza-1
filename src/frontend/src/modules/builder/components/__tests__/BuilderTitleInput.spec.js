@@ -4,7 +4,7 @@ import { generateMockStore } from "@/store/mocks";
 
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
-import BuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
+import BuilderTitleInput from "../BuilderTitleInput";
 import BaseInputField from "@/common/components/InputField";
 
 const localVue = createLocalVue();

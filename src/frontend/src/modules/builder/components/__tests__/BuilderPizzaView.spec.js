@@ -8,7 +8,7 @@ import cloneDeep from "lodash/cloneDeep";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 import { dough, sauces, ingredients } from "@/common/mocks/pizza";
 
-import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import BuilderPizzaView from "../BuilderPizzaView";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -71,19 +71,18 @@ describe("BuilderPizzaView", () => {
   it("emits ingredients count change on drop", async () => {
     createComponent({ localVue, store });
     const choice = store.getters["Builder/choice"];
-    choice.ingredients.forEach(async (item) => {
+    choice.ingredients.forEach(async (ingredient) => {
+      let ingredients = cloneDeep(choice.ingredients);
+      Object.assign(find(ingredients, { type: ingredient.type }), {
+        quantity: ingredient.quantity + 1,
+      });
       await wrapper.trigger("drop", {
         dataTransfer: {
           effectAllowed: false,
           dropEffect: false,
-          getData: jest.fn(() => JSON.stringify(item)),
+          getData: jest.fn(() => JSON.stringify(ingredient)),
         },
       });
-
-      let ingredients = cloneDeep(choice.ingredients);
-      let ingredient = find(ingredients, { type: item.type });
-      ingredient.quantity += 1;
-
       expect(actions.Builder[UPDATE_CHOICE]).toHaveBeenCalledWith(
         expect.any(Object),
         { ingredients }

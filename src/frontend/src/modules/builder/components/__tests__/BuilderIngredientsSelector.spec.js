@@ -3,9 +3,9 @@ import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
-import { ingredients } from "@/common/mocks/pizza";
+import { ingredients, mockChoice } from "@/common/mocks/pizza";
 
-import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderIngredientsSelector from "../BuilderIngredientsSelector";
 import BaseItemCounter from "@/common/components/ItemCounter";
 
 const localVue = createLocalVue();
@@ -39,12 +39,14 @@ describe("BuilderIngredientsSelector", () => {
 
   it("is render ingridients selectors", () => {
     createComponent({ localVue, store });
-    expect(wrapper.findAll(".ingridients__item").length).toBe(ingredients.length);
+    expect(wrapper.findAll(".ingridients__item").length).toBe(
+      ingredients.length
+    );
   });
 
   it("is render correct filling", () => {
     createComponent({ localVue, store });
-    let fillings = wrapper.findAll('.filling');
+    let fillings = wrapper.findAll(".filling");
     ingredients.forEach((item, index) => {
       expect(fillings.at(index).classes()).toContain(`filling--${item.type}`);
       expect(fillings.at(index).text()).toContain(item.name);
@@ -52,9 +54,12 @@ describe("BuilderIngredientsSelector", () => {
   });
 
   it("is render correct item counter component", () => {
+    store.commit(`Builder/${UPDATE_CHOICE}`, {
+      ingredients: mockChoice()["ingredients"],
+    });
     createComponent({ localVue, store });
     let itemCounterComponentList = wrapper.findAllComponents(BaseItemCounter);
-    ingredients.forEach((item, index) => {
+    store.state.Builder.ingredients.forEach((item, index) => {
       let component = itemCounterComponentList.at(index);
       let input = component.find(`input[name='counter[${item.type}]']`);
       expect(input.exists()).toBeTruthy();
@@ -67,7 +72,7 @@ describe("BuilderIngredientsSelector", () => {
   it("emits ingredients count change event", () => {
     createComponent({ localVue, store });
     let itemCounterComponentList = wrapper.findAllComponents(BaseItemCounter);
-    ingredients.forEach((item, index) => {
+    store.state.Builder.ingredients.forEach((item, index) => {
       let component = itemCounterComponentList.at(index);
       let quantity = 1;
       Object.assign(item, { quantity });
