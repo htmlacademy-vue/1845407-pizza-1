@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import DefaultLayout from "@/layouts/Default";
+import DefaultLayout from "../Default";
 
 const stubs = ["router-view"];
 

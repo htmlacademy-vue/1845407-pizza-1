@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import SidebarLayout from "@/layouts/Sidebar";
+import SidebarLayout from "../Sidebar";
 
 const stubs = ["router-link", "router-view"];
 
