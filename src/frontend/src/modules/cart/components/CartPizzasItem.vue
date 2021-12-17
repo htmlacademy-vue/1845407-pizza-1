@@ -27,7 +27,9 @@
     />
 
     <div class="cart-list__price">
-      <b>{{ cost }} ₽</b>
+      <b>
+        <base-cost :pizzas="[{ price, quantity }]" />
+      </b>
     </div>
 
     <div class="cart-list__button">
@@ -51,10 +53,11 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
+import BaseCost from "@/common/components/Cost";
 
 export default {
   name: "CartPizzasItem",
-  components: { BaseItemCounter },
+  components: { BaseItemCounter, BaseCost },
   props: {
     id: [String, Number],
     name: String,
@@ -75,10 +78,6 @@ export default {
         .map(({ name }) => name)
         .join(", ")
         .toLowerCase();
-    },
-
-    cost() {
-      return this.quantity * this.price;
     },
   },
 };

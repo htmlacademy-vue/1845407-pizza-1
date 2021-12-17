@@ -11,6 +11,9 @@
 </template>
 
 <script>
+import find from "lodash/find";
+import cloneDeep from "lodash/cloneDeep";
+
 import PzzCartPizzasItem from "@/modules/cart/components/CartPizzasItem";
 
 import { mapState, mapActions } from "vuex";
@@ -24,15 +27,12 @@ export default {
   },
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
-    changePizza(pizza) {
-      let pizzas = [...this.pizzas];
-      const index = pizzas.findIndex(({ id }) => id === pizza.id);
-      if (~index) {
-        if (pizza.quantity) {
-          pizzas.splice(index, 1, pizza);
-        } else {
-          pizzas.splice(index, 1);
-        }
+    changePizza({ id, quantity }) {
+      let pizzas = cloneDeep(this.pizzas);
+      let pizza = find(pizzas, { id });
+      if (pizza) {
+        Object.assign(pizza, { quantity });
+        pizzas = pizzas.filter(({ quantity }) => quantity);
         this[UPDATE_CART]({ pizzas });
       }
     },
