@@ -4,7 +4,7 @@
       <h1 class="title title--big">Мои данные</h1>
     </div>
 
-    <pzz-profile-info />
+    <profile-info />
 
     <div v-for="address in addresses" :key="address.id" class="layout__address">
       <component
@@ -20,6 +20,7 @@
         v-if="edit != null"
         type="button"
         class="button button--border"
+        data-test="newAddress"
         @click.prevent="
           updateList({
             id: null,
@@ -41,7 +42,7 @@
 <script>
 import isNull from "lodash/isNull";
 
-import PzzProfileInfo from "@/modules/profile/components/ProfileInfo";
+import ProfileInfo from "@/modules/profile/components/ProfileInfo";
 import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
 
@@ -49,7 +50,7 @@ import { mapState } from "vuex";
 
 export default {
   name: "Profile",
-  components: { PzzProfileInfo, ProfileAddressItem, ProfileAddressForm },
+  components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   data() {
     return {
       addresses: [],

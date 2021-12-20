@@ -11,9 +11,6 @@
           <h1 class="title title--big">Корзина</h1>
         </div>
 
-        <!-- <div class="sheet cart__empty">
-          <p>В корзине нет ни одного товара</p>
-        </div> -->
         <template v-if="isEmpty">
           <div class="sheet cart__empty">
             <p>В корзине нет ни одного товара</p>
@@ -55,7 +52,7 @@ export default {
   },
   methods: {
     async submit() {
-      const userId = this.account && this.account?.id;
+      const userId = this.account?.id;
       try {
         await this.$api.orders.post({ ...this.toJson, userId });
         await this.$router.push({ name: "thanks" });

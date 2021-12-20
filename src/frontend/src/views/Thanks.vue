@@ -1,9 +1,6 @@
 <template>
   <div class="popup">
-    <button
-      class="button button--transparent close"
-      @click.prevent="$emit('close', nextRoute)"
-    >
+    <button class="button button--transparent close" @click.prevent="close">
       <span class="visually-hidden">Закрыть попап</span>
     </button>
     <div class="popup__title">
@@ -11,9 +8,7 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <a href="#" class="button" @click.prevent="$emit('close', nextRoute)">
-        Отлично, я жду!
-      </a>
+      <a href="#" class="button" @click.prevent="close">Отлично, я жду!</a>
     </div>
   </div>
 </template>
@@ -26,13 +21,13 @@ export default {
   name: "Thanks",
   computed: {
     ...mapGetters("Auth", ["isLogged"]),
-    nextRoute() {
-      const name = this.isLogged ? "orders" : "builder";
-      return { name };
-    },
   },
   methods: {
     ...mapActions("Cart", [RESET_CART]),
+    close() {
+      const name = this.isLogged ? "orders" : "builder";
+      this.$emit("close", { name });
+    },
   },
   destroyed() {
     this[RESET_CART]();
