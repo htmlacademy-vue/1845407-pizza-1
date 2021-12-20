@@ -20,7 +20,7 @@ export const PIZZA_INGREDIENTS_TYPES = [
   {
     name: "Грибы",
     type: "mushrooms",
-    quantity: 1,
+    quantity: 0,
   },
   {
     name: "Чеддер",
@@ -35,7 +35,7 @@ export const PIZZA_INGREDIENTS_TYPES = [
   {
     name: "Ветчина",
     type: "ham",
-    quantity: 1,
+    quantity: 0,
   },
   {
     name: "Ананас",
@@ -55,7 +55,7 @@ export const PIZZA_INGREDIENTS_TYPES = [
   {
     name: "Чили",
     type: "chile",
-    quantity: 1,
+    quantity: 0,
   },
   {
     name: "Халапеньо",
@@ -135,4 +135,10 @@ export const MISC_ADDITIONAL = [
     name: "Картошка из печи",
     quantity: 0,
   },
+];
+
+export const PIZZA_FILLING_QUANTITY_CLASSES = [
+  "",
+  "pizza__filling--second",
+  "pizza__filling--third",
 ];

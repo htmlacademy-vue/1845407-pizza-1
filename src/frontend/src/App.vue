@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../src/assets/scss/app";
+@import "@/assets/scss/app";
 @import "~animate.css";
 
 #app {

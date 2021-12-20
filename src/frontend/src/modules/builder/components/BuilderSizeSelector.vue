@@ -12,7 +12,7 @@
           name="diameter"
           :value="type"
           :checked="checked"
-          @changeChoice="onChangeSize($event.target.value)"
+          @change="onChangeSize"
         >
           <span>{{ name }}</span>
         </base-radio-button>
@@ -37,9 +37,9 @@ export default {
   },
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
-    onChangeSize(choice) {
+    onChangeSize(type) {
       let sizes = this.sizes.map((item) => ({ ...item, checked: false }));
-      const checked = find(sizes, ["type", choice]);
+      let checked = find(sizes, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ sizes });

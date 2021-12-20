@@ -35,7 +35,7 @@ export default {
         (total, ingredient) => total + ingredient?.price * ingredient?.quantity,
         0
       );
-      price += dough?.price ?? 0;
+      price += _dough?.price ?? 0;
       price += sauce?.price ?? 0;
       price *= size?.multiplier ?? 0;
       return { id, name, dough: _dough, size, sauce, ingredients, price };
@@ -69,6 +69,7 @@ export default {
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
+      dispatch(RESET_CHOICE);
     },
     async query({ dispatch }, { resource, mixin }) {
       const resources = {};

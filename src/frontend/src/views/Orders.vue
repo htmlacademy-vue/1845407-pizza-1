@@ -32,15 +32,7 @@ export default {
     },
   },
   async created() {
-    const orders = await this.$api.orders.query();
-    this.orders = orders.map(
-      ({ id, orderPizzas, orderMisc, orderAddress }) => ({
-        id,
-        orderPizzas,
-        orderMisc,
-        orderAddress,
-      })
-    );
+    this.orders = await this.$api.orders.query();
   },
 };
 </script>

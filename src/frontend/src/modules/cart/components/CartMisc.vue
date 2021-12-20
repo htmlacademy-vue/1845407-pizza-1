@@ -5,13 +5,16 @@
         v-for="item of misc"
         :key="item.id"
         v-bind="item"
-        @onChangeCount="changeAddition({ ...item, quantity: $event * 1 })"
+        @onChangeCount="onChangeAddition({ ...item, quantity: $event })"
       />
     </ul>
   </div>
 </template>
 
 <script>
+import find from "lodash/find";
+import cloneDeep from "lodash/cloneDeep";
+
 import CartMiscItem from "@/modules/cart/components/CartMiscItem";
 
 import { mapState, mapActions } from "vuex";
@@ -25,11 +28,11 @@ export default {
   },
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
-    changeAddition(item) {
-      let misc = [...this.misc];
-      const index = misc.findIndex(({ id }) => id === item.id);
-      if (~index) {
-        misc.splice(index, 1, item);
+    onChangeAddition({ id, quantity }) {
+      let misc = cloneDeep(this.misc);
+      let item = find(misc, { id });
+      if (item) {
+        Object.assign(item, { quantity });
         this[UPDATE_CART]({ misc });
       }
     },

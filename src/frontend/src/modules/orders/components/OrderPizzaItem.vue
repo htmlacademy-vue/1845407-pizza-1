@@ -24,21 +24,33 @@
 
 <script>
 export default {
-  name: "ItemPizza",
+  name: "OrderPizzaItem",
   props: {
-    id: {
-      type: Number,
-      required: true,
-    },
+    id: [Number, String],
     name: {
       type: String,
       default: "",
     },
-    dough: Object,
-    size: Object,
-    sauce: Object,
-    ingredients: Array,
-    quantity: Number,
+    dough: {
+      type: Object,
+      required: true,
+    },
+    size: {
+      type: Object,
+      required: true,
+    },
+    sauce: {
+      type: Object,
+      required: true,
+    },
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
     price: Number,
   },
   computed: {

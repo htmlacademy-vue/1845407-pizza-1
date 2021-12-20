@@ -12,7 +12,7 @@
           name="dough"
           :value="type"
           :checked="checked"
-          @changeChoice="onChangeDough($event.target.value)"
+          @change="onChangeDough"
         >
           <b>{{ name }}</b>
           <span>{{ description }}</span>
@@ -38,12 +38,12 @@ export default {
   },
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
-    onChangeDough(choice) {
+    onChangeDough(type) {
       let dough = this.dough.map((item) => ({
         ...item,
         checked: false,
       }));
-      const checked = find(dough, ["type", choice]);
+      let checked = find(dough, { type });
       if (checked) {
         Object.assign(checked, { checked: true });
         this[UPDATE_CHOICE]({ dough });

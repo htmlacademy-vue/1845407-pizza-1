@@ -6,7 +6,7 @@
       :name="name"
       :value="value"
       :checked="checked"
-      @change="$emit('changeChoice', $event)"
+      @change="$emit('change', $event.target.value)"
     />
     <slot />
   </label>

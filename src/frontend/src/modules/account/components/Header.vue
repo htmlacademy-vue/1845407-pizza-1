@@ -2,12 +2,16 @@
   <div class="header__user">
     <template v-if="isLogged">
       <router-link :to="{ name: 'profile' }">
-        <avatar :width="32" :height="32" small="1x" big="2x" />
+        <avatar :src="account.avatar" :alt="account.name" :size="32" />
         <span>{{ account.name }}</span>
       </router-link>
-      <a href="#" class="header__logout" @click.prevent="sign_out">
+      <router-link
+        :to="{ name: 'builder' }"
+        class="header__logout"
+        @click.native="logout"
+      >
         <span>Выйти</span>
-      </a>
+      </router-link>
     </template>
     <template v-else>
       <router-link :to="{ name: 'login' }" class="header__login">
@@ -19,9 +23,9 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import { SIGN_OUT } from "@/store/modules/auth.store.js";
+import { SIGN_OUT } from "@/store/modules/auth.store";
 
-import Avatar from "@/modules/account/components/Avatar";
+import Avatar from "@/common/components/Avatar";
 
 export default {
   name: "PzzAccountHeader",
@@ -32,13 +36,8 @@ export default {
   },
   methods: {
     ...mapActions("Auth", [SIGN_OUT]),
-    async sign_out() {
+    async logout() {
       await this[SIGN_OUT]();
-
-      if (this.$router.currentRoute.name != "builder") {
-        this.$router.push({ name: "builder" });
-      }
-      //location.reload();
     },
   },
 };

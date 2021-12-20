@@ -2,7 +2,11 @@
   <li class="additional-list__item sheet">
     <p class="additional-list__description">
       <img :src="image" width="39" height="60" :alt="name" />
-      <span>{{ name }}</span>
+      <span>
+        {{ name }}
+        <br />
+        <span>{{ price }} ₽/шт</span>
+      </span>
     </p>
 
     <div class="additional-list__wrapper">
@@ -11,10 +15,10 @@
         name="addition[quantity]"
         :value="quantity"
         :min="0"
-        @input="$emit('onChangeCount', $event.target.value)"
+        @input="$emit('onChangeCount', $event)"
       />
       <div class="additional-list__price">
-        <b>{{ cost }} ₽</b>
+        <b><base-cost :misc="[{ price, quantity }]" /></b>
       </div>
     </div>
   </li>
@@ -22,10 +26,11 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
+import BaseCost from "@/common/components/Cost";
 
 export default {
   name: "CartMiscItem",
-  components: { BaseItemCounter },
+  components: { BaseItemCounter, BaseCost },
   props: {
     name: String,
     image: String,
@@ -47,6 +52,10 @@ export default {
 
   & + & {
     margin-left: 15px;
+  }
+
+  span > span {
+    font-weight: normal;
   }
 }
 </style>

@@ -13,7 +13,17 @@
 
         <pzz-builder-size-selector />
 
-        <pzz-builder-ingredients-selector />
+        <div class="content__ingridients">
+          <div class="sheet">
+            <h2 class="title title--small sheet__title">
+              Выберите ингридиенты
+            </h2>
+            <div class="sheet__content ingridients">
+              <pzz-builder-sauce-selector />
+              <pzz-builder-ingredients-selector />
+            </div>
+          </div>
+        </div>
 
         <div class="content__pizza">
           <pzz-builder-title-input />
@@ -32,15 +42,12 @@
 <script>
 import find from "lodash/find";
 
-import { mapState, mapGetters, mapActions } from "vuex";
-import {
-  ADD_TO_CART,
-  LOAD_CHOICE,
-  RESET_CHOICE,
-} from "@/store/modules/builder.store";
+import { mapState, mapActions } from "vuex";
+import { ADD_TO_CART, LOAD_CHOICE } from "@/store/modules/builder.store";
 
 import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import PzzBuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
 import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
 import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
 import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
@@ -51,20 +58,25 @@ export default {
   components: {
     PzzBuilderDoughSelector,
     PzzBuilderSizeSelector,
+    PzzBuilderSauceSelector,
     PzzBuilderIngredientsSelector,
     PzzBuilderPizzaView,
     PzzBuilderPriceCounter,
     PzzBuilderTitleInput,
   },
+  data() {
+    return {
+      edit: null,
+    };
+  },
   computed: {
     ...mapState("Cart", ["pizzas"]),
-    ...mapGetters("Builder", ["choice"]),
   },
   methods: {
-    ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE, RESET_CHOICE]),
-    addToCart(choice) {
-      this[ADD_TO_CART](choice);
-      if (this.$route.query.id) {
+    ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE]),
+    addToCart() {
+      this[ADD_TO_CART]();
+      if (this.edit) {
         this.$router.push({ name: "cart" });
       }
     },
@@ -72,17 +84,12 @@ export default {
   created() {
     if (this.$route.query.id) {
       // загрузить конфигурацию пиццы в билдер
-      const choice = find(this.pizzas, ["id", this.$route.query.id]);
-      if (choice) {
-        this[LOAD_CHOICE](choice);
+      this.edit = find(this.pizzas, ["id", this.$route.query.id]);
+      if (this.edit) {
+        this[LOAD_CHOICE](this.edit);
       } else {
         this.$router.replace({ name: "builder" });
       }
-    }
-  },
-  destroyed() {
-    if (this.choice.id) {
-      this[RESET_CHOICE]();
     }
   },
 };

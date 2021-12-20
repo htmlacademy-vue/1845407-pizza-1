@@ -12,16 +12,11 @@
       Перейти к конструктору<br />чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
-      <b>Итого: {{ price }} ₽</b>
+      <b>Итого: <base-cost v-bind="{ pizzas, misc }" /></b>
     </div>
 
     <div class="footer__submit">
-      <button
-        type="submit"
-        class="button"
-        :class="{ 'button--disabled': !ready }"
-        :disabled="!ready"
-      >
+      <button type="submit" class="button" :disabled="!pizzas.length">
         Оформить заказ
       </button>
     </div>
@@ -29,15 +24,14 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import BaseCost from "@/common/components/Cost";
+import { mapState } from "vuex";
 
 export default {
   name: "CartFooter",
+  components: { BaseCost },
   computed: {
-    ...mapGetters("Cart", ["price"]),
-    ready() {
-      return !!this.price;
-    },
+    ...mapState("Cart", ["pizzas", "misc"]),
   },
 };
 </script>

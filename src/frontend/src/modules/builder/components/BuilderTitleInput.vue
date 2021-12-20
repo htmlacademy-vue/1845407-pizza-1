@@ -1,29 +1,31 @@
 <template>
-  <label class="input">
+  <base-input-field
+    name="pizza_name"
+    :value="name"
+    placeholder="Введите название пиццы"
+    @input="onInputTitle"
+  >
     <span class="visually-hidden">Название пиццы</span>
-    <input
-      type="text"
-      name="pizza_name"
-      placeholder="Введите название пиццы"
-      :value="name"
-      @input="onInputTitle({ name: $event.target.value })"
-    />
-  </label>
+  </base-input-field>
 </template>
 
 <script>
+import BaseInputField from "@/common/components/InputField";
+
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
   name: "PzzBuilderTitleInput",
+  components: { BaseInputField },
   computed: {
     ...mapState("Builder", ["name"]),
   },
   methods: {
-    ...mapActions("Builder", {
-      onInputTitle: UPDATE_CHOICE,
-    }),
+    ...mapActions("Builder", [UPDATE_CHOICE]),
+    onInputTitle(name) {
+      this[UPDATE_CHOICE]({ name });
+    },
   },
 };
 </script>

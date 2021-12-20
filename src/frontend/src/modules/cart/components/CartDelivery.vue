@@ -11,11 +11,11 @@
           @change="selectAddress"
         >
           <option
-            v-for="item in selectAddresses"
-            :key="item.value"
-            :value="item.value"
+            v-for="(item, index) in deliveryAddresses"
+            :key="index"
+            :value="addressValue(item)"
           >
-            {{ item.value }}
+            {{ addressValue(item) }}
           </option>
         </select>
       </label>
@@ -39,7 +39,7 @@
             name="address[street]"
             :value="address.street"
             required
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ street: $event })"
           >
             <span>Улица*</span>
@@ -51,7 +51,7 @@
             name="address[building]"
             :value="address.building"
             required
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ building: $event })"
           >
             <span>Дом*</span>
@@ -62,7 +62,7 @@
           <base-input-field
             name="address[flat]"
             :value="address.flat"
-            :disabled="readonlyAddress"
+            :disabled="disabled"
             @input="changeAddress({ flat: $event })"
           >
             <span>Квартира</span>
@@ -79,7 +79,7 @@ import isNull from "lodash/isNull";
 import BaseInputField from "@/common/components/InputField";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { UPDATE_CART } from "@/store/modules/cart.store";
-import { LOAD_ADDRESSES } from "@/store/modules/auth.store";
+import { UPDATE_ADDRESSES } from "@/store/modules/auth.store";
 
 export default {
   name: "CartDelivery",
@@ -87,14 +87,8 @@ export default {
   computed: {
     ...mapState("Cart", ["phone", "address"]),
     ...mapGetters("Auth", ["deliveryAddresses", "newAddress"]),
-    readonlyAddress() {
-      return !!this.address?.id;
-    },
-    selectAddresses() {
-      return this.deliveryAddresses.map((item) => ({
-        ...item,
-        value: this.addressValue(item),
-      }));
+    disabled() {
+      return !isNull(this.address?.name);
     },
     isNullAddress() {
       return isNull(this.address);
@@ -102,7 +96,7 @@ export default {
   },
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
-    ...mapActions("Auth", [LOAD_ADDRESSES]),
+    ...mapActions("Auth", [UPDATE_ADDRESSES]),
     selectAddress(event) {
       const address = this.deliveryAddresses[event.target.selectedIndex];
       this.changeAddress(address);
@@ -128,7 +122,7 @@ export default {
     },
   },
   async created() {
-    this[LOAD_ADDRESSES]();
+    this[UPDATE_ADDRESSES]();
   },
 };
 </script>

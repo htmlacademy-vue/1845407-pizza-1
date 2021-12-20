@@ -10,13 +10,22 @@
 
 <script>
 export default {
-  name: "ItemMisc",
+  name: "OrderMiscItem",
   props: {
-    id: Number,
+    id: [Number, String],
     image: String,
-    name: String,
-    price: Number,
-    quantity: Number,
+    name: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
   },
 };
 </script>

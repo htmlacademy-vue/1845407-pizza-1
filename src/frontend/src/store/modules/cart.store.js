@@ -7,7 +7,7 @@ import { normalizeByKey } from "@/common/helpers";
 
 export const UPDATE_CART = "UPDATE_CART";
 export const RESET_CART = "RESET_CART";
-import { ADD_TO_CART, RESET_CHOICE } from "@/store/modules/builder.store";
+import { ADD_TO_CART } from "@/store/modules/builder.store";
 
 const state = () => ({
   pizzas: [],
@@ -27,19 +27,17 @@ export default {
   state,
   getters: {
     price({ pizzas, misc }) {
-      let price = 0;
-
-      if (!pizzas.length) return price;
-
-      price += pizzas.reduce(
-        (sum, { price, quantity }) => sum + price * quantity,
+      let cost = pizzas.reduce(
+        (cost, { price, quantity }) => cost + price * quantity,
         0
       );
-      price += misc.reduce(
-        (sum, { price, quantity }) => sum + price * quantity,
-        0
-      );
-      return price;
+      if (cost) {
+        cost += misc.reduce(
+          (cost, { price, quantity }) => cost + price * quantity,
+          0
+        );
+      }
+      return cost;
     },
     isEmpty({ pizzas }) {
       return !pizzas.length;
@@ -76,7 +74,6 @@ export default {
         Object.assign(current, choice);
       } else {
         pizzas = [...pizzas, { ...choice, id: uniqueId(), quantity: 1 }];
-        dispatch(`Builder/${RESET_CHOICE}`, null, { root: true });
       }
       dispatch(UPDATE_CART, { pizzas });
     },
