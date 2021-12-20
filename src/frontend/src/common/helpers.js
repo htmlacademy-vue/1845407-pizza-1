@@ -8,7 +8,7 @@ import {
 } from "@/services/api.service";
 
 export const normalizeByKey = (list, data, key) =>
-  list.map((item) => Object.assign(item, find(data, [key, item[key]])));
+  list.map((item) => ({ ...item, ...find(data, [key, item[key]]) }));
 
 export const createResources = (notifier) => {
   return {
