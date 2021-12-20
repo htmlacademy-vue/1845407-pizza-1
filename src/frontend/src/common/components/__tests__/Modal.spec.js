@@ -3,7 +3,7 @@ import Modal from "../Modal";
 
 describe("Modal", () => {
   // Определяем входные параметры по умолчанию и заглушки.
-  const slots = { default: "content" };
+  const slots = { default: "default content" };
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.

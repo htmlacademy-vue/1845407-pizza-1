@@ -1,14 +1,26 @@
 <template>
-  <p class="order__address">Адрес доставки: {{ address || "Самовывоз" }}</p>
+  <p>
+    <slot />
+    {{ address }}
+  </p>
 </template>
 
 <script>
 export default {
-  name: "ItemDelivery",
+  name: "BaseAddressString",
   props: {
-    street: String,
-    building: String,
-    flat: String,
+    street: {
+      type: String,
+      default: "",
+    },
+    building: {
+      type: String,
+      default: "",
+    },
+    flat: {
+      type: String,
+      default: "",
+    },
   },
   computed: {
     address() {
