@@ -1,7 +1,6 @@
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 export const SET_ACCOUNT = "SET_ACCOUNT";
-export const LOAD_ADDRESSES = "LOAD_ADDRESSES";
 export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES";
 
 import { UPDATE_CART } from "@/store/modules/cart.store";
@@ -57,12 +56,12 @@ export default {
       try {
         const account = await this.$api.auth.whoAmI();
         commit(SET_ACCOUNT, account);
-        dispatch(LOAD_ADDRESSES);
+        dispatch(UPDATE_ADDRESSES);
       } catch {
         dispatch(SIGN_OUT);
       }
     },
-    async [LOAD_ADDRESSES]({ commit, getters }) {
+    async [UPDATE_ADDRESSES]({ commit, getters }) {
       const addresses = getters.isLogged
         ? await this.$api.addresses.query()
         : [];

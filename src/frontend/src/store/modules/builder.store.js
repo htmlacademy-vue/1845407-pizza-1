@@ -69,6 +69,7 @@ export default {
     },
     [ADD_TO_CART]({ dispatch, getters }) {
       dispatch(`Cart/${ADD_TO_CART}`, getters.choice, { root: true });
+      dispatch(RESET_CHOICE);
     },
     async query({ dispatch }, { resource, mixin }) {
       const resources = {};
