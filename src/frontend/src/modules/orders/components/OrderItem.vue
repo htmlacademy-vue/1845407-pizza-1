@@ -6,62 +6,78 @@
       </div>
 
       <div class="order__sum">
-        <span>Сумма заказа: {{ cost }}₽</span>
+        <span>Сумма заказа: <base-cost v-bind="{ pizzas, misc }" /></span>
       </div>
 
       <div class="order__button">
         <button
           type="button"
           class="button button--border"
+          data-test="destroyOrder"
           @click.prevent="onDestroy"
         >
           Удалить
         </button>
       </div>
       <div class="order__button">
-        <button type="button" class="button" @click.prevent="repeatOrder">
+        <button
+          type="button"
+          class="button"
+          data-test="repeatOrder"
+          @click.prevent="repeatOrder"
+        >
           Повторить
         </button>
       </div>
     </div>
 
     <ul class="order__list">
-      <item-pizza v-for="item in pizzas" :key="item.id" v-bind="item" />
+      <order-pizza-item v-for="item in pizzas" :key="item.id" v-bind="item" />
     </ul>
 
     <ul class="order__additional">
-      <item-misc v-for="item in filteredMisc" :key="item.id" v-bind="item" />
+      <order-misc-item
+        v-for="item in filteredMisc"
+        :key="item.id"
+        v-bind="item"
+      />
     </ul>
 
-    <item-delivery v-bind="orderAddress" />
+    <base-address-string сlass="order__address" v-bind="address">
+      <template v-if="address">Адрес доставки: </template>
+      <template v-else>Самовывоз</template>
+    </base-address-string>
   </section>
 </template>
 
 <script>
 import find from "lodash/find";
-import isUndefined from "lodash/isUndefined";
 import pick from "lodash/pick";
 
 import { normalizeByKey } from "@/common/helpers";
 
-import ItemPizza from "@/modules/orders/components/ItemPizza";
-import ItemMisc from "@/modules/orders/components/ItemMisc";
-import ItemDelivery from "@/modules/orders/components/ItemDelivery";
+import BaseAddressString from "@/common/components/AddressString";
+import BaseCost from "@/common/components/Cost";
+import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
+import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CART } from "@/store/modules/cart.store";
 
 export default {
   name: "OrderItem",
-  components: { ItemPizza, ItemMisc, ItemDelivery },
+  components: { OrderPizzaItem, OrderMiscItem, BaseAddressString, BaseCost },
   props: {
     id: {
-      type: Number,
+      type: [Number, String],
       required: true,
     },
     orderPizzas: Array,
     orderMisc: Array,
-    orderAddress: Object,
+    orderAddress: {
+      type: Object,
+      default: null,
+    },
   },
   computed: {
     ...mapState("Builder", ["dough", "sizes", "sauces", "ingredients"]),
@@ -82,54 +98,37 @@ export default {
       );
     },
     address() {
-      return isUndefined(this.orderAddress)
-        ? null
-        : pick(this.orderAddress, ["id", "name", "street", "building", "flat"]);
+      return (
+        this.orderAddress &&
+        pick(this.orderAddress, ["street", "building", "flat"])
+      );
     },
     filteredMisc() {
       return this.misc.filter(({ quantity }) => quantity);
-    },
-    cost() {
-      let cost = 0;
-      cost += this.pizzas.reduce(
-        (total, { price, quantity }) => total + price * quantity,
-        0
-      );
-      cost += this.misc.reduce(
-        (total, { price, quantity }) => total + price * quantity,
-        0
-      );
-      return cost;
     },
   },
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     buildPizza({ id, name, doughId, sizeId, sauceId, ingredients, quantity }) {
-      const dough = { ...find(this.dough, ["id", doughId]), checked: true };
-      const size = { ...find(this.sizes, ["id", sizeId]), checked: true };
-      const sauce = { ...find(this.sauces, ["id", sauceId]), checked: true };
-      const _ingredients = normalizeByKey(
-        this.ingredients.map((item) => ({ ...item, quantity: 0 })),
-        ingredients.map(({ ingredientId, quantity }) => ({
-          id: ingredientId,
-          quantity,
-        })),
-        "id"
-      );
-
       return {
         id,
         name,
-        dough,
-        size,
-        sauce,
-        ingredients: _ingredients,
+        dough: { ...find(this.dough, ["id", doughId]), checked: true },
+        size: { ...find(this.sizes, ["id", sizeId]), checked: true },
+        sauce: { ...find(this.sauces, ["id", sauceId]), checked: true },
+        ingredients: normalizeByKey(
+          this.ingredients.map((item) => ({ ...item, quantity: 0 })),
+          ingredients.map(({ ingredientId, quantity }) => ({
+            id: ingredientId,
+            quantity,
+          })),
+          "id"
+        ),
         quantity,
       };
     },
     pricePizza(pizza) {
-      let price = 0;
-      price += pizza.ingredients.reduce(
+      let price = pizza.ingredients.reduce(
         (total, { price, quantity }) => total + price * quantity,
         0
       );
@@ -151,10 +150,16 @@ export default {
       this[UPDATE_CART]({
         pizzas: this.pizzas,
         misc: this.misc,
-        address: this.address,
+        address: this.orderAddress,
       });
       this.$router.push({ name: "cart" });
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+/*.address_order {
+  background-color: red;
+}*/
+</style>
