@@ -1,6 +1,6 @@
 <template>
   <label class="input">
-    <slot></slot>
+    <slot />
     <input
       ref="input"
       :type="type"
@@ -11,13 +11,13 @@
       :autofocus="autofocus"
       :value="value"
       @input="$emit('input', $event.target.value)"
-    />
+    >
   </label>
 </template>
 
 <script>
 export default {
-  name: "BaseInputField",
+  name: "InputField",
   model: {
     prop: "value",
     event: "input",

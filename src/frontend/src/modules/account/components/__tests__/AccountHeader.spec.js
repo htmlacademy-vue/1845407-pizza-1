@@ -6,7 +6,7 @@ import { generateMockStore } from "@/store/mocks";
 import { SET_ACCOUNT, SIGN_OUT } from "@/store/modules/auth.store";
 import { account } from "@/common/mocks/user";
 
-import Header from "../Header";
+import AccountHeader from "../AccountHeader";
 import Avatar from "@/common/components/Avatar";
 
 const localVue = createLocalVue();
@@ -32,12 +32,12 @@ const routes = [
 ];
 const router = new VueRouter({ mode: "history", routes });
 
-describe("Header", () => {
+describe("AccountHeader", () => {
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = mount(Header, options);
+    wrapper = mount(AccountHeader, options);
   };
 
   let actions;

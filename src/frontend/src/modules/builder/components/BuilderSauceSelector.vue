@@ -25,7 +25,7 @@ import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
-  name: "PzzBuilderSauceSelector",
+  name: "BuilderSauceSelector",
   components: { BaseRadioButton },
   computed: {
     ...mapState("Builder", ["sauces"]),

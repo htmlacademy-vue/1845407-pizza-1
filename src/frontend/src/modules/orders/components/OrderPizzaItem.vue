@@ -7,7 +7,7 @@
         width="56"
         height="56"
         :alt="name"
-      />
+      >
       <div class="product__text">
         <h2>{{ name }}</h2>
         <ul>
@@ -18,7 +18,9 @@
       </div>
     </div>
 
-    <p class="order__price">{{ quantity }} x {{ price }}₽</p>
+    <p class="order__price">
+      {{ quantity }} x {{ price }}₽
+    </p>
   </li>
 </template>
 
@@ -26,7 +28,10 @@
 export default {
   name: "OrderPizzaItem",
   props: {
-    id: [Number, String],
+    id: {
+      type: [Number, String],
+      default: undefined,
+    },
     name: {
       type: String,
       default: "",
@@ -51,7 +56,10 @@ export default {
       type: Number,
       required: true,
     },
-    price: Number,
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     sauceDesc() {

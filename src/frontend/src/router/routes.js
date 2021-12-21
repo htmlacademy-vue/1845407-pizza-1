@@ -52,7 +52,7 @@ export default [
       default: () => import("@/views/Orders"),
     },
     meta: {
-      layout: "Sidebar",
+      layout: "LayoutSidebar",
       middlewares: [auth, allowAuthenticated],
     },
   },
@@ -63,7 +63,7 @@ export default [
       default: () => import("@/views/Profile"),
     },
     meta: {
-      layout: "Sidebar",
+      layout: "LayoutSidebar",
       middlewares: [auth, allowAuthenticated],
     },
   },

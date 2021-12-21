@@ -1,14 +1,20 @@
 <template>
   <div>
     <div class="layout__title">
-      <h1 class="title title--big">Мои данные</h1>
+      <h1 class="title title--big">
+        Мои данные
+      </h1>
     </div>
 
     <profile-info />
 
-    <div v-for="address in addresses" :key="address.id" class="layout__address">
+    <div
+      v-for="address in addresses"
+      :key="address.id"
+      class="layout__address"
+    >
       <component
-        :is="address.id != edit ? 'ProfileAddressItem' : 'ProfileAddressForm'"
+        :is="address.id !== edit ? 'ProfileAddressItem' : 'ProfileAddressForm'"
         :address="address"
         @toggleEdit="toggleEdit"
         @updateList="updateList"

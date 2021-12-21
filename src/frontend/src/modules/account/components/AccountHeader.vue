@@ -2,7 +2,11 @@
   <div class="header__user">
     <template v-if="isLogged">
       <router-link :to="{ name: 'profile' }">
-        <avatar :src="account.avatar" :alt="account.name" :size="32" />
+        <avatar
+          :src="account.avatar"
+          :alt="account.name"
+          :size="32"
+        />
         <span>{{ account.name }}</span>
       </router-link>
       <router-link
@@ -14,7 +18,10 @@
       </router-link>
     </template>
     <template v-else>
-      <router-link :to="{ name: 'login' }" class="header__login">
+      <router-link
+        :to="{ name: 'login' }"
+        class="header__login"
+      >
         <span>Войти</span>
       </router-link>
     </template>
@@ -28,7 +35,7 @@ import { SIGN_OUT } from "@/store/modules/auth.store";
 import Avatar from "@/common/components/Avatar";
 
 export default {
-  name: "PzzAccountHeader",
+  name: "AccountHeader",
   components: { Avatar },
   computed: {
     ...mapState("Auth", ["account"]),

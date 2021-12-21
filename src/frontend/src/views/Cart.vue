@@ -1,14 +1,16 @@
 <template>
   <main class="content">
     <form
-      action="/orders"
+      action=""
       method="post"
       class="layout-form"
       @submit.prevent="submit"
     >
       <div class="container">
         <div class="cart__title">
-          <h1 class="title title--big">Корзина</h1>
+          <h1 class="title title--big">
+            Корзина
+          </h1>
         </div>
 
         <template v-if="isEmpty">
@@ -25,7 +27,10 @@
       <pzz-cart-footer />
     </form>
     <base-modal v-slot="modal">
-      <router-view name="modal" @close="modal.close" />
+      <router-view
+        name="modal"
+        @close="modal.close"
+      />
     </base-modal>
   </main>
 </template>
@@ -63,5 +68,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

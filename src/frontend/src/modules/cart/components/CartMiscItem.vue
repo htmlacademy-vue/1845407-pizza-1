@@ -1,10 +1,15 @@
 <template>
   <li class="additional-list__item sheet">
     <p class="additional-list__description">
-      <img :src="image" width="39" height="60" :alt="name" />
+      <img
+        :src="image"
+        width="39"
+        height="60"
+        :alt="name"
+      >
       <span>
         {{ name }}
-        <br />
+        <br>
         <span>{{ price }} ₽/шт</span>
       </span>
     </p>
@@ -32,10 +37,22 @@ export default {
   name: "CartMiscItem",
   components: { BaseItemCounter, BaseCost },
   props: {
-    name: String,
-    image: String,
-    quantity: Number,
-    price: Number,
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      default: "",
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     cost() {

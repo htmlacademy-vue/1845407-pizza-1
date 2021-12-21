@@ -3,7 +3,8 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+  //extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier"],
+  extends: ["plugin:vue/essential", "plugin:vue/strongly-recommended", "eslint:recommended"],
   parserOptions: {
     parser: "babel-eslint",
   },
@@ -18,11 +19,13 @@ module.exports = {
         shouldMatchCase: true,
       },
     ],
-    "vue/attribute-hyphenation": "error",
     "vue/max-attributes-per-line": [
       "error",
       {
         singleline: {
+          max: 1,
+        },
+        multiline: {
           max: 1,
         },
       },

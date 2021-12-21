@@ -32,7 +32,11 @@
     </div>
 
     <ul class="order__list">
-      <order-pizza-item v-for="item in pizzas" :key="item.id" v-bind="item" />
+      <order-pizza-item
+        v-for="item in pizzas"
+        :key="item.id"
+        v-bind="item"
+      />
     </ul>
 
     <ul class="order__additional">
@@ -43,9 +47,16 @@
       />
     </ul>
 
-    <base-address-string сlass="order__address" v-bind="address">
-      <template v-if="address">Адрес доставки: </template>
-      <template v-else>Самовывоз</template>
+    <base-address-string
+      сlass="order__address"
+      v-bind="address"
+    >
+      <template v-if="address">
+        Адрес доставки:
+      </template>
+      <template v-else>
+        Самовывоз
+      </template>
     </base-address-string>
   </section>
 </template>
@@ -72,8 +83,14 @@ export default {
       type: [Number, String],
       required: true,
     },
-    orderPizzas: Array,
-    orderMisc: Array,
+    orderPizzas: {
+      type: Array,
+      default: () => [],
+    },
+    orderMisc: {
+      type: Array,
+      default: () => [],
+    },
     orderAddress: {
       type: Object,
       default: null,
@@ -90,7 +107,7 @@ export default {
     misc() {
       return normalizeByKey(
         this.cartMisc.map((item) => ({ ...item, quantity: 0 })),
-        this.orderMisc?.map(({ miscId, quantity }) => ({
+        this.orderMisc.map(({ miscId, quantity }) => ({
           id: miscId,
           quantity,
         })),

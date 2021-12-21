@@ -7,7 +7,9 @@
       @submit.prevent="addToCart"
     >
       <div class="content__wrapper">
-        <h1 class="title title--big">Конструктор пиццы</h1>
+        <h1 class="title title--big">
+          Конструктор пиццы
+        </h1>
 
         <pzz-builder-dough-selector />
 
@@ -34,7 +36,10 @@
       </div>
     </form>
     <base-modal v-slot="modal">
-      <router-view name="modal" @close="modal.close" />
+      <router-view
+        name="modal"
+        @close="modal.close"
+      />
     </base-modal>
   </main>
 </template>
@@ -94,5 +99,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

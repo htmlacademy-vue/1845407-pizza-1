@@ -11,7 +11,7 @@
         <span
           class="filling"
           :class="`filling--${type}`"
-          draggable
+          draggable="true"
           @dragstart="onDragIngredient(type, $event)"
         >
           {{ name }}
@@ -40,7 +40,7 @@ import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
-  name: "PzzBuilderIngredientsSelector",
+  name: "BuilderIngredientsSelector",
   components: { BaseItemCounter },
   computed: {
     ...mapState("Builder", ["ingredients"]),

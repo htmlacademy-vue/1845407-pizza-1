@@ -7,7 +7,7 @@
         width="56"
         height="56"
         :alt="name"
-      />
+      >
       <div class="product__text">
         <h2>{{ name }}</h2>
         <ul>
@@ -59,14 +59,38 @@ export default {
   name: "CartPizzasItem",
   components: { BaseItemCounter, BaseCost },
   props: {
-    id: [String, Number],
-    name: String,
-    dough: Object,
-    size: Object,
-    sauce: Object,
-    ingredients: Array,
-    quantity: Number,
-    price: Number,
+    id: {
+      type: [String, Number],
+      required: true,
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    dough: {
+      type: Object,
+      default: () => {},
+    },
+    size: {
+      type: Object,
+      default: () => {},
+    },
+    sauce: {
+      type: Object,
+      default: () => {},
+    },
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     sauceDesc() {

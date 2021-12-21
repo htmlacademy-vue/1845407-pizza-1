@@ -1,7 +1,9 @@
 <template>
   <div class="content__dough">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите тесто</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите тесто
+      </h2>
 
       <div class="sheet__content dough">
         <base-radio-button
@@ -31,7 +33,7 @@ import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 
 export default {
-  name: "PzzBuilderDoughSelector",
+  name: "BuilderDoughSelector",
   components: { BaseRadioButton },
   computed: {
     ...mapState("Builder", ["dough"]),

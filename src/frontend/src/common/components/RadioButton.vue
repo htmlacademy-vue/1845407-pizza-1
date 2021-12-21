@@ -7,14 +7,14 @@
       :value="value"
       :checked="checked"
       @change="$emit('change', $event.target.value)"
-    />
+    >
     <slot />
   </label>
 </template>
 
 <script>
 export default {
-  name: "BaseRadioButton",
+  name: "RadioButton",
   props: {
     name: {
       type: String,
@@ -22,9 +22,11 @@ export default {
     },
     value: {
       type: String,
+      default: undefined,
     },
     checked: {
       type: Boolean,
+      default: undefined,
     },
   },
 };

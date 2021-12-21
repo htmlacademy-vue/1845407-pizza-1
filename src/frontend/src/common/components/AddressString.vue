@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "BaseAddressString",
+  name: "AddressString",
   props: {
     street: {
       type: String,

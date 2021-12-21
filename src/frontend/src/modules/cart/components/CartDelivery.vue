@@ -31,7 +31,10 @@
         <span>Контактный телефон:</span>
       </base-input-field>
 
-      <div class="cart-form__address" v-if="!isNullAddress">
+      <div
+        class="cart-form__address"
+        v-if="!isNullAddress"
+      >
         <span class="cart-form__label">{{ addressValue(address) }}:</span>
 
         <div class="cart-form__input">

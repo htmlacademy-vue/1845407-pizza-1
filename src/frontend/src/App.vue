@@ -3,7 +3,10 @@
     <app-notification />
     <app-header />
     <transition v-bind="layoutTransition">
-      <component :is="layoutComponent" :class="layoutClass" />
+      <component
+        :is="layoutComponent"
+        :class="layoutClass"
+      />
     </transition>
   </div>
 </template>
@@ -11,7 +14,7 @@
 <script>
 import kebabCase from "lodash/kebabCase";
 
-const defaultLayout = "Default";
+const defaultLayout = "LayoutDefault";
 
 export default {
   name: "App",
@@ -28,7 +31,7 @@ export default {
     },
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
-      return kebabCase(`${layout}Layout`);
+      return kebabCase(`${layout}`);
     },
   },
   watch: {

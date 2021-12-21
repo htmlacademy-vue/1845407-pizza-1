@@ -5,7 +5,10 @@
     leave-active-class="animate__animated animate__faster animate__fadeOut"
     @leave="navigateTo"
   >
-    <div class="modal" v-if="visible">
+    <div
+      class="modal"
+      v-if="visible"
+    >
       <transition
         appear
         appear-active-class="animate__animated animate__bounceInDown"

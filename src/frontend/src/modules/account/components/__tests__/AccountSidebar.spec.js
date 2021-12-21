@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import VueRouter from "vue-router";
 
-import Sidebar from "../Sidebar";
+import AccountSidebar from "../AccountSidebar";
 
 const localVue = createLocalVue();
 localVue.use(VueRouter);
@@ -18,12 +18,12 @@ const routes = [
 ];
 const router = new VueRouter({ mode: "history", routes });
 
-describe("Sidebar", () => {
+describe("AccountSidebar", () => {
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = mount(Sidebar, options);
+    wrapper = mount(AccountSidebar, options);
   };
 
   afterEach(() => {

@@ -7,9 +7,15 @@
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </button>
     <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      <h1 class="title title--small">
+        Авторизуйтесь на сайте
+      </h1>
     </div>
-    <form action="" method="post" @submit.prevent="sign_in">
+    <form
+      action=""
+      method="post"
+      @submit.prevent="sign_in"
+    >
       <div class="sign-form__input">
         <base-input-field
           ref="email"
@@ -35,7 +41,12 @@
           <span>Пароль</span>
         </base-input-field>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <button
+        type="submit"
+        class="button"
+      >
+        Авторизоваться
+      </button>
     </form>
   </div>
 </template>
