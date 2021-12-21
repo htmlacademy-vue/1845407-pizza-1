@@ -11,9 +11,9 @@
           Конструктор пиццы
         </h1>
 
-        <pzz-builder-dough-selector />
+        <builder-dough-selector />
 
-        <pzz-builder-size-selector />
+        <builder-size-selector />
 
         <div class="content__ingridients">
           <div class="sheet">
@@ -21,26 +21,25 @@
               Выберите ингридиенты
             </h2>
             <div class="sheet__content ingridients">
-              <pzz-builder-sauce-selector />
-              <pzz-builder-ingredients-selector />
+              <builder-sauce-selector />
+              <builder-ingredients-selector />
             </div>
           </div>
         </div>
 
         <div class="content__pizza">
-          <pzz-builder-title-input />
+          <builder-title-input />
 
-          <pzz-builder-pizza-view />
-          <pzz-builder-price-counter />
+          <builder-pizza-view />
+          <builder-price-counter />
         </div>
       </div>
     </form>
-    <base-modal v-slot="modal">
+    <base-modal-window v-slot="modal">
       <router-view
-        name="modal"
         @close="modal.close"
       />
-    </base-modal>
+    </base-modal-window>
   </main>
 </template>
 
@@ -50,24 +49,24 @@ import find from "lodash/find";
 import { mapState, mapActions } from "vuex";
 import { ADD_TO_CART, LOAD_CHOICE } from "@/store/modules/builder.store";
 
-import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
-import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
-import PzzBuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
-import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
-import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
-import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
-import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import BuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import BuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
 
 export default {
   name: "Builder",
   components: {
-    PzzBuilderDoughSelector,
-    PzzBuilderSizeSelector,
-    PzzBuilderSauceSelector,
-    PzzBuilderIngredientsSelector,
-    PzzBuilderPizzaView,
-    PzzBuilderPriceCounter,
-    PzzBuilderTitleInput,
+    BuilderDoughSelector,
+    BuilderSizeSelector,
+    BuilderSauceSelector,
+    BuilderIngredientsSelector,
+    BuilderPizzaView,
+    BuilderPriceCounter,
+    BuilderTitleInput,
   },
   data() {
     return {
@@ -82,7 +81,7 @@ export default {
     addToCart() {
       this[ADD_TO_CART]();
       if (this.edit) {
-        this.$router.push({ name: "cart" });
+        this.$router.push({ name: "Cart" });
       }
     },
   },
@@ -93,7 +92,7 @@ export default {
       if (this.edit) {
         this[LOAD_CHOICE](this.edit);
       } else {
-        this.$router.replace({ name: "builder" });
+        this.$router.replace({ name: "Builder" });
       }
     }
   },

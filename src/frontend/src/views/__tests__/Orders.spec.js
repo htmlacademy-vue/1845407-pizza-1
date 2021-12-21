@@ -15,7 +15,7 @@ import { SET_ACCOUNT } from "@/store/modules/auth.store";
 import { UPDATE_CHOICE } from "@/store/modules/builder.store";
 import { UPDATE_CART } from "@/store/modules/cart.store";
 
-import Orders from "../Orders";
+import Orders from "../Orders/Index";
 import OrderItem from "@/modules/orders/components/OrderItem";
 
 const localVue = createLocalVue();

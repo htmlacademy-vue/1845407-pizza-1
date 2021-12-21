@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__logo">
       <router-link
-        :to="{ name: 'builder' }"
+        :to="{ name: 'Builder' }"
         class="logo"
       >
         <img
@@ -14,8 +14,8 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'cart' }">
-        <base-cost v-bind="{ pizzas, misc }" />
+      <router-link :to="{ name: 'Cart' }">
+        <base-cost-block v-bind="{ pizzas, misc }" />
       </router-link>
     </div>
     <account-header />
@@ -24,12 +24,12 @@
 
 <script>
 import AccountHeader from "@/modules/account/components/AccountHeader";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 import { mapState } from "vuex";
 
 export default {
   name: "AppHeader",
-  components: { AccountHeader, BaseCost },
+  components: { AccountHeader, BaseCostBlock },
   computed: {
     ...mapState("Cart", ["pizzas", "misc"]),
   },

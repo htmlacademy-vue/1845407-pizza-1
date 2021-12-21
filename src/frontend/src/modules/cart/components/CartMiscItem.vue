@@ -23,7 +23,7 @@
         @input="$emit('onChangeCount', $event)"
       />
       <div class="additional-list__price">
-        <b><base-cost :misc="[{ price, quantity }]" /></b>
+        <b><base-cost-block :misc="[{ price, quantity }]" /></b>
       </div>
     </div>
   </li>
@@ -31,11 +31,11 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 export default {
   name: "CartMiscItem",
-  components: { BaseItemCounter, BaseCost },
+  components: { BaseItemCounter, BaseCostBlock },
   props: {
     name: {
       type: String,

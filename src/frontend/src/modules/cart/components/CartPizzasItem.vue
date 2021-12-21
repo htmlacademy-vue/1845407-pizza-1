@@ -28,7 +28,7 @@
 
     <div class="cart-list__price">
       <b>
-        <base-cost :pizzas="[{ price, quantity }]" />
+        <base-cost-block :pizzas="[{ price, quantity }]" />
       </b>
     </div>
 
@@ -36,7 +36,7 @@
       <button
         type="button"
         class="cart-list__edit"
-        @click="$router.push({ name: 'builder', query: { id } })"
+        @click="$router.push({ name: 'Builder', query: { id } })"
       >
         Изменить
       </button>
@@ -53,11 +53,11 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 export default {
   name: "CartPizzasItem",
-  components: { BaseItemCounter, BaseCost },
+  components: { BaseItemCounter, BaseCostBlock },
   props: {
     id: {
       type: [String, Number],

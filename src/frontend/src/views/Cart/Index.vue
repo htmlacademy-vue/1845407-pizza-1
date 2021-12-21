@@ -19,37 +19,36 @@
           </div>
         </template>
         <template v-else>
-          <pzz-cart-pizzas />
-          <pzz-cart-misc />
-          <pzz-cart-delivery />
+          <cart-pizzas />
+          <cart-misc />
+          <cart-delivery />
         </template>
       </div>
-      <pzz-cart-footer />
+      <cart-footer />
     </form>
-    <base-modal v-slot="modal">
+    <base-modal-window v-slot="modal">
       <router-view
-        name="modal"
         @close="modal.close"
       />
-    </base-modal>
+    </base-modal-window>
   </main>
 </template>
 
 <script>
-import PzzCartPizzas from "@/modules/cart/components/CartPizzas";
-import PzzCartMisc from "@/modules/cart/components/CartMisc";
-import PzzCartDelivery from "@/modules/cart/components/CartDelivery";
-import PzzCartFooter from "@/modules/cart/components/CartFooter";
+import CartPizzas from "@/modules/cart/components/CartPizzas";
+import CartMisc from "@/modules/cart/components/CartMisc";
+import CartDelivery from "@/modules/cart/components/CartDelivery";
+import CartFooter from "@/modules/cart/components/CartFooter";
 
 import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
   components: {
-    PzzCartPizzas,
-    PzzCartMisc,
-    PzzCartDelivery,
-    PzzCartFooter,
+    CartPizzas,
+    CartMisc,
+    CartDelivery,
+    CartFooter,
   },
   computed: {
     ...mapGetters("Cart", ["isEmpty", "toJson"]),
@@ -60,7 +59,7 @@ export default {
       const userId = this.account?.id;
       try {
         await this.$api.orders.post({ ...this.toJson, userId });
-        await this.$router.push({ name: "thanks" });
+        await this.$router.push({ name: "Thanks" });
       } catch (err) {
         // continue regardless of error
       }

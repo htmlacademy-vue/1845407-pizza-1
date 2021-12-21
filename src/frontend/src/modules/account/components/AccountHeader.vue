@@ -1,8 +1,8 @@
 <template>
   <div class="header__user">
     <template v-if="isLogged">
-      <router-link :to="{ name: 'profile' }">
-        <avatar
+      <router-link :to="{ name: 'Profile' }">
+        <base-avatar-block
           :src="account.avatar"
           :alt="account.name"
           :size="32"
@@ -10,7 +10,7 @@
         <span>{{ account.name }}</span>
       </router-link>
       <router-link
-        :to="{ name: 'builder' }"
+        :to="{ name: 'Builder' }"
         class="header__logout"
         @click.native="logout"
       >
@@ -19,7 +19,7 @@
     </template>
     <template v-else>
       <router-link
-        :to="{ name: 'login' }"
+        :to="{ name: 'Login' }"
         class="header__login"
       >
         <span>Войти</span>
@@ -32,11 +32,11 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import { SIGN_OUT } from "@/store/modules/auth.store";
 
-import Avatar from "@/common/components/Avatar";
+import BaseAvatarBlock from "@/common/components/AvatarBlock";
 
 export default {
   name: "AccountHeader",
-  components: { Avatar },
+  components: { BaseAvatarBlock },
   computed: {
     ...mapState("Auth", ["account"]),
     ...mapGetters("Auth", ["isLogged"]),

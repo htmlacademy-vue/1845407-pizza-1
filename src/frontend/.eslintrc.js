@@ -12,13 +12,13 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "vue/prop-name-casing": ["error", "camelCase"],
-    "vue/match-component-file-name": [
-      "error",
-      {
-        extensions: ["vue"],
-        shouldMatchCase: true,
-      },
-    ],
+    //"vue/match-component-file-name": [
+    //  "error",
+    //  {
+    //    extensions: ["vue"],
+    //    shouldMatchCase: true,
+    //  },
+    //],
     "vue/max-attributes-per-line": [
       "error",
       {

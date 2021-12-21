@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import Avatar from "../Avatar";
+import AvatarBlock from "../AvatarBlock";
 
-describe("Avatar", () => {
+describe("AvatarBlock", () => {
   // Определяем входные параметры по умолчанию и заглушки.
   const propsData = {
     src: "/img/users/user5.jpg",
@@ -10,7 +10,7 @@ describe("Avatar", () => {
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = shallowMount(Avatar, options);
+    wrapper = shallowMount(AvatarBlock, options);
   };
   // Уничтожаем обёртку после каждого теста.
   afterEach(() => {

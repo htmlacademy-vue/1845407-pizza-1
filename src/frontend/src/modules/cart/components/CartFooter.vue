@@ -2,7 +2,7 @@
   <section class="footer">
     <div class="footer__more">
       <router-link
-        :to="{ name: 'builder' }"
+        :to="{ name: 'Builder' }"
         class="button button--border button--arrow"
       >
         Хочу еще одну
@@ -14,7 +14,7 @@
       чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
-      <b>Итого: <base-cost v-bind="{ pizzas, misc }" /></b>
+      <b>Итого: <base-cost-block v-bind="{ pizzas, misc }" /></b>
     </div>
 
     <div class="footer__submit">
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 import { mapState } from "vuex";
 
 export default {
   name: "CartFooter",
-  components: { BaseCost },
+  components: { BaseCostBlock },
   computed: {
     ...mapState("Cart", ["pizzas", "misc"]),
   },

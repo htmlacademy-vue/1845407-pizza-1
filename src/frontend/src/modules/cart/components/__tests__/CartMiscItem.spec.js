@@ -1,11 +1,13 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import CartMiscItem from "../CartMiscItem";
 import BaseItemCounter from "@/common/components/ItemCounter";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 import { mockMisc } from "@/common/mocks/cart";
 
 const localVue = createLocalVue();
 localVue.component("BaseItemCounter", BaseItemCounter);
+localVue.component("BaseCostBlock", BaseCostBlock);
 
 describe("CartMiscItem", () => {
   // Определяем входные параметры по умолчанию и заглушки.

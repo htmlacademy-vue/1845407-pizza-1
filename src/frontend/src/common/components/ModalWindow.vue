@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "Modal",
+  name: "ModalWindow",
   data() {
     return {
       visible: true,

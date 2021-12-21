@@ -20,13 +20,13 @@ import OrderItem from "../OrderItem";
 import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
 import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
 import BaseAddressString from "@/common/components/AddressString";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 const localVue = createLocalVue();
 localVue.component("OrderPizzaItem", OrderPizzaItem);
 localVue.component("OrderMiscItem", OrderMiscItem);
 localVue.component("BaseAddressString", BaseAddressString);
-localVue.component("BaseCost", BaseCost);
+localVue.component("BaseCostBlock", BaseCostBlock);
 localVue.use(Vuex);
 
 let orderPizzas = [];
@@ -154,7 +154,7 @@ describe("OrderItem", () => {
       0
     );
     createComponent({ localVue, store, propsData });
-    expect(wrapper.findComponent(BaseCost).text()).toContain(cost);
+    expect(wrapper.findComponent(BaseCostBlock).text()).toContain(cost);
   });
 
   it("render pizzas list", () => {
@@ -307,7 +307,7 @@ describe("OrderItem", () => {
       address: null,
     });
     expect(mocks.$router.push).toBeCalledWith({
-      name: "cart",
+      name: "Cart",
     });
   });
 });

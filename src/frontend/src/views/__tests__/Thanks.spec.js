@@ -39,26 +39,26 @@ describe("Thanks", () => {
   it("unauthenticated thanks modal close button click", async () => {
     createComponent({ localVue, store });
     wrapper.find("button.close").trigger("click");
-    expect(wrapper.emitted("close")[0]).toEqual([{ name: "builder" }]);
+    expect(wrapper.emitted("close")[0]).toEqual([{ name: "Builder" }]);
   });
 
   it("unauthenticated thanks modal popup button click", async () => {
     createComponent({ localVue, store });
     wrapper.find(".popup__button > .button").trigger("click");
-    expect(wrapper.emitted("close")[0]).toEqual([{ name: "builder" }]);
+    expect(wrapper.emitted("close")[0]).toEqual([{ name: "Builder" }]);
   });
 
   it("authenticated thanks modal close button click", async () => {
     store.commit(`Auth/${SET_ACCOUNT}`, account);
     createComponent({ localVue, store });
     wrapper.find("button.close").trigger("click");
-    expect(wrapper.emitted("close")[0]).toEqual([{ name: "orders" }]);
+    expect(wrapper.emitted("close")[0]).toEqual([{ name: "Orders" }]);
   });
 
   it("authenticated thanks modal popup button click", async () => {
     store.commit(`Auth/${SET_ACCOUNT}`, account);
     createComponent({ localVue, store });
     wrapper.find(".popup__button > .button").trigger("click");
-    expect(wrapper.emitted("close")[0]).toEqual([{ name: "orders" }]);
+    expect(wrapper.emitted("close")[0]).toEqual([{ name: "Orders" }]);
   });
 });

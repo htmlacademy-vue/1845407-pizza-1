@@ -34,7 +34,7 @@ export default {
   methods: {
     ...mapActions("Cart", [RESET_CART]),
     close() {
-      const name = this.isLogged ? "orders" : "builder";
+      const name = this.isLogged ? "Orders" : "Builder";
       this.$emit("close", { name });
     },
   },

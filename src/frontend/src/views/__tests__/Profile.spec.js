@@ -7,7 +7,7 @@ import { account, mockAddresses } from "@/common/mocks/user";
 
 import { SET_ACCOUNT } from "@/store/modules/auth.store";
 
-import Profile from "../Profile";
+import Profile from "../Profile/Index";
 import ProfileInfo from "@/modules/profile/components/ProfileInfo";
 import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";

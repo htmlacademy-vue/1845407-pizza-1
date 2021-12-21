@@ -6,7 +6,7 @@
       </div>
 
       <div class="order__sum">
-        <span>Сумма заказа: <base-cost v-bind="{ pizzas, misc }" /></span>
+        <span>Сумма заказа: <base-cost-block v-bind="{ pizzas, misc }" /></span>
       </div>
 
       <div class="order__button">
@@ -68,7 +68,7 @@ import pick from "lodash/pick";
 import { normalizeByKey } from "@/common/helpers";
 
 import BaseAddressString from "@/common/components/AddressString";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
 import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
 
@@ -77,7 +77,7 @@ import { UPDATE_CART } from "@/store/modules/cart.store";
 
 export default {
   name: "OrderItem",
-  components: { OrderPizzaItem, OrderMiscItem, BaseAddressString, BaseCost },
+  components: { OrderPizzaItem, OrderMiscItem, BaseAddressString, BaseCostBlock },
   props: {
     id: {
       type: [Number, String],
@@ -169,7 +169,7 @@ export default {
         misc: this.misc,
         address: this.orderAddress,
       });
-      this.$router.push({ name: "cart" });
+      this.$router.push({ name: "Cart" });
     },
   },
 };

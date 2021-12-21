@@ -9,10 +9,10 @@ import { UPDATE_CART } from "@/store/modules/cart.store";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 
 import CartFooter from "../CartFooter";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 const localVue = createLocalVue();
-localVue.component("BaseCost", BaseCost);
+localVue.component("BaseCostBlock", BaseCostBlock);
 localVue.use(Vuex);
 
 let pizzas = [];
@@ -50,8 +50,8 @@ describe("CartFooter", () => {
     expect(
       wrapper.find(".footer__submit button[type='submit']").element.disabled
     ).toBeFalsy();
-    expect(wrapper.findComponent(BaseCost).props("pizzas")).toEqual(pizzas);
-    expect(wrapper.findComponent(BaseCost).props("misc")).toEqual(misc);
+    expect(wrapper.findComponent(BaseCostBlock).props("pizzas")).toEqual(pizzas);
+    expect(wrapper.findComponent(BaseCostBlock).props("misc")).toEqual(misc);
   });
 
   it("render cart submit disabled", () => {
@@ -64,7 +64,7 @@ describe("CartFooter", () => {
     expect(
       wrapper.find(".footer__submit button[type='submit']").element.disabled
     ).toBeTruthy();
-    expect(wrapper.findComponent(BaseCost).props("pizzas")).toEqual([]);
+    expect(wrapper.findComponent(BaseCostBlock).props("pizzas")).toEqual([]);
     expect(wrapper.find(".footer__price").text()).toBe("Итого: 0 ₽");
   });
 });

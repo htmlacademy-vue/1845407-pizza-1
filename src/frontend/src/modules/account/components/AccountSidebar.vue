@@ -1,14 +1,14 @@
 <template>
   <div class="sidebar">
     <router-link
-      :to="{ name: 'orders' }"
+      :to="{ name: 'Orders' }"
       class="layout__link"
       active-class="layout__link--active"
     >
       История заказов
     </router-link>
     <router-link
-      :to="{ name: 'profile' }"
+      :to="{ name: 'Profile' }"
       class="layout__link"
       active-class="layout__link--active"
     >

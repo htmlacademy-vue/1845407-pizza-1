@@ -6,7 +6,7 @@
 import isUndefined from "lodash/isUndefined";
 
 export default {
-  name: "Cost",
+  name: "CostBlock",
   props: {
     pizzas: {
       type: Array,

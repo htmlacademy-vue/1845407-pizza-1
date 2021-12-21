@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import Cost from "../Cost";
+import CostBlock from "../CostBlock";
 
-describe("Cost", () => {
+describe("CostBlock", () => {
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = shallowMount(Cost, options);
+    wrapper = shallowMount(CostBlock, options);
   };
   // Уничтожаем обёртку после каждого теста.
   afterEach(() => {

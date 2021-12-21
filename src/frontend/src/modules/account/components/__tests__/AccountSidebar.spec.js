@@ -9,11 +9,11 @@ localVue.use(VueRouter);
 const routes = [
   {
     path: "/orders",
-    name: "orders",
+    name: "Orders",
   },
   {
     path: "/profile",
-    name: "profile",
+    name: "Profile",
   },
 ];
 const router = new VueRouter({ mode: "history", routes });

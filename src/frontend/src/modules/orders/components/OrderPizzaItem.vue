@@ -38,15 +38,15 @@ export default {
     },
     dough: {
       type: Object,
-      required: true,
+      default: () => {},
     },
     size: {
       type: Object,
-      required: true,
+      default: () => {},
     },
     sauce: {
       type: Object,
-      required: true,
+      default: () => {},
     },
     ingredients: {
       type: Array,
@@ -54,7 +54,7 @@ export default {
     },
     quantity: {
       type: Number,
-      required: true,
+      default: 0,
     },
     price: {
       type: Number,
