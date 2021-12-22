@@ -47,7 +47,7 @@
 import find from "lodash/find";
 
 import { mapState, mapActions } from "vuex";
-import { ADD_TO_CART, LOAD_CHOICE } from "@/store/modules/builder.store";
+import { ADD_TO_CART, LOAD_CHOICE } from "@/modules/builder/store";
 
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
@@ -81,18 +81,18 @@ export default {
     addToCart() {
       this[ADD_TO_CART]();
       if (this.edit) {
-        this.$router.push({ name: "Cart" });
+        this.$router.push("/cart");
       }
     },
   },
   created() {
     if (this.$route.query.id) {
       // загрузить конфигурацию пиццы в билдер
-      this.edit = find(this.pizzas, ["id", this.$route.query.id]);
+      this.edit = find(this.pizzas, ["id", +this.$route.query.id]);
       if (this.edit) {
         this[LOAD_CHOICE](this.edit);
       } else {
-        this.$router.replace({ name: "Builder" });
+        this.$router.replace("/");
       }
     }
   },

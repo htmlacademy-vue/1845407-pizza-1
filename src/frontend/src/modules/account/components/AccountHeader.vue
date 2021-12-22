@@ -1,7 +1,7 @@
 <template>
   <div class="header__user">
     <template v-if="isLogged">
-      <router-link :to="{ name: 'Profile' }">
+      <router-link to="/profile">
         <base-avatar-block
           :src="account.avatar"
           :alt="account.name"
@@ -10,7 +10,7 @@
         <span>{{ account.name }}</span>
       </router-link>
       <router-link
-        :to="{ name: 'Builder' }"
+        to="/"
         class="header__logout"
         @click.native="logout"
       >
@@ -19,7 +19,7 @@
     </template>
     <template v-else>
       <router-link
-        :to="{ name: 'Login' }"
+        to="/login"
         class="header__login"
       >
         <span>Войти</span>
@@ -30,7 +30,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import { SIGN_OUT } from "@/store/modules/auth.store";
+import { SIGN_OUT } from "@/modules/auth/store";
 
 import BaseAvatarBlock from "@/common/components/AvatarBlock";
 

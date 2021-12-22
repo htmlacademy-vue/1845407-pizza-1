@@ -2,7 +2,7 @@
   <section class="footer">
     <div class="footer__more">
       <router-link
-        :to="{ name: 'Builder' }"
+        to="/"
         class="button button--border button--arrow"
       >
         Хочу еще одну

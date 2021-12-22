@@ -3,7 +3,7 @@ export const SIGN_OUT = "SIGN_OUT";
 export const SET_ACCOUNT = "SET_ACCOUNT";
 export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES";
 
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
 export default {
   namespaced: true,

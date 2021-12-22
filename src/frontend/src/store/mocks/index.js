@@ -2,7 +2,7 @@ import cloneDeep from "lodash/cloneDeep";
 
 import Vuex from "vuex";
 import VuexPlugins from "@/plugins/vuexPlugins";
-import modules from "@/store/modules";
+import modules from "@/modules";
 
 import { mutations } from "@/store";
 

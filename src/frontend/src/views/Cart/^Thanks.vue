@@ -24,18 +24,20 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { RESET_CART } from "@/store/modules/cart.store";
+import { RESET_CART } from "@/modules/cart/store";
+import { fromCart } from "@/middlewares";
 
 export default {
   name: "Thanks",
+  middlewares: [fromCart],
   computed: {
     ...mapGetters("Auth", ["isLogged"]),
   },
   methods: {
     ...mapActions("Cart", [RESET_CART]),
     close() {
-      const name = this.isLogged ? "Orders" : "Builder";
-      this.$emit("close", { name });
+      const to = this.isLogged ? "/orders" : "/";
+      this.$emit("close", to);
     },
   },
   destroyed() {

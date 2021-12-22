@@ -2,7 +2,7 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 
-import { SET_ACCOUNT } from "@/store/modules/auth.store";
+import { SET_ACCOUNT } from "@/modules/auth/store";
 import { account } from "@/common/mocks/user";
 
 import ProfileInfo from "../ProfileInfo";

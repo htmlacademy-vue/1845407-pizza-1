@@ -30,14 +30,15 @@ export default {
       const _dough = find(dough, "checked"),
         size = find(sizes, "checked"),
         sauce = find(sauces, "checked");
-      let price = 0;
-      price += ingredients.reduce(
+      let price = ingredients.reduce(
         (total, ingredient) => total + ingredient?.price * ingredient?.quantity,
         0
       );
-      price += _dough?.price ?? 0;
-      price += sauce?.price ?? 0;
-      price *= size?.multiplier ?? 0;
+      if (price) {
+        price += _dough?.price ?? 0;
+        price += sauce?.price ?? 0;
+        price *= size?.multiplier ?? 0;
+      }
       return { id, name, dough: _dough, size, sauce, ingredients, price };
     },
   },

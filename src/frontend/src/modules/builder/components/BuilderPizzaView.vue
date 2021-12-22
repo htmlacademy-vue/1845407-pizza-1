@@ -41,7 +41,7 @@ import isUndefined from "lodash/isUndefined";
 import { PIZZA_FILLING_QUANTITY_CLASSES } from "@/common/constants";
 
 import { mapGetters, mapActions } from "vuex";
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 export default {
   name: "BuilderPizzaView",

@@ -45,12 +45,12 @@ export default {
               "animate__animated animate__fast animate__fadeIn",
           };
           break;
-        case ["login", "thanks"].includes(to.name):
+        case ["/login", "/cart/thanks"].includes(to.path):
           // при открытии модали не нужно ни каких анимация на лейауте
           // сработают только анимации самой модали
           this.layoutTransition = {};
           break;
-        case ["login", "thanks"].includes(from.name):
+        case ["/login", "/cart/thanks"].includes(from.path):
           this.layoutTransition = {
             // хитрая задержка что бы было видно анимацию закрытия модали
             mode: "out-in",
@@ -69,8 +69,8 @@ export default {
       }
     },
   },
-  created() {
-    this.$store.dispatch("init");
+  async created() {
+    await this.$store.dispatch("init");
   },
 };
 </script>

@@ -73,14 +73,14 @@ import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
 import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
 
 import { mapState, mapActions } from "vuex";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
 export default {
   name: "OrderItem",
   components: { OrderPizzaItem, OrderMiscItem, BaseAddressString, BaseCostBlock },
   props: {
     id: {
-      type: [Number, String],
+      type: [Number],
       required: true,
     },
     orderPizzas: {
@@ -169,7 +169,7 @@ export default {
         misc: this.misc,
         address: this.orderAddress,
       });
-      this.$router.push({ name: "Cart" });
+      this.$router.push("/cart");
     },
   },
 };

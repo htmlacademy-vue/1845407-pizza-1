@@ -55,10 +55,15 @@
 import BaseInputField from "@/common/components/InputField";
 
 import { mapActions } from "vuex";
-import { SIGN_IN } from "@/store/modules/auth.store";
+import { SIGN_IN } from "@/modules/auth/store";
+import {
+  auth,
+  skipAuthenticated,
+} from "@/middlewares";
 
 export default {
   name: "Login",
+  middlewares: [auth, skipAuthenticated],
   components: { BaseInputField },
   data() {
     return {
@@ -78,7 +83,7 @@ export default {
       }
     },
     close() {
-      this.$emit("close", this.from);
+      this.$emit("close", this.from.path);
     },
   },
   beforeRouteEnter(to, from, next) {

@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 import { generateMockStore } from "@/store/mocks";
 
-import { SET_ACCOUNT, SIGN_OUT } from "@/store/modules/auth.store";
+import { SET_ACCOUNT, SIGN_OUT } from "@/modules/auth/store";
 import { account } from "@/common/mocks/user";
 
 import AccountHeader from "../AccountHeader";

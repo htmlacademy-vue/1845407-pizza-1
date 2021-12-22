@@ -59,7 +59,7 @@ export default {
       const userId = this.account?.id;
       try {
         await this.$api.orders.post({ ...this.toJson, userId });
-        await this.$router.push({ name: "Thanks" });
+        await this.$router.push("/cart/thanks");
       } catch (err) {
         // continue regardless of error
       }

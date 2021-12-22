@@ -92,7 +92,7 @@ describe("CartPizzasItem", () => {
     const editBtn = wrapper.find(".cart-list__button button:first-child");
     await editBtn.trigger("click");
     expect(mocks.$router.push).toBeCalledWith({
-      name: "Builder",
+      path: "/",
       query: { id: propsData.id },
     });
   });

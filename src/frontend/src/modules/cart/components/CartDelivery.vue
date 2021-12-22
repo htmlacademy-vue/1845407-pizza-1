@@ -81,8 +81,8 @@ import isNull from "lodash/isNull";
 
 import BaseInputField from "@/common/components/InputField";
 import { mapState, mapGetters, mapActions } from "vuex";
-import { UPDATE_CART } from "@/store/modules/cart.store";
-import { UPDATE_ADDRESSES } from "@/store/modules/auth.store";
+import { UPDATE_CART } from "@/modules/cart/store";
+import { UPDATE_ADDRESSES } from "@/modules/auth/store";
 
 export default {
   name: "CartDelivery",

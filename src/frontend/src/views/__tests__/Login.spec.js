@@ -1,10 +1,10 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 
-import Login from "../Login";
+import Login from "../Index/^Login";
 import BaseInputField from "@/common/components/InputField";
 
-import { SIGN_IN } from "@/store/modules/auth.store";
+import { SIGN_IN } from "@/modules/auth/store";
 
 import { generateMockStore } from "@/store/mocks";
 
@@ -45,7 +45,7 @@ describe("Login", () => {
     const authData = {
       email: "user@example.com",
       password: "user@example.com",
-      from: "/cart",
+      from: { path: "/cart" },
     };
     createComponent({ localVue, store, attachTo: document.body });
     Login.beforeRouteEnter.call(wrapper.vm, undefined, authData.from, (c) =>
@@ -60,17 +60,17 @@ describe("Login", () => {
     expect(actions.Auth[SIGN_IN]).toHaveBeenCalledWith(expect.any(Object), {
       ...authData,
     });
-    expect(wrapper.emitted("close")[0]).toEqual([authData.from]);
+    expect(wrapper.emitted("close")[0]).toEqual([authData.from.path]);
   });
 
   it("Emits form close", async () => {
-    const from = "/";
+    const from = { path: "/" };
     createComponent({ localVue, store });
     Login.beforeRouteEnter.call(wrapper.vm, undefined, from, (c) =>
       c(wrapper.vm)
     );
     await wrapper.vm.$nextTick();
     await wrapper.find("button.close").trigger("click");
-    expect(wrapper.emitted("close")[0]).toEqual([from]);
+    expect(wrapper.emitted("close")[0]).toEqual([from.path]);
   });
 });

@@ -2,7 +2,7 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 import { mockMisc } from "@/common/mocks/cart";
 const misc = mockMisc;
 

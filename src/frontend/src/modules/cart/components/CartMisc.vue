@@ -18,7 +18,7 @@ import cloneDeep from "lodash/cloneDeep";
 import CartMiscItem from "@/modules/cart/components/CartMiscItem";
 
 import { mapState, mapActions } from "vuex";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
 export default {
   name: "CartMisc",

@@ -53,9 +53,15 @@ import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem"
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
 
 import { mapState } from "vuex";
+import {
+  auth,
+  allowAuthenticated,
+} from "@/middlewares";
 
 export default {
   name: "Profile",
+  layout: "LayoutSidebar",
+  middlewares: [auth, allowAuthenticated],
   components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   data() {
     return {

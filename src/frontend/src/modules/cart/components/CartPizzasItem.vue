@@ -36,7 +36,7 @@
       <button
         type="button"
         class="cart-list__edit"
-        @click="$router.push({ name: 'Builder', query: { id } })"
+        @click="$router.push({ path: '/', query: { id } })"
       >
         Изменить
       </button>
@@ -60,7 +60,7 @@ export default {
   components: { BaseItemCounter, BaseCostBlock },
   props: {
     id: {
-      type: [String, Number],
+      type: [Number],
       required: true,
     },
     name: {

@@ -53,7 +53,7 @@ export const mockChoice = () => {
   price *= mockSize?.multiplier ?? 0;
 
   return {
-    id: uniqueId(),
+    id: +uniqueId(),
     name: new Date().toString(),
     dough: mockDough,
     size: mockSize,

@@ -5,7 +5,7 @@ import { generateMockStore } from "@/store/mocks";
 import random from "lodash/random";
 import times from "lodash/times";
 
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 
 import CartFooter from "../CartFooter";

@@ -9,8 +9,8 @@ import { generateMockStore } from "@/store/mocks";
 import { account, mockAddresses } from "@/common/mocks/user";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 
-import { SET_ACCOUNT } from "@/store/modules/auth.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { SET_ACCOUNT } from "@/modules/auth/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
 import Cart from "../Cart/Index";
 import CartPizzas from "@/modules/cart/components/CartPizzas";
@@ -87,7 +87,7 @@ describe("Cart", () => {
     await wrapper.find("form.layout-form").trigger("submit");
     const payload = store.getters["Cart/toJson"];
     expect(mocks.$api[resources.ORDERS].post).toHaveBeenCalledWith(payload);
-    expect(mocks.$router.push).toBeCalledWith({ name: "Thanks" });
+    expect(mocks.$router.push).toBeCalledWith("/cart/thanks");
   });
 
   it("Cart form submit authenticated user", async () => {
@@ -100,6 +100,6 @@ describe("Cart", () => {
       ...payload,
       userId: account.id,
     });
-    expect(mocks.$router.push).toBeCalledWith({ name: "Thanks" });
+    expect(mocks.$router.push).toBeCalledWith("/cart/thanks");
   });
 });

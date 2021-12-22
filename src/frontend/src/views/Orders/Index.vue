@@ -20,9 +20,15 @@
 import reject from "lodash/reject";
 
 import OrderItem from "@/modules/orders/components/OrderItem";
+import {
+  auth,
+  allowAuthenticated,
+} from "@/middlewares";
 
 export default {
   name: "Orders",
+  layout: "LayoutSidebar",
+  middlewares: [auth, allowAuthenticated],
   components: { OrderItem },
   data() {
     return {

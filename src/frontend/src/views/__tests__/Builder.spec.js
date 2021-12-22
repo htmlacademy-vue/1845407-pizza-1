@@ -15,8 +15,8 @@ import {
   ADD_TO_CART,
   LOAD_CHOICE,
   UPDATE_CHOICE,
-} from "@/store/modules/builder.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+} from "@/modules/builder/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
 import Builder from "../Index";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
@@ -113,7 +113,7 @@ describe("Builder", () => {
   it("Redirect incorrect id pizza edit", async () => {
     mocks.$route.query = { id: 1 };
     createComponent({ localVue, store, mocks, stubs });
-    expect(mocks.$router.replace).toBeCalledWith({ name: "Builder" });
+    expect(mocks.$router.replace).toBeCalledWith("/");
   });
 
   it("Add choice to Cart", async () => {
@@ -180,6 +180,6 @@ describe("Builder", () => {
 
     await wrapper.find("form.layout-form").trigger("submit");
     expect(actions.Builder[ADD_TO_CART]).toHaveBeenCalled();
-    expect(mocks.$router.push).toBeCalledWith({ name: "Cart" });
+    expect(mocks.$router.push).toBeCalledWith("/cart");
   });
 });

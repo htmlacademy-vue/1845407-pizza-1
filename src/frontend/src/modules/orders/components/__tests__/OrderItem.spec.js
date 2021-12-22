@@ -9,8 +9,8 @@ import { generateMockStore } from "@/store/mocks";
 import { normalizeByKey } from "@/common/helpers";
 import resources from "@/common/enums/resources";
 
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 import { dough, sauces, sizes, ingredients } from "@/common/mocks/pizza";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 import { mockAddresses } from "@/common/mocks/user";
@@ -306,8 +306,6 @@ describe("OrderItem", () => {
       misc,
       address: null,
     });
-    expect(mocks.$router.push).toBeCalledWith({
-      name: "Cart",
-    });
+    expect(mocks.$router.push).toBeCalledWith("/cart");
   });
 });

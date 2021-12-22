@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__logo">
       <router-link
-        :to="{ name: 'Builder' }"
+        to="/"
         class="logo"
       >
         <img
@@ -14,7 +14,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'Cart' }">
+      <router-link to="/cart">
         <base-cost-block v-bind="{ pizzas, misc }" />
       </router-link>
     </div>
