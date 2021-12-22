@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/scss/blocks/close.scss";
+@import "~@/assets/scss/layout/sign-form.scss";
+
 .sign-form {
   top: 0;
   bottom: 0;

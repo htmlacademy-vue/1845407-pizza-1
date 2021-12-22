@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/scss/blocks/close.scss";
+@import "~@/assets/scss/layout/popup.scss";
+
 .popup {
   top: 0;
   bottom: 0;

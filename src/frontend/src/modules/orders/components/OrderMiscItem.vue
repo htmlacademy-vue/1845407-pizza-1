@@ -40,3 +40,27 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  li {
+    @include b-s11-h16;
+
+    width: 130px;
+    margin-right: 24px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img {
+    float: left;
+
+    margin-right: 7px;
+  }
+
+  b {
+    display: block;
+  }
+</style>

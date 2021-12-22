@@ -47,17 +47,19 @@
       />
     </ul>
 
-    <base-address-string
-      сlass="order__address"
-      v-bind="address"
-    >
-      <template v-if="address">
-        Адрес доставки:
-      </template>
-      <template v-else>
-        Самовывоз
-      </template>
-    </base-address-string>
+    <ul class="order__address">
+      <base-address-string
+        сlass="order__address"
+        v-bind="address"
+      >
+        <template v-if="address">
+          Адрес доставки:
+        </template>
+        <template v-else>
+          Самовывоз
+        </template>
+      </base-address-string>
+    </ul>
   </section>
 </template>
 
@@ -174,3 +176,11 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  @import "~@/assets/scss/blocks/order.scss";
+
+  .order__address p {
+    margin: 0;
+  }
+</style>

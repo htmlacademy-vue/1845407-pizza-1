@@ -65,3 +65,40 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  @import "~@/assets/scss/mixins/m_clear-list.scss";
+  @import "~@/assets/scss/blocks/filling.scss";
+
+  .ingridients__filling {
+    width: 100%;
+
+    p {
+      @include r-s16-h19;
+
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+  }
+
+  .ingridients__list {
+    @include clear-list;
+
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .ingridients__item {
+    width: 100px;
+    min-height: 40px;
+    margin-right: 17px;
+    margin-bottom: 35px;
+  }
+
+  .ingridients__counter {
+    width: 54px;
+    margin-top: 10px;
+    margin-left: 36px;
+  }
+</style>
