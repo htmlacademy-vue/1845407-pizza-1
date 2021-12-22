@@ -27,3 +27,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .user__phone {
+    font-size: 16px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 19px;
+    width: 100%;
+    margin-top: 20px;
+  }
+</style>

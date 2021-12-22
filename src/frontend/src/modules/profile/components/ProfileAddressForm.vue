@@ -135,9 +135,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.icon-close {
-  background-image: url("~@/assets/img/close.svg");
-}
-</style>
