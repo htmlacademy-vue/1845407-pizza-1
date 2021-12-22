@@ -23,3 +23,26 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  > main {
+    display: flex;
+    flex-grow: 1;
+
+    &.layout {
+      > .layout__sidebar {
+        position: unset;
+        height: unset;
+        padding: 22px 0;
+      }
+      > .layout__content {
+        flex-grow: 1;
+        padding: 22px;
+      }
+    }
+  }
+}

@@ -38,3 +38,11 @@ export default {
     margin-top: 20px;
   }
 </style>
+
+<style lang="scss" scoped>
+  @import "~@/assets/scss/blocks/user.scss";
+
+  .user {
+    flex-wrap: wrap;
+  }
+</style>

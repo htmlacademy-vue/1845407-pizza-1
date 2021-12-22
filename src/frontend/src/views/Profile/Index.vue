@@ -100,9 +100,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.user {
-  flex-wrap: wrap;
-}
-</style>

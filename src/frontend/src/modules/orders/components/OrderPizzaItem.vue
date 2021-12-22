@@ -75,3 +75,22 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  @import "~@/assets/scss/blocks/product.scss";
+
+  .order__item {
+    display: flex;
+
+    width: 310px;
+    margin-right: 33px;
+    margin-bottom: 32px;
+  }
+  .order__price {
+    @include b-s16-h19;
+
+    margin: 0 15px;
+
+    white-space: nowrap;
+  }
+</style>

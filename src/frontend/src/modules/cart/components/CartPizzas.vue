@@ -40,3 +40,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  @import "~@/assets/scss/mixins/m_clear-list.scss";
+
+  .cart-list {
+    @include clear-list;
+
+    padding: 15px 0;
+  }
+</style>

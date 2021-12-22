@@ -76,43 +76,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/app";
-@import "~animate.css";
-
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-
-  > main {
-    flex-grow: 1;
-  }
-
-  .modal {
-    z-index: 10;
-
-    &:not(:empty):before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-    }
-
-    .close {
-      /*background-color: transparent;*/
-      /*border-color: transparent;*/
-
-      &:before,
-      &:after {
-        /*background-color: currentColor;*/
-      }
-    }
-  }
-}
-.icon-close {
-  background-image: url("~@/assets/img/close.svg");
-}
+@import "~@/assets/scss/app";
 </style>

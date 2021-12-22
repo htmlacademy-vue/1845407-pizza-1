@@ -13,20 +13,3 @@ export default {
   components: { AccountSidebar },
 };
 </script>
-
-<style lang="scss">
-main.layout {
-  display: flex;
-
-  > .layout__sidebar {
-    position: unset;
-    height: unset;
-    padding: 22px 0;
-  }
-
-  > .layout__content {
-    flex-grow: 1;
-    padding: 22px;
-  }
-}
-</style>
