@@ -3,41 +3,41 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 import { generateMockStore } from "@/store/mocks";
 
-import { SET_ACCOUNT, SIGN_OUT } from "@/store/modules/auth.store";
+import { SET_ACCOUNT, SIGN_OUT } from "@/modules/auth/store";
 import { account } from "@/common/mocks/user";
 
-import Header from "../Header";
-import Avatar from "@/common/components/Avatar";
+import AccountHeader from "../AccountHeader";
+import BaseAvatarBlock from "@/common/components/AvatarBlock";
 
 const localVue = createLocalVue();
-localVue.component("Avatar", Avatar);
+localVue.component("BaseAvatarBlock", BaseAvatarBlock);
 localVue.use(Vuex);
 localVue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "builder",
+    name: "Builder",
     children: [
       {
         path: "/login",
-        name: "login",
+        name: "Login",
       },
     ],
   },
   {
     path: "/profile",
-    name: "profile",
+    name: "Profile",
   },
 ];
 const router = new VueRouter({ mode: "history", routes });
 
-describe("Header", () => {
+describe("AccountHeader", () => {
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = mount(Header, options);
+    wrapper = mount(AccountHeader, options);
   };
 
   let actions;
@@ -69,7 +69,7 @@ describe("Header", () => {
     expect(wrapper.find(".header__login").exists()).toBeFalsy();
     expect(wrapper.find(".header__logout").exists()).toBeTruthy();
 
-    const avatar = wrapper.findComponent(Avatar);
+    const avatar = wrapper.findComponent(BaseAvatarBlock);
     expect(avatar.exists()).toBeTruthy();
     expect(avatar.props("src")).toEqual(account.avatar);
     expect(avatar.props("alt")).toEqual(account.name);

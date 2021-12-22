@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import SidebarLayout from "../Sidebar";
+import LayoutDefault from "../LayoutDefault";
 
-const stubs = ["router-link", "router-view"];
+const stubs = ["router-view"];
 
-describe("SidebarLayout", () => {
+describe("LayoutDefault", () => {
   let wrapper;
   const createComponent = (options) => {
-    wrapper = shallowMount(SidebarLayout, options);
+    wrapper = shallowMount(LayoutDefault, options);
   };
 
   afterEach(() => {

@@ -11,11 +11,11 @@ import { dough, sauces, sizes, ingredients } from "@/common/mocks/pizza";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 import { mockOrder } from "@/common/mocks/orders";
 
-import { SET_ACCOUNT } from "@/store/modules/auth.store";
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { SET_ACCOUNT } from "@/modules/auth/store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
-import Orders from "../Orders";
+import Orders from "../Orders/Index";
 import OrderItem from "@/modules/orders/components/OrderItem";
 
 const localVue = createLocalVue();

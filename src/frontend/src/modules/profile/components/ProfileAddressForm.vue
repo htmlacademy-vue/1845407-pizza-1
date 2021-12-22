@@ -1,6 +1,6 @@
 <template>
   <form
-    action="/api/addresses"
+    action=""
     method="post"
     class="address-form address-form--opened sheet"
     @submit.prevent="onSubmit"
@@ -78,7 +78,12 @@
       >
         Удалить
       </button>
-      <button type="submit" class="button">Сохранить</button>
+      <button
+        type="submit"
+        class="button"
+      >
+        Сохранить
+      </button>
     </div>
   </form>
 </template>

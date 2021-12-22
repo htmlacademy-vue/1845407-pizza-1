@@ -15,29 +15,29 @@ import {
   ADD_TO_CART,
   LOAD_CHOICE,
   UPDATE_CHOICE,
-} from "@/store/modules/builder.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+} from "@/modules/builder/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 
-import Builder from "../Builder";
-import PzzBuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
-import PzzBuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
-import PzzBuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
-import PzzBuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
-import PzzBuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
-import PzzBuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
-import PzzBuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
+import Builder from "../Index";
+import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
+import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelector";
+import BuilderSauceSelector from "@/modules/builder/components/BuilderSauceSelector";
+import BuilderIngredientsSelector from "@/modules/builder/components/BuilderIngredientsSelector";
+import BuilderPizzaView from "@/modules/builder/components/BuilderPizzaView";
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import BuilderTitleInput from "@/modules/builder/components/BuilderTitleInput";
 
 const localVue = createLocalVue();
-localVue.component("PzzBuilderDoughSelector", PzzBuilderDoughSelector);
-localVue.component("PzzBuilderSizeSelector", PzzBuilderSizeSelector);
-localVue.component("PzzBuilderSauceSelector", PzzBuilderSauceSelector);
+localVue.component("BuilderDoughSelector", BuilderDoughSelector);
+localVue.component("BuilderSizeSelector", BuilderSizeSelector);
+localVue.component("BuilderSauceSelector", BuilderSauceSelector);
 localVue.component(
-  "PzzBuilderIngredientsSelector",
-  PzzBuilderIngredientsSelector
+  "BuilderIngredientsSelector",
+  BuilderIngredientsSelector
 );
-localVue.component("PzzBuilderPizzaView", PzzBuilderPizzaView);
-localVue.component("PzzBuilderPriceCounter", PzzBuilderPriceCounter);
-localVue.component("PzzBuilderTitleInput", PzzBuilderTitleInput);
+localVue.component("BuilderPizzaView", BuilderPizzaView);
+localVue.component("BuilderPriceCounter", BuilderPriceCounter);
+localVue.component("BuilderTitleInput", BuilderTitleInput);
 localVue.use(Vuex);
 
 describe("Builder", () => {
@@ -51,7 +51,7 @@ describe("Builder", () => {
       replace: jest.fn(),
     },
   };
-  const stubs = ["base-modal"];
+  const stubs = ["base-modal-window"];
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
@@ -85,18 +85,18 @@ describe("Builder", () => {
   it("Render pizza components", async () => {
     createComponent({ localVue, store, mocks, stubs });
     expect(
-      wrapper.findComponent(PzzBuilderDoughSelector).exists()
+      wrapper.findComponent(BuilderDoughSelector).exists()
     ).toBeTruthy();
-    expect(wrapper.findComponent(PzzBuilderSizeSelector).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BuilderSizeSelector).exists()).toBeTruthy();
     expect(
-      wrapper.findComponent(PzzBuilderSauceSelector).exists()
+      wrapper.findComponent(BuilderSauceSelector).exists()
     ).toBeTruthy();
     expect(
-      wrapper.findComponent(PzzBuilderIngredientsSelector).exists()
+      wrapper.findComponent(BuilderIngredientsSelector).exists()
     ).toBeTruthy();
-    expect(wrapper.findComponent(PzzBuilderPizzaView).exists()).toBeTruthy();
-    expect(wrapper.findComponent(PzzBuilderPriceCounter).exists()).toBeTruthy();
-    expect(wrapper.findComponent(PzzBuilderTitleInput).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BuilderPizzaView).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BuilderPriceCounter).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BuilderTitleInput).exists()).toBeTruthy();
   });
 
   it("Load pizza to edit", async () => {
@@ -113,7 +113,7 @@ describe("Builder", () => {
   it("Redirect incorrect id pizza edit", async () => {
     mocks.$route.query = { id: 1 };
     createComponent({ localVue, store, mocks, stubs });
-    expect(mocks.$router.replace).toBeCalledWith({ name: "builder" });
+    expect(mocks.$router.replace).toBeCalledWith("/");
   });
 
   it("Add choice to Cart", async () => {
@@ -180,6 +180,6 @@ describe("Builder", () => {
 
     await wrapper.find("form.layout-form").trigger("submit");
     expect(actions.Builder[ADD_TO_CART]).toHaveBeenCalled();
-    expect(mocks.$router.push).toBeCalledWith({ name: "cart" });
+    expect(mocks.$router.push).toBeCalledWith("/cart");
   });
 });

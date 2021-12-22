@@ -18,7 +18,7 @@
       :min="min"
       :max="max"
       @input="$emit('input', $event.target.valueAsNumber)"
-    />
+    >
     <button
       type="button"
       class="counter__button counter__button--plus"
@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: "BaseItemCounter",
+  name: "ItemCounter",
   props: {
     name: {
       type: String,

@@ -1,7 +1,9 @@
 <template>
   <div class="content__diameter">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите размер</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите размер
+      </h2>
 
       <div class="sheet__content diameter">
         <base-radio-button
@@ -27,10 +29,10 @@ import find from "lodash/find";
 import BaseRadioButton from "@/common/components/RadioButton";
 
 import { mapState, mapActions } from "vuex";
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 export default {
-  name: "PzzBuilderSizeSelector",
+  name: "BuilderSizeSelector",
   components: { BaseRadioButton },
   computed: {
     ...mapState("Builder", ["sizes"]),

@@ -3,7 +3,10 @@
     <app-notification />
     <app-header />
     <transition v-bind="layoutTransition">
-      <component :is="layoutComponent" :class="layoutClass" />
+      <component
+        :is="layoutComponent"
+        :class="layoutClass"
+      />
     </transition>
   </div>
 </template>
@@ -11,7 +14,7 @@
 <script>
 import kebabCase from "lodash/kebabCase";
 
-const defaultLayout = "Default";
+const defaultLayout = "LayoutDefault";
 
 export default {
   name: "App",
@@ -28,7 +31,7 @@ export default {
     },
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
-      return kebabCase(`${layout}Layout`);
+      return kebabCase(`${layout}`);
     },
   },
   watch: {
@@ -42,12 +45,12 @@ export default {
               "animate__animated animate__fast animate__fadeIn",
           };
           break;
-        case ["login", "thanks"].includes(to.name):
+        case ["/login", "/cart/thanks"].includes(to.path):
           // при открытии модали не нужно ни каких анимация на лейауте
           // сработают только анимации самой модали
           this.layoutTransition = {};
           break;
-        case ["login", "thanks"].includes(from.name):
+        case ["/login", "/cart/thanks"].includes(from.path):
           this.layoutTransition = {
             // хитрая задержка что бы было видно анимацию закрытия модали
             mode: "out-in",
@@ -66,8 +69,8 @@ export default {
       }
     },
   },
-  created() {
-    this.$store.dispatch("init");
+  async created() {
+    await this.$store.dispatch("init");
   },
 };
 </script>

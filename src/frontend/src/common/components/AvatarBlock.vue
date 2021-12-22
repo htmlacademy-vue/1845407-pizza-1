@@ -3,20 +3,20 @@
     <source
       type="image/webp"
       :srcset="`${webp[x.small]} 1x, ${webp[x.big]} 2x`"
-    />
+    >
     <img
       :src="jpg[x.small]"
       :srcset="`${jpg[x.small]} 1x, ${jpg[x.big]} 2x`"
       :alt="alt"
       :width="size"
       :height="size"
-    />
+    >
   </picture>
 </template>
 
 <script>
 export default {
-  name: "BaseAvatar",
+  name: "AvatarBlock",
   props: {
     src: {
       type: String,

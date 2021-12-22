@@ -5,14 +5,14 @@ import { generateMockStore } from "@/store/mocks";
 import random from "lodash/random";
 import times from "lodash/times";
 
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CART } from "@/modules/cart/store";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 
 import AppHeader from "../AppHeader";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 const localVue = createLocalVue();
-localVue.component("BaseCost", BaseCost);
+localVue.component("BaseCostBlock", BaseCostBlock);
 localVue.use(Vuex);
 
 let pizzas = [];
@@ -67,6 +67,6 @@ describe("AppHeader", () => {
     }));
     store.commit(`Cart/${UPDATE_CART}`, { pizzas, misc });
     createComponent({ localVue, store, stubs });
-    expect(wrapper.findComponent(BaseCost).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BaseCostBlock).exists()).toBeTruthy();
   });
 });

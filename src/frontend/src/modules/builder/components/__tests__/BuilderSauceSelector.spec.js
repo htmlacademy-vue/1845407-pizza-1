@@ -2,7 +2,7 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import { generateMockStore } from "@/store/mocks";
 
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
 import { sauces } from "@/common/mocks/pizza";
 
 import BuilderSauceSelector from "../BuilderSauceSelector";

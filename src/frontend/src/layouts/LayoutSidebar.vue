@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import AccountSidebar from "@/modules/account/components/Sidebar";
+import AccountSidebar from "@/modules/account/components/AccountSidebar";
 
 export default {
-  name: "SidebarLayout",
+  name: "LayoutSidebar",
   components: { AccountSidebar },
 };
 </script>

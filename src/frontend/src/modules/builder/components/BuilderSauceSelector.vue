@@ -22,10 +22,10 @@ import find from "lodash/find";
 import BaseRadioButton from "@/common/components/RadioButton";
 
 import { mapState, mapActions } from "vuex";
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 export default {
-  name: "PzzBuilderSauceSelector",
+  name: "BuilderSauceSelector",
   components: { BaseRadioButton },
   computed: {
     ...mapState("Builder", ["sauces"]),

@@ -1,10 +1,15 @@
 <template>
   <li class="additional-list__item sheet">
     <p class="additional-list__description">
-      <img :src="image" width="39" height="60" :alt="name" />
+      <img
+        :src="image"
+        width="39"
+        height="60"
+        :alt="name"
+      >
       <span>
         {{ name }}
-        <br />
+        <br>
         <span>{{ price }} ₽/шт</span>
       </span>
     </p>
@@ -18,7 +23,7 @@
         @input="$emit('onChangeCount', $event)"
       />
       <div class="additional-list__price">
-        <b><base-cost :misc="[{ price, quantity }]" /></b>
+        <b><base-cost-block :misc="[{ price, quantity }]" /></b>
       </div>
     </div>
   </li>
@@ -26,16 +31,28 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 export default {
   name: "CartMiscItem",
-  components: { BaseItemCounter, BaseCost },
+  components: { BaseItemCounter, BaseCostBlock },
   props: {
-    name: String,
-    image: String,
-    quantity: Number,
-    price: Number,
+    name: {
+      type: String,
+      default: "",
+    },
+    image: {
+      type: String,
+      default: "",
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     cost() {

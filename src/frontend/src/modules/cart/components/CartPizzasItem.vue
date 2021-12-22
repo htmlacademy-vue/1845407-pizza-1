@@ -7,7 +7,7 @@
         width="56"
         height="56"
         :alt="name"
-      />
+      >
       <div class="product__text">
         <h2>{{ name }}</h2>
         <ul>
@@ -28,7 +28,7 @@
 
     <div class="cart-list__price">
       <b>
-        <base-cost :pizzas="[{ price, quantity }]" />
+        <base-cost-block :pizzas="[{ price, quantity }]" />
       </b>
     </div>
 
@@ -36,7 +36,7 @@
       <button
         type="button"
         class="cart-list__edit"
-        @click="$router.push({ name: 'builder', query: { id } })"
+        @click="$router.push({ path: '/', query: { id } })"
       >
         Изменить
       </button>
@@ -53,20 +53,44 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 export default {
   name: "CartPizzasItem",
-  components: { BaseItemCounter, BaseCost },
+  components: { BaseItemCounter, BaseCostBlock },
   props: {
-    id: [String, Number],
-    name: String,
-    dough: Object,
-    size: Object,
-    sauce: Object,
-    ingredients: Array,
-    quantity: Number,
-    price: Number,
+    id: {
+      type: [Number],
+      required: true,
+    },
+    name: {
+      type: String,
+      default: "",
+    },
+    dough: {
+      type: Object,
+      default: () => {},
+    },
+    size: {
+      type: Object,
+      default: () => {},
+    },
+    sauce: {
+      type: Object,
+      default: () => {},
+    },
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     sauceDesc() {

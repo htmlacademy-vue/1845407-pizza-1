@@ -32,4 +32,11 @@ module.exports = {
       errors: true,
     },
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        "@": __dirname + "/src",
+      },
+    },
+  },
 };

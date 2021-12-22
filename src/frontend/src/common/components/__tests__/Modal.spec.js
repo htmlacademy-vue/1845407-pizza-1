@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Modal from "../Modal";
+import Modal from "../ModalWindow";
 
 describe("Modal", () => {
   // Определяем входные параметры по умолчанию и заглушки.

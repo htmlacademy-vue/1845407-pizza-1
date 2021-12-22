@@ -7,9 +7,15 @@
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </button>
     <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      <h1 class="title title--small">
+        Авторизуйтесь на сайте
+      </h1>
     </div>
-    <form action="" method="post" @submit.prevent="sign_in">
+    <form
+      action=""
+      method="post"
+      @submit.prevent="sign_in"
+    >
       <div class="sign-form__input">
         <base-input-field
           ref="email"
@@ -35,7 +41,12 @@
           <span>Пароль</span>
         </base-input-field>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <button
+        type="submit"
+        class="button"
+      >
+        Авторизоваться
+      </button>
     </form>
   </div>
 </template>
@@ -44,10 +55,15 @@
 import BaseInputField from "@/common/components/InputField";
 
 import { mapActions } from "vuex";
-import { SIGN_IN } from "@/store/modules/auth.store";
+import { SIGN_IN } from "@/modules/auth/store";
+import {
+  auth,
+  skipAuthenticated,
+} from "@/middlewares";
 
 export default {
   name: "Login",
+  middlewares: [auth, skipAuthenticated],
   components: { BaseInputField },
   data() {
     return {
@@ -67,7 +83,7 @@ export default {
       }
     },
     close() {
-      this.$emit("close", this.from);
+      this.$emit("close", this.from.path);
     },
   },
   beforeRouteEnter(to, from, next) {

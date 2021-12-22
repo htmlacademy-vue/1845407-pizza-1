@@ -3,8 +3,8 @@ import Vuex from "vuex";
 import flushPromises from 'flush-promises';
 import { generateMockStore } from "@/store/mocks";
 
-import { UPDATE_CART } from "@/store/modules/cart.store";
-import { UPDATE_ADDRESSES } from "@/store/modules/auth.store";
+import { UPDATE_CART } from "@/modules/cart/store";
+import { UPDATE_ADDRESSES } from "@/modules/auth/store";
 import { mockAddresses } from "@/common/mocks/user";
 
 import CartDelivery from "../CartDelivery";

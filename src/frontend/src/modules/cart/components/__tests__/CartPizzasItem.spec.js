@@ -1,11 +1,13 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import CartPizzasItem from "../CartPizzasItem";
 import BaseItemCounter from "@/common/components/ItemCounter";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 import { mockPizza } from "@/common/mocks/cart";
 
 const localVue = createLocalVue();
 localVue.component("BaseItemCounter", BaseItemCounter);
+localVue.component("BaseCostBlock", BaseCostBlock);
 
 describe("CartPizzasItem", () => {
   // Определяем входные параметры по умолчанию и заглушки.
@@ -90,7 +92,7 @@ describe("CartPizzasItem", () => {
     const editBtn = wrapper.find(".cart-list__button button:first-child");
     await editBtn.trigger("click");
     expect(mocks.$router.push).toBeCalledWith({
-      name: "builder",
+      path: "/",
       query: { id: propsData.id },
     });
   });

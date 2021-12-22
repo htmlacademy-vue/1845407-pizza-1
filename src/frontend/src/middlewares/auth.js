@@ -1,6 +1,7 @@
-import { SET_ACCOUNT } from "../store/modules/auth.store";
+import { SET_ACCOUNT } from "@/modules/auth/store";
 
 const auth = async ({ store, nextMiddleware }) => {
+  console.log("auth");
   if (!store.getters["Auth/isLogged"]) {
     const token = store.$jwt.getToken();
     if (token) {

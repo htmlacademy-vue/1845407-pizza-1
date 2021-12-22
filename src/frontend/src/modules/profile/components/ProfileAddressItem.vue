@@ -3,7 +3,11 @@
     <div class="address-form__header">
       <b>{{ address.name }}</b>
       <div class="address-form__edit">
-        <button type="button" class="icon" @click.prevent="toggleEdit">
+        <button
+          type="button"
+          class="icon"
+          @click.prevent="toggleEdit"
+        >
           <span class="visually-hidden">Изменить адрес</span>
         </button>
       </div>

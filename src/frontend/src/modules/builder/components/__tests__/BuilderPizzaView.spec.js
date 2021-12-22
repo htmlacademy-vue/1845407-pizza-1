@@ -5,7 +5,7 @@ import { generateMockStore } from "@/store/mocks";
 import find from "lodash/find";
 import cloneDeep from "lodash/cloneDeep";
 
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
 import { dough, sauces, ingredients } from "@/common/mocks/pizza";
 
 import BuilderPizzaView from "../BuilderPizzaView";

@@ -7,7 +7,7 @@ import { normalizeByKey } from "@/common/helpers";
 
 export const UPDATE_CART = "UPDATE_CART";
 export const RESET_CART = "RESET_CART";
-import { ADD_TO_CART } from "@/store/modules/builder.store";
+import { ADD_TO_CART } from "@/modules/builder/store";
 
 const state = () => ({
   pizzas: [],
@@ -73,7 +73,7 @@ export default {
       if (current) {
         Object.assign(current, choice);
       } else {
-        pizzas = [...pizzas, { ...choice, id: uniqueId(), quantity: 1 }];
+        pizzas = [...pizzas, { ...choice, id: +uniqueId(), quantity: 1 }];
       }
       dispatch(UPDATE_CART, { pizzas });
     },

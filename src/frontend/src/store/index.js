@@ -4,10 +4,10 @@ import reject from "lodash/reject";
 import Vue from "vue";
 import Vuex from "vuex";
 import VuexPlugins from "@/plugins/vuexPlugins";
-import modules from "@/store/modules";
-import { RESET_CHOICE } from "./modules/builder.store";
-import { RESET_CART } from "./modules/cart.store";
-import { SET_ACCOUNT } from "./modules/auth.store";
+import modules from "@/modules";
+import { RESET_CHOICE } from "@/modules/builder/store";
+import { RESET_CART } from "@/modules/cart/store";
+import { SET_ACCOUNT } from "@/modules/auth/store";
 import { MESSAGE_LIVE_TIME } from "@/common/constants";
 
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";

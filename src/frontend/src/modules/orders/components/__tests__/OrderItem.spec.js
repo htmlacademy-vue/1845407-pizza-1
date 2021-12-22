@@ -9,8 +9,8 @@ import { generateMockStore } from "@/store/mocks";
 import { normalizeByKey } from "@/common/helpers";
 import resources from "@/common/enums/resources";
 
-import { UPDATE_CHOICE } from "@/store/modules/builder.store";
-import { UPDATE_CART } from "@/store/modules/cart.store";
+import { UPDATE_CHOICE } from "@/modules/builder/store";
+import { UPDATE_CART } from "@/modules/cart/store";
 import { dough, sauces, sizes, ingredients } from "@/common/mocks/pizza";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 import { mockAddresses } from "@/common/mocks/user";
@@ -20,13 +20,13 @@ import OrderItem from "../OrderItem";
 import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
 import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
 import BaseAddressString from "@/common/components/AddressString";
-import BaseCost from "@/common/components/Cost";
+import BaseCostBlock from "@/common/components/CostBlock";
 
 const localVue = createLocalVue();
 localVue.component("OrderPizzaItem", OrderPizzaItem);
 localVue.component("OrderMiscItem", OrderMiscItem);
 localVue.component("BaseAddressString", BaseAddressString);
-localVue.component("BaseCost", BaseCost);
+localVue.component("BaseCostBlock", BaseCostBlock);
 localVue.use(Vuex);
 
 let orderPizzas = [];
@@ -154,7 +154,7 @@ describe("OrderItem", () => {
       0
     );
     createComponent({ localVue, store, propsData });
-    expect(wrapper.findComponent(BaseCost).text()).toContain(cost);
+    expect(wrapper.findComponent(BaseCostBlock).text()).toContain(cost);
   });
 
   it("render pizzas list", () => {
@@ -306,8 +306,6 @@ describe("OrderItem", () => {
       misc,
       address: null,
     });
-    expect(mocks.$router.push).toBeCalledWith({
-      name: "cart",
-    });
+    expect(mocks.$router.push).toBeCalledWith("/cart");
   });
 });
