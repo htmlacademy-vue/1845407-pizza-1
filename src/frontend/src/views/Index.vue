@@ -35,7 +35,7 @@
         </div>
       </div>
     </form>
-    <base-modal-window v-slot="modal">
+    <base-modal-window #default="modal">
       <router-view
         @close="modal.close"
       />

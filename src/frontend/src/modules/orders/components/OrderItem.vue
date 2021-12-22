@@ -174,9 +174,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-/*.address_order {
-  background-color: red;
-}*/
-</style>
