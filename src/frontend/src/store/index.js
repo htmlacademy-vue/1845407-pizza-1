@@ -11,7 +11,6 @@ import { SET_ACCOUNT } from "@/modules/auth/store";
 import { MESSAGE_LIVE_TIME } from "@/common/constants";
 
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
-//export const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
 export const UPDATE_NOTIFICATIONS = "UPDATE_NOTIFICATIONS";
 
 Vue.use(Vuex);

@@ -30,20 +30,6 @@ export default {
     },
   },
 
-  computed: {
-    street() {
-      return this.address.street || "";
-    },
-
-    building() {
-      return (this.address.building && `д. ${this.address.building}`) || "";
-    },
-
-    flat() {
-      return (this.address.flat && `кв. ${this.address.flat}`) || "";
-    },
-  },
-
   methods: {
     toggleEdit() {
       this.$emit("toggleEdit", this.address.id);
