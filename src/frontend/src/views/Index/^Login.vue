@@ -17,29 +17,29 @@
       @submit.prevent="sign_in"
     >
       <div class="sign-form__input">
-        <base-input-field
+        <app-input-field
           ref="email"
+          v-model="email"
           type="email"
           name="email"
           placeholder="example@mail.ru"
           required
           autofocus
-          v-model="email"
         >
           <span>E-mail</span>
-        </base-input-field>
+        </app-input-field>
       </div>
 
       <div class="sign-form__input">
-        <base-input-field
+        <app-input-field
+          v-model="password"
           type="password"
           name="password"
           placeholder="***********"
           required
-          v-model="password"
         >
           <span>Пароль</span>
-        </base-input-field>
+        </app-input-field>
       </div>
       <button
         type="submit"
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 import { mapActions } from "vuex";
 import { SIGN_IN } from "@/modules/auth/store";
@@ -64,7 +64,7 @@ import {
 export default {
   name: "Login",
   middlewares: [auth, skipAuthenticated],
-  components: { BaseInputField },
+  components: { AppInputField },
   data() {
     return {
       email: "",

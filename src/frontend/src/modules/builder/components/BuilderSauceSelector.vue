@@ -2,7 +2,7 @@
   <div class="ingridients__sauce">
     <p>Основной соус:</p>
 
-    <base-radio-button
+    <app-radio-button
       v-for="{ name, type, checked } of sauces"
       :key="type"
       class="radio ingridients__input"
@@ -12,21 +12,21 @@
       @change="onChangeSouse"
     >
       <span>{{ name }}</span>
-    </base-radio-button>
+    </app-radio-button>
   </div>
 </template>
 
 <script>
 import find from "lodash/find";
 
-import BaseRadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 export default {
   name: "BuilderSauceSelector",
-  components: { BaseRadioButton },
+  components: { AppRadioButton },
   computed: {
     ...mapState("Builder", ["sauces"]),
   },

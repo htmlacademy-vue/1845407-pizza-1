@@ -1,13 +1,13 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import CartPizzasItem from "../CartPizzasItem";
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockCost from "@/common/components/BlockCost";
 
 import { mockPizza } from "@/common/mocks/cart";
 
 const localVue = createLocalVue();
 localVue.component("BaseItemCounter", BaseItemCounter);
-localVue.component("BaseCostBlock", BaseCostBlock);
+localVue.component("BlockCost", BlockCost);
 
 describe("CartPizzasItem", () => {
   // Определяем входные параметры по умолчанию и заглушки.

@@ -35,11 +35,11 @@
         </div>
       </div>
     </form>
-    <base-modal-window #default="modal">
+    <app-modal #default="modal">
       <router-view
         @close="modal.close"
       />
-    </base-modal-window>
+    </app-modal>
   </main>
 </template>
 
@@ -76,15 +76,6 @@ export default {
   computed: {
     ...mapState("Cart", ["pizzas"]),
   },
-  methods: {
-    ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE]),
-    addToCart() {
-      this[ADD_TO_CART]();
-      if (this.edit) {
-        this.$router.push("/cart");
-      }
-    },
-  },
   created() {
     if (this.$route.query.id) {
       // загрузить конфигурацию пиццы в билдер
@@ -95,6 +86,15 @@ export default {
         this.$router.replace("/");
       }
     }
+  },
+  methods: {
+    ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE]),
+    addToCart() {
+      this[ADD_TO_CART]();
+      if (this.edit) {
+        this.$router.push("/cart");
+      }
+    },
   },
 };
 </script>

@@ -20,52 +20,52 @@
 
     <div class="address-form__wrapper">
       <div class="address-form__input">
-        <base-input-field
-          name="name"
+        <app-input-field
           v-model="name"
+          name="name"
           required
           placeholder="Введите название адреса"
         >
           <span>Название адреса*</span>
-        </base-input-field>
+        </app-input-field>
       </div>
       <div class="address-form__input address-form__input--size--normal">
-        <base-input-field
-          name="street"
+        <app-input-field
           v-model="street"
+          name="street"
           required
           placeholder="Введите название улицы"
         >
           <span>Улица*</span>
-        </base-input-field>
+        </app-input-field>
       </div>
       <div class="address-form__input address-form__input--size--small">
-        <base-input-field
-          name="building"
+        <app-input-field
           v-model="building"
+          name="building"
           required
           placeholder="Введите номер дома"
         >
           <span>Дом*</span>
-        </base-input-field>
+        </app-input-field>
       </div>
       <div class="address-form__input address-form__input--size--small">
-        <base-input-field
-          name="flat"
+        <app-input-field
           v-model="flat"
+          name="flat"
           placeholder="Введите № квартиры"
         >
           <span>Квартира</span>
-        </base-input-field>
+        </app-input-field>
       </div>
       <div class="address-form__input">
-        <base-input-field
-          name="comment"
+        <app-input-field
           v-model="comment"
+          name="comment"
           placeholder="Введите комментарий"
         >
           <span>Комментарий</span>
-        </base-input-field>
+        </app-input-field>
       </div>
     </div>
 
@@ -89,16 +89,21 @@
 </template>
 
 <script>
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 export default {
   name: "ProfileAddressForm",
-  components: { BaseInputField },
+  components: { AppInputField },
   props: {
     address: {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      ...this.address,
+    };
   },
   computed: {
     persisted() {
@@ -107,11 +112,6 @@ export default {
     formHeader() {
       return this.persisted ? "Изменить адрес" : "Добавить адрес";
     },
-  },
-  data() {
-    return {
-      ...this.address,
-    };
   },
   methods: {
     async onSubmit() {

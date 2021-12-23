@@ -19,14 +19,14 @@ import { mockOrder } from "@/common/mocks/orders";
 import OrderItem from "../OrderItem";
 import OrderPizzaItem from "@/modules/orders/components/OrderPizzaItem";
 import OrderMiscItem from "@/modules/orders/components/OrderMiscItem";
-import BaseAddressString from "@/common/components/AddressString";
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockAddress from "@/common/components/BlockAddress";
+import BlockCost from "@/common/components/BlockCost";
 
 const localVue = createLocalVue();
 localVue.component("OrderPizzaItem", OrderPizzaItem);
 localVue.component("OrderMiscItem", OrderMiscItem);
-localVue.component("BaseAddressString", BaseAddressString);
-localVue.component("BaseCostBlock", BaseCostBlock);
+localVue.component("BlockAddress", BlockAddress);
+localVue.component("BlockCost", BlockCost);
 localVue.use(Vuex);
 
 let orderPizzas = [];
@@ -154,7 +154,7 @@ describe("OrderItem", () => {
       0
     );
     createComponent({ localVue, store, propsData });
-    expect(wrapper.findComponent(BaseCostBlock).text()).toContain(cost);
+    expect(wrapper.findComponent(BlockCost).text()).toContain(cost);
   });
 
   it("render pizzas list", () => {
@@ -225,7 +225,7 @@ describe("OrderItem", () => {
   it("render self-delivery address", () => {
     let propsData = { ...mockOrder() };
     createComponent({ localVue, store, propsData });
-    const addressComponent = wrapper.findComponent(BaseAddressString);
+    const addressComponent = wrapper.findComponent(BlockAddress);
     expect(addressComponent.text()).toContain("Самовывоз");
   });
 
@@ -233,7 +233,7 @@ describe("OrderItem", () => {
     let orderAddress = mockAddresses[0];
     let propsData = { ...mockOrder(), orderAddress };
     createComponent({ localVue, store, propsData });
-    const addressComponent = wrapper.findComponent(BaseAddressString);
+    const addressComponent = wrapper.findComponent(BlockAddress);
     expect(addressComponent.text()).toContain("Адрес доставки:");
     const { street, building, flat } = orderAddress;
     expect(addressComponent.props()).toEqual({ street, building, flat });

@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "AvatarBlock",
+  name: "BlockAvatar",
   props: {
     src: {
       type: String,

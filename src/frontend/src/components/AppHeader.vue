@@ -15,7 +15,7 @@
     </div>
     <div class="header__cart">
       <router-link to="/cart">
-        <base-cost-block v-bind="{ pizzas, misc }" />
+        <block-cost v-bind="{ pizzas, misc }" />
       </router-link>
     </div>
     <account-header />
@@ -24,12 +24,12 @@
 
 <script>
 import AccountHeader from "@/modules/account/components/AccountHeader";
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockCost from "@/common/components/BlockCost";
 import { mapState } from "vuex";
 
 export default {
   name: "AppHeader",
-  components: { AccountHeader, BaseCostBlock },
+  components: { AccountHeader, BlockCost },
   computed: {
     ...mapState("Cart", ["pizzas", "misc"]),
   },

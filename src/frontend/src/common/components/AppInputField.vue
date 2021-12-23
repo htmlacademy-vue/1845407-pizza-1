@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "InputField",
+  name: "AppInputField",
   model: {
     prop: "value",
     event: "input",

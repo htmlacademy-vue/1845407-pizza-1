@@ -60,9 +60,9 @@ import {
 
 export default {
   name: "Profile",
+  components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   layout: "LayoutSidebar",
   middlewares: [auth, allowAuthenticated],
-  components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   data() {
     return {
       addresses: [],
@@ -71,6 +71,9 @@ export default {
   },
   computed: {
     ...mapState("Auth", ["account"]),
+  },
+  async created() {
+    this.addresses = await this.$api.addresses.query();
   },
   methods: {
     toggleEdit(addressId) {
@@ -94,9 +97,6 @@ export default {
 
       this.toggleEdit(isNull(address.id) ? null : false);
     },
-  },
-  async created() {
-    this.addresses = await this.$api.addresses.query();
   },
 };
 </script>

@@ -5,10 +5,10 @@ import pick from "lodash/pick";
 import { mockAddresses } from "@/common/mocks/user";
 
 import ProfileAddressItem from "../ProfileAddressItem";
-import BaseAddressString from "@/common/components/AddressString";
+import BlockAddress from "@/common/components/BlockAddress";
 
 const localVue = createLocalVue();
-localVue.component("BaseAddressString", BaseAddressString);
+localVue.component("BlockAddress", BlockAddress);
 
 const address = mockAddresses[0];
 
@@ -41,7 +41,7 @@ describe("ProfileAddressItem", () => {
   it("render address parts", () => {
     const propsData = { address };
     createComponent({ propsData });
-    const addressString = wrapper.findComponent(BaseAddressString);
+    const addressString = wrapper.findComponent(BlockAddress);
     expect(addressString.props()).toEqual(
       pick(address, ["street", "building", "flat"])
     );

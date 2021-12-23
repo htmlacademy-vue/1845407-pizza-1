@@ -2,7 +2,7 @@
   <div class="header__user">
     <template v-if="isLogged">
       <router-link to="/profile">
-        <base-avatar-block
+        <block-avatar
           :src="account.avatar"
           :alt="account.name"
           :size="32"
@@ -32,11 +32,11 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import { SIGN_OUT } from "@/modules/auth/store";
 
-import BaseAvatarBlock from "@/common/components/AvatarBlock";
+import BlockAvatar from "@/common/components/BlockAvatar";
 
 export default {
   name: "AccountHeader",
-  components: { BaseAvatarBlock },
+  components: { BlockAvatar },
   computed: {
     ...mapState("Auth", ["account"]),
     ...mapGetters("Auth", ["isLogged"]),

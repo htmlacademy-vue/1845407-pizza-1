@@ -26,11 +26,11 @@
       </div>
       <cart-footer />
     </form>
-    <base-modal-window #default="modal">
+    <app-modal #default="modal">
       <router-view
         @close="modal.close"
       />
-    </base-modal-window>
+    </app-modal>
   </main>
 </template>
 

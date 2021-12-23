@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "AddressString",
+  name: "BlockAddress",
   props: {
     street: {
       type: String,

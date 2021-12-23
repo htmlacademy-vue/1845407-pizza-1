@@ -6,10 +6,10 @@ import { UPDATE_CHOICE } from "@/modules/builder/store";
 import { dough } from "@/common/mocks/pizza";
 
 import BuilderDoughSelector from "../BuilderDoughSelector";
-import BaseRadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 const localVue = createLocalVue();
-localVue.component("BaseRadioButton", BaseRadioButton);
+localVue.component("AppRadioButton", AppRadioButton);
 localVue.use(Vuex);
 
 describe("BuilderDoughSelector", () => {
@@ -44,7 +44,7 @@ describe("BuilderDoughSelector", () => {
 
   it("is render correct radio button component", () => {
     createComponent({ localVue, store });
-    let radioButtonComponentList = wrapper.findAllComponents(BaseRadioButton);
+    let radioButtonComponentList = wrapper.findAllComponents(AppRadioButton);
     dough.forEach((item, index) => {
       let component = radioButtonComponentList.wrappers[index];
       expect(component.classes()).toContain(`dough__input--${item.type}`);

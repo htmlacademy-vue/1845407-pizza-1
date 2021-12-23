@@ -6,8 +6,8 @@
     @leave="navigateTo"
   >
     <div
-      class="modal"
       v-if="visible"
+      class="modal"
     >
       <transition
         appear
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "ModalWindow",
+  name: "AppModal",
   data() {
     return {
       visible: true,

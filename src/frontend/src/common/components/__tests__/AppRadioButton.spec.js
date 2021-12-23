@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import RadioButton from "../RadioButton";
+import AppRadioButton from "../AppRadioButton";
 
-describe("RadioButton", () => {
+describe("AppRadioButton", () => {
   // Определяем входные параметры по умолчанию и заглушки.
   const propsData = {
     value: "test",
@@ -12,7 +12,7 @@ describe("RadioButton", () => {
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = shallowMount(RadioButton, options);
+    wrapper = shallowMount(AppRadioButton, options);
   };
   // Уничтожаем обёртку после каждого теста.
   afterEach(() => {

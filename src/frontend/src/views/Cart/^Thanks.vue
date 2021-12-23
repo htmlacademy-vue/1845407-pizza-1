@@ -33,15 +33,15 @@ export default {
   computed: {
     ...mapGetters("Auth", ["isLogged"]),
   },
+  destroyed() {
+    this[RESET_CART]();
+  },
   methods: {
     ...mapActions("Cart", [RESET_CART]),
     close() {
       const to = this.isLogged ? "/orders" : "/";
       this.$emit("close", to);
     },
-  },
-  destroyed() {
-    this[RESET_CART]();
   },
 };
 </script>

@@ -45,7 +45,7 @@ describe("Cart", () => {
       push: jest.fn(),
     },
   };
-  const stubs = ["router-link", "base-modal-window"];
+  const stubs = ["router-link", "app-modal"];
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.

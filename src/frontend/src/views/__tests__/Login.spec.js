@@ -2,14 +2,14 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 
 import Login from "../Index/^Login";
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 import { SIGN_IN } from "@/modules/auth/store";
 
 import { generateMockStore } from "@/store/mocks";
 
 const localVue = createLocalVue();
-localVue.component("BaseInputField", BaseInputField);
+localVue.component("AppInputField", AppInputField);
 localVue.use(Vuex);
 
 describe("Login", () => {

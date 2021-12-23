@@ -6,7 +6,7 @@
       </h2>
 
       <div class="sheet__content dough">
-        <base-radio-button
+        <app-radio-button
           v-for="{ name, type, checked, description } in dough"
           :key="type"
           class="dough__input"
@@ -18,7 +18,7 @@
         >
           <b>{{ name }}</b>
           <span>{{ description }}</span>
-        </base-radio-button>
+        </app-radio-button>
       </div>
     </div>
   </div>
@@ -27,14 +27,14 @@
 <script>
 import find from "lodash/find";
 
-import BaseRadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 import { mapState, mapActions } from "vuex";
 import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 export default {
   name: "BuilderDoughSelector",
-  components: { BaseRadioButton },
+  components: { AppRadioButton },
   computed: {
     ...mapState("Builder", ["dough"]),
   },
