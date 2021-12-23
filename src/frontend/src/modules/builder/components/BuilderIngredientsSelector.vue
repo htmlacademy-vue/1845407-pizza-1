@@ -45,6 +45,7 @@ export default {
   computed: {
     ...mapState("Builder", ["ingredients"]),
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeIngredient(type, quantity) {
@@ -55,6 +56,7 @@ export default {
         this[UPDATE_CHOICE]({ ingredients });
       }
     },
+
     onDragIngredient(type, { dataTransfer }) {
       const ingredient = find(this.ingredients, { type });
 

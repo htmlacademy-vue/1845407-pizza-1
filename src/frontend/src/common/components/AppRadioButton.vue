@@ -14,16 +14,18 @@
 
 <script>
 export default {
-  name: "RadioButton",
+  name: "AppRadioButton",
   props: {
     name: {
       type: String,
       required: true,
     },
+
     value: {
       type: String,
       default: undefined,
     },
+
     checked: {
       type: Boolean,
       default: undefined,

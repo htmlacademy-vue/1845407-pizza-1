@@ -7,10 +7,10 @@ import { SET_ACCOUNT, SIGN_OUT } from "@/modules/auth/store";
 import { account } from "@/common/mocks/user";
 
 import AccountHeader from "../AccountHeader";
-import BaseAvatarBlock from "@/common/components/AvatarBlock";
+import BlockAvatar from "@/common/components/BlockAvatar";
 
 const localVue = createLocalVue();
-localVue.component("BaseAvatarBlock", BaseAvatarBlock);
+localVue.component("BlockAvatar", BlockAvatar);
 localVue.use(Vuex);
 localVue.use(VueRouter);
 
@@ -69,7 +69,7 @@ describe("AccountHeader", () => {
     expect(wrapper.find(".header__login").exists()).toBeFalsy();
     expect(wrapper.find(".header__logout").exists()).toBeTruthy();
 
-    const avatar = wrapper.findComponent(BaseAvatarBlock);
+    const avatar = wrapper.findComponent(BlockAvatar);
     expect(avatar.exists()).toBeTruthy();
     expect(avatar.props("src")).toEqual(account.avatar);
     expect(avatar.props("alt")).toEqual(account.name);

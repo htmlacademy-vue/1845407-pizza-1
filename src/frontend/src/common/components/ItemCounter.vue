@@ -38,31 +38,38 @@ export default {
       type: String,
       required: true,
     },
+
     value: {
       type: Number,
       default: 0,
     },
+
     min: {
       type: Number,
       default: null,
     },
+
     max: {
       type: Number,
       default: null,
     },
   },
+
   computed: {
     stepDownAllowed() {
       return this.min == null || this.min < this.value;
     },
+
     stepUpAllowed() {
       return this.max == null || this.max > this.value;
     },
   },
+
   methods: {
     stepDown() {
       if (this.stepDownAllowed) this.$emit("input", this.value - 1);
     },
+
     stepUp() {
       if (this.stepUpAllowed) this.$emit("input", this.value + 1);
     },
@@ -74,7 +81,7 @@ export default {
 @import "~@/assets/scss/blocks/input.scss";
 @import "~@/assets/scss/blocks/counter.scss";
 
-input[type="number"] {
+.counter__input {
   appearance: textfield;
 
   &::-webkit-inner-spin-button,

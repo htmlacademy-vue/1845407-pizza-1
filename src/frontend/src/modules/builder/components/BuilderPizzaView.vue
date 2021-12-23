@@ -50,11 +50,13 @@ export default {
       PIZZA_FILLING_QUANTITY_CLASSES: PIZZA_FILLING_QUANTITY_CLASSES,
     };
   },
+
   computed: {
     ...mapGetters("Builder", ["choice"]),
     ingredients() {
       return this.choice.ingredients.filter(({ quantity }) => quantity);
     },
+
     foundationClass() {
       return [
         "pizza--foundation-",
@@ -65,6 +67,7 @@ export default {
         .join("-");
     },
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     dropable(event) {
@@ -72,6 +75,7 @@ export default {
         event.preventDefault();
       }
     },
+
     onDrop({ dataTransfer }) {
       const payload = dataTransfer.getData("ingredient");
       let { type, quantity } = payload && JSON.parse(payload);

@@ -12,37 +12,24 @@
         </button>
       </div>
     </div>
-    <base-address-string v-bind="address" />
+    <block-address v-bind="address" />
     <small>{{ address.comment }}</small>
   </div>
 </template>
 
 <script>
-import BaseAddressString from "@/common/components/AddressString";
+import BlockAddress from "@/common/components/BlockAddress";
 
 export default {
   name: "ProfileAddressItem",
-  components: { BaseAddressString },
+  components: { BlockAddress },
   props: {
     address: {
       type: Object,
       required: true,
     },
   },
-  computed: {
-    street() {
-      return this.address.street || "";
-    },
-    building() {
-      return (this.address.building && `д. ${this.address.building}`) || "";
-    },
-    flat() {
-      return (this.address.flat && `кв. ${this.address.flat}`) || "";
-    },
-    partsJoined() {
-      return [this.street, this.building, this.flat].filter(Boolean).join(", ");
-    },
-  },
+
   methods: {
     toggleEdit() {
       this.$emit("toggleEdit", this.address.id);

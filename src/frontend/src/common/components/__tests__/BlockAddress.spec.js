@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
-import AddressString from "../AddressString";
+import BlockAddress from "../BlockAddress";
 
-describe("AddressString", () => {
+describe("BlockAddress", () => {
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = shallowMount(AddressString, options);
+    wrapper = shallowMount(BlockAddress, options);
   };
   // Уничтожаем обёртку после каждого теста.
   afterEach(() => {

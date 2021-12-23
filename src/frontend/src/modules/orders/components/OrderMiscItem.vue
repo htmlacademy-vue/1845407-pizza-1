@@ -1,14 +1,15 @@
 <template>
-  <li>
+  <li class="order__misc-item">
     <img
+      class="misc-item__img"
       :src="image"
       width="20"
       height="30"
       :alt="name"
     >
-    <p>
+    <p class="misc-item__text">
       <span>{{ name }}</span>
-      <b>{{ quantity }} x {{ price }}₽</b>
+      <b class="misc-item__price">{{ quantity }} x {{ price }}₽</b>
     </p>
   </li>
 </template>
@@ -21,18 +22,22 @@ export default {
       type: [Number, String],
       default: undefined,
     },
+
     image: {
       type: String,
       default: "",
     },
+
     name: {
       type: String,
       default: "",
     },
+
     price: {
       type: Number,
       default: 0,
     },
+
     quantity: {
       type: Number,
       default: 0,
@@ -42,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  li {
+  .order__misc-item {
     @include b-s11-h16;
 
     width: 130px;
@@ -50,17 +55,17 @@ export default {
     margin-bottom: 10px;
   }
 
-  p {
+  .misc-item__text {
     margin: 0;
   }
 
-  img {
+  .misc-item__img {
     float: left;
 
     margin-right: 7px;
   }
 
-  b {
+  .misc-item__price {
     display: block;
   }
 </style>

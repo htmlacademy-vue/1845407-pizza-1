@@ -2,8 +2,8 @@
   <ul class="cart-list sheet">
     <cart-pizzas-item
       v-for="pizza of pizzas"
-      :key="pizza.id"
       :id="pizza.id"
+      :key="pizza.id"
       v-bind="pizza"
       class="cart-list__item"
       @onChangeCount="changePizza({ ...pizza, quantity: $event })"
@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapState("Cart", ["pizzas"]),
   },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     changePizza({ id, quantity }) {

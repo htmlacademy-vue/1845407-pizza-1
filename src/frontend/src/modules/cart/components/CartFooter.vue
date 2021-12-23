@@ -14,7 +14,7 @@
       чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
-      <b>Итого: <base-cost-block v-bind="{ pizzas, misc }" /></b>
+      <b>Итого: <block-cost v-bind="{ pizzas, misc }" /></b>
     </div>
 
     <div class="footer__submit">
@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockCost from "@/common/components/BlockCost";
 import { mapState } from "vuex";
 
 export default {
   name: "CartFooter",
-  components: { BaseCostBlock },
+  components: { BlockCost },
   computed: {
     ...mapState("Cart", ["pizzas", "misc"]),
   },

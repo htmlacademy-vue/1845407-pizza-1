@@ -37,7 +37,7 @@ describe("BuilderIngredientsSelector", () => {
     wrapper.destroy();
   });
 
-  it("is render ingridients selectors", () => {
+  it("is render ingredients selectors", () => {
     createComponent({ localVue, store });
     expect(wrapper.findAll(".ingridients__item").length).toBe(
       ingredients.length

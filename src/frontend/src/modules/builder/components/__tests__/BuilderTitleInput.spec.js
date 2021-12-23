@@ -5,10 +5,10 @@ import { generateMockStore } from "@/store/mocks";
 import { UPDATE_CHOICE } from "@/modules/builder/store";
 
 import BuilderTitleInput from "../BuilderTitleInput";
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 const localVue = createLocalVue();
-localVue.component("BaseInputField", BaseInputField);
+localVue.component("AppInputField", AppInputField);
 localVue.use(Vuex);
 
 describe("BuilderTitleInput", () => {

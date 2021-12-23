@@ -1,6 +1,6 @@
 <template>
   <div class="user">
-    <base-avatar-block
+    <block-avatar
       :src="account.avatar"
       :alt="account.name"
       :size="72"
@@ -17,11 +17,11 @@
 <script>
 import { mapState } from "vuex";
 
-import BaseAvatarBlock from "@/common/components/AvatarBlock";
+import BlockAvatar from "@/common/components/BlockAvatar";
 
 export default {
   name: "ProfileInfo",
-  components: { BaseAvatarBlock },
+  components: { BlockAvatar },
   computed: {
     ...mapState("Auth", ["account"]),
   },

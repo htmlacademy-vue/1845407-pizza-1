@@ -6,10 +6,10 @@ import { SET_ACCOUNT } from "@/modules/auth/store";
 import { account } from "@/common/mocks/user";
 
 import ProfileInfo from "../ProfileInfo";
-import BaseAvatarBlock from "@/common/components/AvatarBlock";
+import BlockAvatar from "@/common/components/BlockAvatar";
 
 const localVue = createLocalVue();
-localVue.component("BaseAvatarBlock", BaseAvatarBlock);
+localVue.component("BlockAvatar", BlockAvatar);
 localVue.use(Vuex);
 
 describe("ProfileInfo", () => {
@@ -34,7 +34,7 @@ describe("ProfileInfo", () => {
 
   it("render user avatar", () => {
     createComponent({ localVue, store });
-    const avatar = wrapper.findComponent(BaseAvatarBlock);
+    const avatar = wrapper.findComponent(BlockAvatar);
     expect(avatar.exists()).toBeTruthy();
     expect(avatar.props("src")).toEqual(account.avatar);
     expect(avatar.props("alt")).toEqual(account.name);

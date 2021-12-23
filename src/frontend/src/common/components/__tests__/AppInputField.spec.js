@@ -1,7 +1,7 @@
 import { shallowMount } from "@vue/test-utils";
-import InputField from "../InputField";
+import AppInputField from "../AppInputField";
 
-describe("InputField", () => {
+describe("AppInputField", () => {
   // Определяем входные параметры по умолчанию и заглушки.
   const propsData = {
     value: "test",
@@ -14,7 +14,7 @@ describe("InputField", () => {
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
   const createComponent = (options) => {
-    wrapper = shallowMount(InputField, options);
+    wrapper = shallowMount(AppInputField, options);
   };
   // Уничтожаем обёртку после каждого теста.
   afterEach(() => {

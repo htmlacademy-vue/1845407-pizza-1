@@ -16,27 +16,31 @@
 
 <script>
 export default {
-  name: "AvatarBlock",
+  name: "BlockAvatar",
   props: {
     src: {
       type: String,
       required: true,
     },
+
     alt: {
       type: String,
       default: "",
     },
+
     size: {
       type: Number,
       default: 32,
     },
   },
+
   computed: {
     x() {
       return this.size > 32
         ? { small: "2x", big: "4x" }
         : { small: "1x", big: "2x" };
     },
+
     jpg() {
       return {
         "1x": this.src,
@@ -44,6 +48,7 @@ export default {
         "4x": this.src.replace(".jpg", "@4x.jpg"),
       };
     },
+
     webp() {
       return {
         "1x": this.src.replace(".jpg", ".webp"),

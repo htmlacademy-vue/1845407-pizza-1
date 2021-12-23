@@ -20,7 +20,7 @@
         </select>
       </label>
 
-      <base-input-field
+      <app-input-field
         type="tel"
         name="address[phone]"
         :value="phone"
@@ -29,16 +29,16 @@
         @input="changePhone"
       >
         <span>Контактный телефон:</span>
-      </base-input-field>
+      </app-input-field>
 
       <div
-        class="cart-form__address"
         v-if="!isNullAddress"
+        class="cart-form__address"
       >
         <span class="cart-form__label">{{ addressValue(address) }}:</span>
 
         <div class="cart-form__input">
-          <base-input-field
+          <app-input-field
             name="address[street]"
             :value="address.street"
             required
@@ -46,11 +46,11 @@
             @input="changeAddress({ street: $event })"
           >
             <span>Улица*</span>
-          </base-input-field>
+          </app-input-field>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
-          <base-input-field
+          <app-input-field
             name="address[building]"
             :value="address.building"
             required
@@ -58,18 +58,18 @@
             @input="changeAddress({ building: $event })"
           >
             <span>Дом*</span>
-          </base-input-field>
+          </app-input-field>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
-          <base-input-field
+          <app-input-field
             name="address[flat]"
             :value="address.flat"
             :disabled="disabled"
             @input="changeAddress({ flat: $event })"
           >
             <span>Квартира</span>
-          </base-input-field>
+          </app-input-field>
         </div>
       </div>
     </div>
@@ -79,24 +79,30 @@
 <script>
 import isNull from "lodash/isNull";
 
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 import { mapState, mapGetters, mapActions } from "vuex";
 import { UPDATE_CART } from "@/modules/cart/store";
 import { UPDATE_ADDRESSES } from "@/modules/auth/store";
 
 export default {
   name: "CartDelivery",
-  components: { BaseInputField },
+  components: { AppInputField },
   computed: {
     ...mapState("Cart", ["phone", "address"]),
     ...mapGetters("Auth", ["deliveryAddresses", "newAddress"]),
     disabled() {
       return !isNull(this.address?.name);
     },
+
     isNullAddress() {
       return isNull(this.address);
     },
   },
+
+  async created() {
+    this[UPDATE_ADDRESSES]();
+  },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     ...mapActions("Auth", [UPDATE_ADDRESSES]),
@@ -104,15 +110,18 @@ export default {
       const address = this.deliveryAddresses[event.target.selectedIndex];
       this.changeAddress(address);
     },
+
     changeAddress(data) {
       const address = isNull(data)
         ? data
         : { ...this.newAddress, ...this.address, ...data };
       this[UPDATE_CART]({ address });
     },
+
     changePhone(phone) {
       this[UPDATE_CART]({ phone });
     },
+
     addressValue(address) {
       switch (address?.name) {
         case undefined:
@@ -123,9 +132,6 @@ export default {
           return address.name;
       }
     },
-  },
-  async created() {
-    this[UPDATE_ADDRESSES]();
   },
 };
 </script>

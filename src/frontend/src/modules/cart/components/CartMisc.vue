@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapState("Cart", ["misc"]),
   },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     onChangeAddition({ id, quantity }) {

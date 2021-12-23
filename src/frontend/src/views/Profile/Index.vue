@@ -27,17 +27,7 @@
         type="button"
         class="button button--border"
         data-test="newAddress"
-        @click.prevent="
-          updateList({
-            id: null,
-            name: '',
-            street: '',
-            building: '',
-            flat: '',
-            comment: '',
-            userId: account.id,
-          })
-        "
+        @click.prevent="addAddress"
       >
         Добавить новый адрес
       </button>
@@ -47,12 +37,13 @@
 
 <script>
 import isNull from "lodash/isNull";
+import reject from "lodash/reject";
 
 import ProfileInfo from "@/modules/profile/components/ProfileInfo";
 import ProfileAddressItem from "@/modules/profile/components/ProfileAddressItem";
 import ProfileAddressForm from "@/modules/profile/components/ProfileAddressForm";
 
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 import {
   auth,
   allowAuthenticated,
@@ -60,18 +51,25 @@ import {
 
 export default {
   name: "Profile",
+  components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   layout: "LayoutSidebar",
   middlewares: [auth, allowAuthenticated],
-  components: { ProfileInfo, ProfileAddressItem, ProfileAddressForm },
   data() {
     return {
       addresses: [],
       edit: false,
     };
   },
+
   computed: {
     ...mapState("Auth", ["account"]),
+    ...mapGetters("Auth", ["newAddress"]),
   },
+
+  async created() {
+    this.addresses = await this.$api.addresses.query();
+  },
+
   methods: {
     toggleEdit(addressId) {
       this.edit = addressId;
@@ -82,6 +80,14 @@ export default {
         this.addresses.splice(index, ~index ? 1 : 0);
       }
     },
+
+    addAddress() {
+      this.updateList({
+        ...this.newAddress,
+        userId: this.account.id,
+      })
+    },
+
     updateList(address) {
       const index = this.addresses.findIndex(({ id }) => id === address.id);
       this.addresses.splice(
@@ -90,13 +96,10 @@ export default {
         address
       );
 
-      this.addresses = this.addresses.filter(({ _destroyed }) => !_destroyed);
+      this.addresses = reject(this.addresses, "_destroyed");
 
       this.toggleEdit(isNull(address.id) ? null : false);
     },
-  },
-  async created() {
-    this.addresses = await this.$api.addresses.query();
   },
 };
 </script>

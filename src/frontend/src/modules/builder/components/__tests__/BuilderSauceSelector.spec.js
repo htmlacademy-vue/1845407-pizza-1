@@ -6,10 +6,10 @@ import { UPDATE_CHOICE } from "@/modules/builder/store";
 import { sauces } from "@/common/mocks/pizza";
 
 import BuilderSauceSelector from "../BuilderSauceSelector";
-import BaseRadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 const localVue = createLocalVue();
-localVue.component("BaseRadioButton", BaseRadioButton);
+localVue.component("AppRadioButton", AppRadioButton);
 localVue.use(Vuex);
 
 describe("BuilderSauceSelector", () => {
@@ -44,7 +44,7 @@ describe("BuilderSauceSelector", () => {
 
   it("is render correct radio button component", () => {
     createComponent({ localVue, store });
-    let radioButtonComponentList = wrapper.findAllComponents(BaseRadioButton);
+    let radioButtonComponentList = wrapper.findAllComponents(AppRadioButton);
     sauces.forEach((item, index) => {
       let component = radioButtonComponentList.wrappers[index];
       expect(component.find("span").text()).toBe(item.name);

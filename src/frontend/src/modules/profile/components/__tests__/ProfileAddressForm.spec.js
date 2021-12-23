@@ -4,10 +4,10 @@ import { mockAddresses } from "@/common/mocks/user";
 import resources from "@/common/enums/resources";
 
 import ProfileAddressForm from "../ProfileAddressForm";
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 const localVue = createLocalVue();
-localVue.component("BaseInputField", BaseInputField);
+localVue.component("AppInputField", AppInputField);
 
 const addressNew = {
   id: null,

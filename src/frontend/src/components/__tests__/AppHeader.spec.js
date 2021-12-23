@@ -9,10 +9,10 @@ import { UPDATE_CART } from "@/modules/cart/store";
 import { mockPizza, mockMisc } from "@/common/mocks/cart";
 
 import AppHeader from "../AppHeader";
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockCost from "@/common/components/BlockCost";
 
 const localVue = createLocalVue();
-localVue.component("BaseCostBlock", BaseCostBlock);
+localVue.component("BlockCost", BlockCost);
 localVue.use(Vuex);
 
 let pizzas = [];
@@ -67,6 +67,6 @@ describe("AppHeader", () => {
     }));
     store.commit(`Cart/${UPDATE_CART}`, { pizzas, misc });
     createComponent({ localVue, store, stubs });
-    expect(wrapper.findComponent(BaseCostBlock).exists()).toBeTruthy();
+    expect(wrapper.findComponent(BlockCost).exists()).toBeTruthy();
   });
 });

@@ -7,21 +7,24 @@
 
 <script>
 export default {
-  name: "AddressString",
+  name: "BlockAddress",
   props: {
     street: {
       type: String,
       default: "",
     },
+
     building: {
       type: String,
       default: "",
     },
+
     flat: {
       type: String,
       default: "",
     },
   },
+
   computed: {
     address() {
       return [

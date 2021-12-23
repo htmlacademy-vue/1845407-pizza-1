@@ -24,16 +24,19 @@ export default {
       layoutTransition: {},
     };
   },
+
   computed: {
     layoutComponent() {
       const layout = this.$route.meta.layout || defaultLayout;
       return () => import(`@/layouts/${layout}`);
     },
+
     layoutClass() {
       const layout = this.$route.meta.layout || defaultLayout;
       return kebabCase(`${layout}`);
     },
   },
+
   watch: {
     $route(to, from) {
       switch (true) {
@@ -63,12 +66,14 @@ export default {
             mode: "out-in",
             "enter-active-class":
               "animate__animated animate__fast animate__slideInLeft",
+
             "leave-active-class":
               "animate__animated animate__faster animate__slideOutRight",
           };
       }
     },
   },
+
   async created() {
     await this.$store.dispatch("init");
   },

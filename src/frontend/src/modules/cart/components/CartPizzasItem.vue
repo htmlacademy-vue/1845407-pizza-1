@@ -28,7 +28,7 @@
 
     <div class="cart-list__price">
       <b>
-        <base-cost-block :pizzas="[{ price, quantity }]" />
+        <block-cost :pizzas="[{ price, quantity }]" />
       </b>
     </div>
 
@@ -53,49 +53,58 @@
 
 <script>
 import BaseItemCounter from "@/common/components/ItemCounter";
-import BaseCostBlock from "@/common/components/CostBlock";
+import BlockCost from "@/common/components/BlockCost";
 
 export default {
   name: "CartPizzasItem",
-  components: { BaseItemCounter, BaseCostBlock },
+  components: { BaseItemCounter, BlockCost },
   props: {
     id: {
       type: [Number],
       required: true,
     },
+
     name: {
       type: String,
       default: "",
     },
+
     dough: {
       type: Object,
       default: () => {},
     },
+
     size: {
       type: Object,
       default: () => {},
     },
+
     sauce: {
       type: Object,
       default: () => {},
     },
+
     ingredients: {
       type: Array,
       default: () => [],
     },
+
     quantity: {
       type: Number,
       default: 0,
     },
+
     price: {
       type: Number,
       default: 0,
     },
   },
+
   computed: {
     sauceDesc() {
       return this.sauce.name.toLowerCase();
     },
+
     ingredientsDesc() {
       return this.ingredients
         .filter(({ quantity }) => quantity)

@@ -6,17 +6,19 @@
 import isUndefined from "lodash/isUndefined";
 
 export default {
-  name: "CostBlock",
+  name: "BlockCost",
   props: {
     pizzas: {
       type: Array,
       default: undefined,
     },
+
     misc: {
       type: Array,
       default: undefined,
     },
   },
+
   computed: {
     cost() {
       let cost =

@@ -8,10 +8,10 @@ import { UPDATE_ADDRESSES } from "@/modules/auth/store";
 import { mockAddresses } from "@/common/mocks/user";
 
 import CartDelivery from "../CartDelivery";
-import BaseInputField from "@/common/components/InputField";
+import AppInputField from "@/common/components/AppInputField";
 
 const localVue = createLocalVue();
-localVue.component("BaseInputField", BaseInputField);
+localVue.component("AppInputField", AppInputField);
 localVue.use(Vuex);
 
 const addresses = mockAddresses;

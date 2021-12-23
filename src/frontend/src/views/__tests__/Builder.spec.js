@@ -51,7 +51,7 @@ describe("Builder", () => {
       replace: jest.fn(),
     },
   };
-  const stubs = ["base-modal-window"];
+  const stubs = ["app-modal"];
   // wrapper — тест-обёртка над компонентом.
   let wrapper;
   // Для каждого теста мы будем создавать новую обёртку.
