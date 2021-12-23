@@ -12,11 +12,13 @@ export default {
       type: Array,
       default: undefined,
     },
+
     misc: {
       type: Array,
       default: undefined,
     },
   },
+
   computed: {
     cost() {
       let cost =

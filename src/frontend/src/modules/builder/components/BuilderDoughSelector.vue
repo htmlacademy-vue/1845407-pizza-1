@@ -38,6 +38,7 @@ export default {
   computed: {
     ...mapState("Builder", ["dough"]),
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeDough(type) {

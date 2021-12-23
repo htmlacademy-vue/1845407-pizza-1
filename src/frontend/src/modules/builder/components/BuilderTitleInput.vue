@@ -21,6 +21,7 @@ export default {
   computed: {
     ...mapState("Builder", ["name"]),
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onInputTitle(name) {

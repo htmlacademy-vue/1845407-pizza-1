@@ -100,19 +100,23 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       ...this.address,
     };
   },
+
   computed: {
     persisted() {
       return !!this.address.id;
     },
+
     formHeader() {
       return this.persisted ? "Изменить адрес" : "Добавить адрес";
     },
   },
+
   methods: {
     async onSubmit() {
       try {
@@ -124,6 +128,7 @@ export default {
         // continue regardless of error
       }
     },
+
     async onDestroy() {
       try {
         await this.$api.addresses.delete(this.id);

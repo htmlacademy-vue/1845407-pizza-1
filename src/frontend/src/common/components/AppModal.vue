@@ -28,11 +28,13 @@ export default {
       to: false,
     };
   },
+
   methods: {
     closeModal(to) {
       this.visible = false;
       this.to = to;
     },
+
     navigateTo() {
       this.$router.replace(this.to);
     },

@@ -63,39 +63,48 @@ export default {
       type: [Number],
       required: true,
     },
+
     name: {
       type: String,
       default: "",
     },
+
     dough: {
       type: Object,
       default: () => {},
     },
+
     size: {
       type: Object,
       default: () => {},
     },
+
     sauce: {
       type: Object,
       default: () => {},
     },
+
     ingredients: {
       type: Array,
       default: () => [],
     },
+
     quantity: {
       type: Number,
       default: 0,
     },
+
     price: {
       type: Number,
       default: 0,
     },
   },
+
   computed: {
     sauceDesc() {
       return this.sauce.name.toLowerCase();
     },
+
     ingredientsDesc() {
       return this.ingredients
         .filter(({ quantity }) => quantity)

@@ -35,7 +35,7 @@
         </div>
       </div>
     </form>
-    <app-modal #default="modal">
+    <app-modal v-slot="modal">
       <router-view
         @close="modal.close"
       />
@@ -68,14 +68,17 @@ export default {
     BuilderPriceCounter,
     BuilderTitleInput,
   },
+
   data() {
     return {
       edit: null,
     };
   },
+
   computed: {
     ...mapState("Cart", ["pizzas"]),
   },
+
   created() {
     if (this.$route.query.id) {
       // загрузить конфигурацию пиццы в билдер
@@ -87,6 +90,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapActions("Builder", [ADD_TO_CART, LOAD_CHOICE]),
     addToCart() {

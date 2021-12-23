@@ -13,15 +13,18 @@ export default {
       type: String,
       default: "",
     },
+
     building: {
       type: String,
       default: "",
     },
+
     flat: {
       type: String,
       default: "",
     },
   },
+
   computed: {
     address() {
       return [

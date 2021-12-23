@@ -20,10 +20,12 @@ export default {
       type: String,
       required: true,
     },
+
     value: {
       type: String,
       default: undefined,
     },
+
     checked: {
       type: Boolean,
       default: undefined,

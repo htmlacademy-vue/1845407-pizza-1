@@ -12,6 +12,7 @@ const plugins = {
         $api() {
           return createResources(this.$notifier);
         },
+
         $notifier: () => new Notifier(store),
       },
     });

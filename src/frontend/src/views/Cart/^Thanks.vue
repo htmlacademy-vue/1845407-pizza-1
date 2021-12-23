@@ -33,9 +33,11 @@ export default {
   computed: {
     ...mapGetters("Auth", ["isLogged"]),
   },
+
   destroyed() {
     this[RESET_CART]();
   },
+
   methods: {
     ...mapActions("Cart", [RESET_CART]),
     close() {

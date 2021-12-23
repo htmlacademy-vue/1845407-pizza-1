@@ -83,6 +83,19 @@ module.exports = {
       ],
       "alphabetical": false
     }],
+    "vue/new-line-between-multi-line-property": ["error", {
+      "minLineOfMultilineProperty": 2
+    }],
+    "vue/multi-word-component-names": ["error", {
+      "ignores": [
+        "Builder",
+        "Cart",
+        "Profile",
+        "Orders",
+        "Login",
+        "Thanks",
+      ]
+    }]
   },
   overrides: [
     {

@@ -69,12 +69,15 @@ export default {
       edit: false,
     };
   },
+
   computed: {
     ...mapState("Auth", ["account"]),
   },
+
   async created() {
     this.addresses = await this.$api.addresses.query();
   },
+
   methods: {
     toggleEdit(addressId) {
       this.edit = addressId;
@@ -85,6 +88,7 @@ export default {
         this.addresses.splice(index, ~index ? 1 : 0);
       }
     },
+
     updateList(address) {
       const index = this.addresses.findIndex(({ id }) => id === address.id);
       this.addresses.splice(

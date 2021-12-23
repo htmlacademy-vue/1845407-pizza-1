@@ -26,7 +26,7 @@
       </div>
       <cart-footer />
     </form>
-    <app-modal #default="modal">
+    <app-modal v-slot="modal">
       <router-view
         @close="modal.close"
       />
@@ -50,10 +50,12 @@ export default {
     CartDelivery,
     CartFooter,
   },
+
   computed: {
     ...mapGetters("Cart", ["isEmpty", "toJson"]),
     ...mapState("Auth", ["account"]),
   },
+
   methods: {
     async submit() {
       const userId = this.account?.id;

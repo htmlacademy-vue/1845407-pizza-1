@@ -41,6 +41,7 @@ export default {
     ...mapState("Auth", ["account"]),
     ...mapGetters("Auth", ["isLogged"]),
   },
+
   methods: {
     ...mapActions("Auth", [SIGN_OUT]),
     async logout() {

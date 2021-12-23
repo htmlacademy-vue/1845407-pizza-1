@@ -37,6 +37,7 @@ export default {
   computed: {
     ...mapState("Builder", ["sizes"]),
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeSize(type) {

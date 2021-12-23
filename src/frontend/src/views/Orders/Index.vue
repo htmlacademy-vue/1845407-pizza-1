@@ -35,9 +35,11 @@ export default {
       orders: [],
     };
   },
+
   async created() {
     this.orders = await this.$api.orders.query();
   },
+
   methods: {
     destroyOrder({ id }) {
       this.orders = reject(this.orders, { id });

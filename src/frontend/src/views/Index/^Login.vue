@@ -65,6 +65,13 @@ export default {
   name: "Login",
   middlewares: [auth, skipAuthenticated],
   components: { AppInputField },
+
+  beforeRouteEnter(to, from, next) {
+    // запоминаем откуда был переход на форму логина,
+    // что бы после авторизации вернуть обратно
+    next((vm) => (vm.from = from));
+  },
+
   data() {
     return {
       email: "",
@@ -72,6 +79,7 @@ export default {
       from: null,
     };
   },
+
   methods: {
     ...mapActions("Auth", [SIGN_IN]),
     async sign_in() {
@@ -82,14 +90,10 @@ export default {
         this.password = "";
       }
     },
+
     close() {
       this.$emit("close", this.from.path);
     },
-  },
-  beforeRouteEnter(to, from, next) {
-    // запоминаем откуда был переход на форму логина,
-    // что бы после авторизации вернуть обратно
-    next((vm) => (vm.from = from));
   },
 };
 </script>

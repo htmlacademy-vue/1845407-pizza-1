@@ -26,6 +26,7 @@ export default {
   computed: {
     ...mapState("Cart", ["pizzas"]),
   },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     changePizza({ id, quantity }) {

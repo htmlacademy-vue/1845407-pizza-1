@@ -85,27 +85,33 @@ export default {
       type: [Number],
       required: true,
     },
+
     orderPizzas: {
       type: Array,
       default: () => [],
     },
+
     orderMisc: {
       type: Array,
       default: () => [],
     },
+
     orderAddress: {
       type: Object,
       default: null,
     },
   },
+
   computed: {
     ...mapState("Builder", ["dough", "sizes", "sauces", "ingredients"]),
     ...mapState("Cart", {
       cartMisc: "misc",
     }),
+
     pizzas() {
       return this.orderPizzas.map(this.buildPizza).map(this.pricePizza);
     },
+
     misc() {
       return normalizeByKey(
         this.cartMisc.map((item) => ({ ...item, quantity: 0 })),
@@ -116,16 +122,19 @@ export default {
         "id"
       );
     },
+
     address() {
       return (
         this.orderAddress &&
         pick(this.orderAddress, ["street", "building", "flat"])
       );
     },
+
     filteredMisc() {
       return this.misc.filter(({ quantity }) => quantity);
     },
   },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     buildPizza({ id, name, doughId, sizeId, sauceId, ingredients, quantity }) {
@@ -143,9 +152,11 @@ export default {
           })),
           "id"
         ),
+
         quantity,
       };
     },
+
     pricePizza(pizza) {
       let price = pizza.ingredients.reduce(
         (total, { price, quantity }) => total + price * quantity,
@@ -157,6 +168,7 @@ export default {
 
       return { ...pizza, price };
     },
+
     async onDestroy() {
       try {
         await this.$api.orders.delete(this.id);
@@ -165,6 +177,7 @@ export default {
         // continue regardless of error
       }
     },
+
     repeatOrder() {
       this[UPDATE_CART]({
         pizzas: this.pizzas,

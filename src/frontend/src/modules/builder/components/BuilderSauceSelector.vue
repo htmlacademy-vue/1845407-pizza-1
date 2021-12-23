@@ -30,6 +30,7 @@ export default {
   computed: {
     ...mapState("Builder", ["sauces"]),
   },
+
   methods: {
     ...mapActions("Builder", [UPDATE_CHOICE]),
     onChangeSouse(type) {

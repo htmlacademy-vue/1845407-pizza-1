@@ -41,19 +41,23 @@ export default {
       type: String,
       default: "",
     },
+
     image: {
       type: String,
       default: "",
     },
+
     quantity: {
       type: Number,
       default: 0,
     },
+
     price: {
       type: Number,
       default: 0,
     },
   },
+
   computed: {
     cost() {
       return this.quantity * this.price;

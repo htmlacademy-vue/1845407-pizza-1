@@ -93,13 +93,16 @@ export default {
     disabled() {
       return !isNull(this.address?.name);
     },
+
     isNullAddress() {
       return isNull(this.address);
     },
   },
+
   async created() {
     this[UPDATE_ADDRESSES]();
   },
+
   methods: {
     ...mapActions("Cart", [UPDATE_CART]),
     ...mapActions("Auth", [UPDATE_ADDRESSES]),
@@ -107,15 +110,18 @@ export default {
       const address = this.deliveryAddresses[event.target.selectedIndex];
       this.changeAddress(address);
     },
+
     changeAddress(data) {
       const address = isNull(data)
         ? data
         : { ...this.newAddress, ...this.address, ...data };
       this[UPDATE_CART]({ address });
     },
+
     changePhone(phone) {
       this[UPDATE_CART]({ phone });
     },
+
     addressValue(address) {
       switch (address?.name) {
         case undefined:
